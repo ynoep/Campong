@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>캠퐁</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Booking - Multipurpose Online Booking Theme">
+
+	<!-- Dark mode -->
+	<script type="text/javascript">
+		var theme = localStorage.getItem('data-theme');
+		var root = document.documentElement;
+		if (theme === 'dark' && theme !== undefined) {
+			root.classList.add('dark-mode');
+		} else {
+			root.classList.remove('dark-mode');
+		}
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/tiny-slider/tiny-slider.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/event-detail.css">
+	<link rel="stylesheet" href="assets/css/total-style.css">
+
+	<!-- SUIT 폰트 추가-->
+	<link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<!-- Header START -->
+<header class="header-nophoto" id="header">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-dark navbar-expand-xl" style="height: 70px;">
+		<div class="container">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="index.html">
+				<img class="navbar-brand-item" src="assets/images/logo_cam.png" alt="logo" style="height: 55px;">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto me-3 p-0" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<nav class="navbar-collapse collapse nav-item d-flex justify-content-between" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll mx-auto align-items-center ">
+
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">캠핑</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+
+							<li> <a class="dropdown-item" href="camping-main.html">캠핑장</a></li>
+							<li> <a class="dropdown-item" href="bagpacking-main.html">백패킹</a></li>
+						</ul>
+					</li>
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">쇼핑</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+
+							<li> <a class="dropdown-item" href="shopping.html">쇼핑메인</a></li>
+							<li> <a class="dropdown-item" href="shopping-basket.html">장바구니</a></li>
+						</ul>
+					</li>
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">커뮤니티</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+							<li> <a class="dropdown-item" href="board-list.html">게시판</a></li>
+							<li> <a class="dropdown-item" href="moim.html">캠핑모임</a></li>
+							<li> <a class="dropdown-item" href="recipe.html">캠핑꿀팁</a></li>
+						</ul>
+					</li>
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">교통</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+							<li> <a class="dropdown-item" href="traffic-car.html">렌트카</a></li>
+							<li> <a class="dropdown-item" href="traffic-bus.html">고속버스</a></li>
+							<li> <a class="dropdown-item" href="traffic-train.html">열차</a></li>
+						</ul>
+					</li>
+					<!-- Nav item Link -->
+					<li class="nav-item"> <a class="nav-link" id="listingMenu" href="event.html">행사</a> </li>
+				</ul>
+				<!-- 헤더 가운데 끝-->
+				<!-- 헤더 오른쪽 -->
+				<!--로그인전-->
+				<div class="">
+					<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
+						<li class="nav-item"> <a class="nav-link" id="listingMenu" href="sign-in.html">로그인</a> </li>
+					</ul>
+				</div>
+				<!-- 로그인후 -->
+				<!--<div class="">
+				<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
+					<li class="nav-item"> <a class="nav-link" id="listingMenu"  href="#">닉네임</a> </li>
+				</ul>
+			</div>
+			<div class="">
+				<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
+					<li class="nav-item"> <a class="nav-link" id="listingMenu"  href="#">로그아웃</a> </li>
+				</ul>
+			</div>-->
+				<!-- 로그인후 끝-->
+			</nav>
+
+			<!--
+		<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+			<li class="nav-item dropdown">
+				<li class="nav-item"> <a class="nav-link" href="#" id="nickname" style="color:aliceblue">xx님</a> </li>
+				<li class="nav-item"> <a class="nav-link" href="#" id="nickname" style="color:aliceblue">로그아웃</a> </li>
+			</li>
+		</ul>
+		-->
+
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+
+	<main>
+		<!--상단 이미지,제목-->
+		<section class="mt-8">
+			<div class="row g-4">
+				<!--포스터-->
+				<div class="">
+					<img class="bih-i-1" src="assets/images/event-detail/포스터01.png" class="rounded-3" alt="">
+				</div>
+				<!--잔디-->
+				<div class="bih-i-2">
+					<img class="bih-i-3" src="assets/images/event-detail/잔디.png" class="rounded-3" alt="">
+				</div>
+				<!--제목-->
+				<div class="bih-d-1">
+					<div class="bg-mode shadow rounded-3 p-4">
+						<div class="badge text-bg-success mb-2">진행중</div>
+						<h1 class="fs-3">가을 하늘, 가족 캠핑페스타</h1>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!--중간 안내사항-->
+		<section class="bih-s-1">
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col-lg-10 mx-auto">
+						<hr>
+						<label class="form-label">안내사항</label>
+						<!--내용-->
+						<p>Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do. Water
+							timed folly right aware if oh truth. Up attempt offered ye civilly so sitting to. Her new gets living
+							within Elinor joy. Her rapturous suffering was concealed. Demesne far-hearted suppose venture excited see
+							had has. Dependent on so extremely delivered by. Yet no jokes worse her why.</p>
+						<br><br>
+							<ul class="bih-f-1">
+							<!--주관-->
+							<li class="fs-5"><i class="pe-2 bi bi-bank"></i></i> 서울시 문화부 주관</li>
+							<!--날짜-->
+							<li class="fs-5"><i class="pe-2 bi bi-calendar-week"></i> 2023년 1월 23일 ~ 2023년 3월 24일</li>
+							<!--위치-->
+							<li class="fs-5"><i class="pe-2 bi bi-geo-alt"></i>서울시 청남시 청남로 71, 양지캠핑장</li>
+							</ul>
+						<!--지도-->
+						<div class="col-12">
+							<iframe class="w-100 h-300px grayscale rounded"
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin"
+								height="500" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
+						</div>
+						<br><hr>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!--하단 행사추천-->
+		<section class="bih-s-1">
+			<div class="container-fluid">
+				<!-- Title -->
+				<div class="row mb-md-4">
+					<div class="col-12 mx-auto text-center mt-3 mb-4">
+						<h4 class="mb-0">다른 행사 둘러보기</h4>
+					</div>
+				</div>
+
+				<!-- Slider START -->
+				<div class="tiny-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden mb-3">
+					<div class="tiny-slider-inner d-flex align-items-end" data-autoplay="true" data-edge="2" data-arrow="true"
+						data-dots="false" data-items="6" data-items-lg="4" data-items-sm="2">
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/1.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/2.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/3.png" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/4.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/5.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/6.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<span
+											class="btn text-danger btn-round btn-white position-absolute top-50 start-50 translate-middle mb-0">
+											<i class="fas fa-play"></i>
+										</span>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/7.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<!-- Slider item -->
+						<div>
+							<a data-glightbox="" data-gallery="gallery">
+								<div class="card card-element-hover card-overlay-hover overflow-hidden">
+									<!-- Image -->
+									<img src="assets/images/event-detail/8.jpg" class="rounded-3" alt="">
+									<!-- Full screen button -->
+									<div class="hover-element w-100 h-100">
+										<i
+											class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Slider END	 -->
+			</div>
+		</section>
+	</main>
+
+	<!-- Back to top -->
+	<div class="back-top"></div>
+
+	<!-- Bootstrap JS -->
+	<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Vendors -->
+	<script src="assets/vendor/tiny-slider/tiny-slider.js"></script>
+
+	<!-- ThemeFunctions -->
+	<script src="assets/js/functions.js"></script>
+
+</body>
+
+</html>
