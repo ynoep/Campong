@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head" th:replace="~{common/layout :: head}"></head>
+
 <head>
-	<!-- test -->
-	<!-- test -->
-	<!-- test -->
-	<!-- test -->
 	<title>캠퐁 - 캠핑에 퐁당 빠지다</title>
 
 	<!-- Meta Tags -->
@@ -118,110 +116,7 @@
 </head>
 
 <body>
-<!-- Header START -->
-<header class="header-nophoto" id="header">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-dark navbar-expand-xl" style="height: 70px;">
-		<div class="container">
-			<!-- Logo START -->
-			<a class="navbar-brand" href="index.html">
-				<img class="navbar-brand-item" src="assets/images/logo_cam.png" alt="logo" style="height: 55px;">
-			</a>
-			<!-- Logo END -->
-
-			<!-- Responsive navbar toggler -->
-			<button class="navbar-toggler ms-auto me-3 p-0" type="button" data-bs-toggle="collapse"
-				data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-animation">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-			</button>
-
-			<!-- Main navbar START -->
-			<nav class="navbar-collapse collapse nav-item d-flex justify-content-between" id="navbarCollapse">
-				<ul class="navbar-nav navbar-nav-scroll mx-auto align-items-center ">
-
-					<!-- Nav item Listing -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">캠핑</a>
-						<ul class="dropdown-menu" aria-labelledby="listingMenu">
-
-							<li> <a class="dropdown-item" href="camping-main.html">캠핑장</a></li>
-							<li> <a class="dropdown-item" href="bagpacking-main.html">백패킹</a></li>
-						</ul>
-					</li>
-					<!-- Nav item Listing -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">쇼핑</a>
-						<ul class="dropdown-menu" aria-labelledby="listingMenu">
-
-							<li> <a class="dropdown-item" href="shopping.html">쇼핑메인</a></li>
-							<li> <a class="dropdown-item" href="shopping-basket.html">장바구니</a></li>
-						</ul>
-					</li>
-					<!-- Nav item Listing -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">커뮤니티</a>
-						<ul class="dropdown-menu" aria-labelledby="listingMenu">
-							<li> <a class="dropdown-item" href="board-list.html">게시판</a></li>
-							<li> <a class="dropdown-item" href="moim.html">캠핑모임</a></li>
-							<li> <a class="dropdown-item" href="recipe.html">캠핑꿀팁</a></li>
-						</ul>
-					</li>
-					<!-- Nav item Listing -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">교통</a>
-						<ul class="dropdown-menu" aria-labelledby="listingMenu">
-							<li> <a class="dropdown-item" href="traffic-car.html">렌트카</a></li>
-							<li> <a class="dropdown-item" href="traffic-bus.html">고속버스</a></li>
-							<li> <a class="dropdown-item" href="traffic-train.html">열차</a></li>
-						</ul>
-					</li>
-					<!-- Nav item Link -->
-					<li class="nav-item"> <a class="nav-link" id="listingMenu" href="event.html">행사</a> </li>
-				</ul>
-				<!-- 헤더 가운데 끝-->
-				<!-- 헤더 오른쪽 -->
-				<!--로그인전-->
-				<div class="">
-					<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
-						<li class="nav-item"> <a class="nav-link" id="listingMenu" href="sign-in.html">로그인</a> </li>
-					</ul>
-				</div>
-				<!-- 로그인후 -->
-				<!--<div class="">
-				<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
-					<li class="nav-item"> <a class="nav-link" id="listingMenu"  href="#">닉네임</a> </li>
-				</ul>
-			</div>
-			<div class="">
-				<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
-					<li class="nav-item"> <a class="nav-link" id="listingMenu"  href="#">로그아웃</a> </li>
-				</ul>
-			</div>-->
-				<!-- 로그인후 끝-->
-			</nav>
-
-			<!--
-		<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
-			<li class="nav-item dropdown">
-				<li class="nav-item"> <a class="nav-link" href="#" id="nickname" style="color:aliceblue">xx님</a> </li>
-				<li class="nav-item"> <a class="nav-link" href="#" id="nickname" style="color:aliceblue">로그아웃</a> </li>
-			</li>
-		</ul>
-		-->
-
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
+<header th:replace="~{common/layout :: #header}"></header>
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
