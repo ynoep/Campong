@@ -7,6 +7,7 @@
 		<id property="bNo" column="BOARD_NO"/>
 		<result property="uNo" column="USER_NO"/>
 		<result property="title" column="TITLE"/>
+		<result property="nickName" column="NICKNAME"/>
 		<result property="content" column="CONTENT"/>
 		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
 		<result property="renamedFileName" column="RENAME_FILENAME"/>
@@ -32,54 +33,54 @@
 	
 	<select id="selectBoardList" resultMap="boardListResultMap" parameterType="map">
 		SELECT B.BOARD_NO, B.TITLE, M.NICKNAME, B.CREATE_DATE, B.ORIGINAL_FILENAME, B.READCOUNT, B.STATUS 
-		FROM BOARD B JOIN MEMBER M ON(B.USER_NO = M.USER_NO) 
-		WHERE B.STATUS = 'Y' 
+		FROM BOARD B 
+		JOIN MEMBER M ON(B.USER_NO = M.USER_NO) 
+		WHERE B.STATUS = 'Y'
+		<if test="title != null">
+			AND B.TITLE LIKE '%${title}%' 
+		</if>	
+		<if test="all != null">
+			AND (
+				B.TITLE LIKE '%${all}%'
+				OR B.CONTENT LIKE '%${all}%'
+			)
+		</if>	
 		ORDER BY B.BOARD_NO DESC LIMIT ${limit} OFFSET ${offset}
 	</select>
 
 	
 	<select id="selectBoardCount" resultType="int" parameterType="map">
 		SELECT  
-			 COUNT(DISTINCT B.BNO)
+			 COUNT(DISTINCT B.BOARD_NO)
 		FROM BOARD B
-		LEFT OUTER JOIN MEMBER M1 ON B.MNO = M1.MNO
-		LEFT OUTER JOIN REPLY R ON R.BNO = B.BNO 
-		LEFT OUTER JOIN MEMBER M2 ON R.MNO = M2.MNO 
+		LEFT OUTER JOIN MEMBER M1 ON B.USER_NO = M1.USER_NO
+		LEFT OUTER JOIN BOARD_REPLY R ON R.BOARD_NO = B.BOARD_NO 
+		LEFT OUTER JOIN MEMBER M2 ON R.USER_NO = M2.USER_NO 
 		WHERE B.STATUS = 'Y'
-		<if test="writer != null">
-			AND M1.ID LIKE '%${writer}%' 
-		</if>		
 		<if test="title != null">
 			AND B.TITLE LIKE '%${title}%' 
-		</if>		
-		<if test="content != null">
-			AND B.CONTENT LIKE '%${content}%' 
-		</if>		
+		</if>	
 		<if test="all != null">
-			AND(
-				b.title like 			'%${all}%' 
-				OR b.content like 		'%${all}%'
-				OR m1.id like 			'%${all}%'
-				OR r.content like 		'%${all}%'
-				OR m2.id like 			'%${all}%'
+			AND (
+				B.TITLE LIKE '%${all}%'
+				OR B.CONTENT LIKE '%${all}%'
 			)
-		</if>		
+		</if>	
 	</select>
 	
 	<select id="selectBoardByNo" parameterType="int" resultMap="boardDetailResultMap">
 		SELECT  
-			B.BNO, B.TITLE, M.ID, B.READCOUNT, B.TYPE, B.ORIGINAL_FILENAME, B.RENAMED_FILENAME, B.CONTENT, B.CREATE_DATE, B.MODIFY_DATE,
-			R.RNO AS R_RNO, 
-		    R.BNO AS R_BNO,
+			B.BOARD_NO, B.TITLE, M.NICKNAME, B.READCOUNT, B.TYPE, B.ORIGINAL_FILENAME, B.RENAME_FILENAME, B.CONTENT, B.CREATE_DATE, B.READCOUNT,
+			R.REPLY_NO AS R_REPLY_NO, 
+		    R.BOARD_NO AS R_BOARD_NO,
 		    R.CONTENT  AS R_CONTENT, 
-		    M2.ID  AS R_ID, 
-		    R.CREATE_DATE  AS R_CREATE_DATE, 
-		    R.MODIFY_DATE  AS R_MODIFY_DATE
+		    M2.NICKNAME  AS R_NICKNAME, 
+		    R.CREATE_DATE  AS R_CREATE_DATE
 		FROM BOARD B
-		JOIN MEMBER M ON(B.MNO = M.MNO)
-		LEFT OUTER JOIN REPLY R ON (B.BNO = R.BNO)
-		LEFT OUTER JOIN MEMBER M2 ON (R.MNO = M2.MNO)
-		WHERE B.STATUS = 'Y' AND B.BNO = #{bNo}
+		JOIN MEMBER M ON(B.USER_NO = M.USER_NO)
+		LEFT OUTER JOIN BOARD_REPLY R ON (B.USER_NO = R.USER_NO)
+		LEFT OUTER JOIN MEMBER M2 ON (R.USER_NO = M2.USER_NO)
+		WHERE B.STATUS = 'Y' AND B.BOARD_NO = #{bNo}
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">
@@ -98,7 +99,7 @@
 	
 
 	<insert id="insertReply" parameterType="Reply">
-		INSERT INTO REPLY(
+		INSERT INTO BOARD_REPLY(
 				RNO, BNO, MNO, 
 				CONTENT, STATUS, CREATE_DATE, MODIFY_DATE) 
 			VALUES(
@@ -124,21 +125,16 @@
 	</update>
 	
 	<update id="updateReadCount" parameterType="map">
-		UPDATE BOARD SET READCOUNT=#{readCount} WHERE BNO=#{bNo}
+		UPDATE BOARD SET READCOUNT=#{readCount} WHERE BOARD_NO=#{bNo}
 	</update>
 	
 	<update id="deleteBoard" parameterType="int">
-		UPDATE BOARD SET STATUS='N' WHERE BNO=#{bNo}
+		UPDATE BOARD SET STATUS='N' WHERE BOARD_NO=#{bNo}
 	</update>
 	
 	<delete id="deleteReply" parameterType="int">
-		DELETE FROM REPLY WHERE RNO=#{rNo}
+		DELETE FROM BOARD_REPLY WHERE REPLY_NO=#{rNo}
 	</delete>
 	
-
-
-
-
-
 
 </mapper>

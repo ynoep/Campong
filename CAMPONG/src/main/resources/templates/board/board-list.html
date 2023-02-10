@@ -3,46 +3,7 @@
 <head th:fragment="head" th:replace="~{common/layout :: head}"></head>
 
 <head>
-	<title>캠퐁 - 캠핑에 퐁당 빠지다</title>
-
-	<!-- Meta Tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="Webestica.com">
-	<meta name="description" content="Booking - Multipurpose Online Booking Theme">
-
-	<!-- Dark mode -->
-	<script type="text/javascript">
-		var theme = localStorage.getItem('data-theme');
-		var root = document.documentElement;
-		if (theme === 'dark' && theme !== undefined) {
-			root.classList.add('dark-mode');
-		} else {
-			root.classList.remove('dark-mode');
-		}
-	</script>
-
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/images/favicon.ico">
-
-	<!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
-
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
-
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/total-style.css">
-
-	<!-- SUIT 폰트 추가-->
-	<link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
-
 	<style>
-
 		tr {
 			height: 62px;
 			color: #333333;
@@ -53,7 +14,7 @@
 		}
 		.board_main_image {
 			margin: auto;
-    	display: block;
+    		display: block;
 		}
 		.board_tag {
 			width: 95px;
@@ -80,7 +41,7 @@
 		.main_title {
 			text-align: center;
 			margin: auto;
-    	display: block;
+    		display: block;
 			width: 350px;
 		}
 		.badge-1 {
@@ -105,12 +66,12 @@
 			color: #333333;
 		}
 		a:hover {
-    	color: #333333;
+    		color: #333333;
 		}
 		.search_title_content {
 			text-align: center;
 			margin: auto;
-    	display: block;
+    		display: block;
 		}
 	</style>
 </head>
@@ -120,13 +81,13 @@
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
-<section class="py-0 mt-8">
+<section class="py-0 pt-8">
 	<div class="container">
 		<!-- Title -->
 		<div class="row g-4">
 			<!-- Image -->
 			<div class="col-12">
-				<img src="assets/images/board/board.png" class="rounded-3 board_main_image" alt="">
+				<img th:src="@{/assets/images/board/board.png}" class="rounded-3 board_main_image" alt="">
 			</div>
 			<!-- Title and content -->
 			<div class="mx-auto position-relative mt-sm-n7">
@@ -137,42 +98,37 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- Search START -->
-		<div class="col-xl-7 mx-auto">
-			<div class="bg-blur bg-white bg-opacity-10 border border-light border-opacity-25 rounded-3 p-4 mt-3">
-				<!-- Form START -->
-				<form class="row g-3 justify-content-center align-items-center">
+		
+		<form th:action="@{/board/board-list}" method="get">
+			<!-- Search START -->
+			<div class="col-xl-7 mx-auto">
+				<div class="bg-blur bg-white bg-opacity-10 border border-light border-opacity-25 rounded-3 p-4 mt-3">
 					<div class="col-lg-10">
+						<!-- <a class="position-absolute end-0 btn btn-lg btn-primary me-4" type="submit">검색</a> -->
+						<button class="position-absolute end-0 btn btn-lg btn-primary me-4" type="submit">검색</button>
 						<!-- Input -->
 						<div class="form-input-dropdown position-relative">
-							<input class="form-control form-control-lg me-1 ps-5" type="text" placeholder="게시글을 검색하세요">
+							<input class="form-control form-control-lg me-1 ps-5" type="text" placeholder="게시글을 검색하세요" id="searchValue" name="searchValue" th:value="${param.searchValue}">
 							<!-- Icon -->
 							<span class="position-absolute top-50 start-0 translate-middle ps-5"><i class="bi bi-search fs-5"></i></span>
+							<!-- 검색버튼 -->
 						</div>
-						
+						<!-- <div class="col-lg-2 d-grid">
+						</div> -->
 					</div>
-
-					<div class="col-lg-2 d-grid">
-						<!-- Search -->
-						<a class="btn btn-lg btn-primary mb-0" href="#">검색</a>
-					</div>
-				</form>
-				<!-- Form END -->
+				</div>
+			</div>	
+			<!-- 검색 라디오버튼 -->
+			<div class="search_title_content">
+				<label>
+					<input class="me-1" type="radio" name="searchType" value="title" th:checked="${paramMap.searchType == 'title'} ? 'checked' : null ">제목
+				</label>
+				<label>
+					<input class="ms-3 me-1" type="radio" name="searchType" value="all" th:checked="${paramMap.searchType == 'all'} ? 'checked' : null ">제목+내용
+				</label>
 			</div>
-		</div>	
-		<!-- Search END -->
-
-		<!-- 검색 라디오버튼 -->
-		<div class="search_title_content">
-			<label for="title">
-				<input class="me-1" type="radio" name="search_check" id="title" value="ti" checked="checked">제목
-			</label>
-			<label for="title_content">
-				<input class="ms-3 me-1" type="radio" name="search_check" id="title_content" value="ti_co">제목+내용
-			</label>
-		</div>
-		<!-- 검색 라디오버튼 끝 -->
+			<!-- 검색 라디오버튼 끝 -->
+		</form>
 
 	</div>
 </section>
@@ -192,76 +148,30 @@ Main banner START -->
 					<th>등록일</th>
 					<th>조회수</th>
 				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">11</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-success">자유</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">닉네임은최대몇자일까</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">5</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-success">자유</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">23</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-success">자유</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">11자부터 2줄된다</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">13</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">2줄되도 열간격 안벌어진다</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
-				<tr class="border-bottom">
-					<td class="board_tag"><span class="badge-1 text-bg-info">질문</span></td>
-					<td class="board_title"><a href="./board-view.html">안녕하세요?</a></td>
-					<td class="board_write">이동건</td>
-					<td class="board_date">2023-01-27</td>
-					<td class="board_hit">7</td>
-				</tr>
+				<th:block th:if="${list == null}">
+					<tr class="border-bottom">
+						<td class="board_tag"></td>
+						<td class="board_title" style="text-align: center;">
+							조회된 글이 없습니다.
+						</td>
+						<td class="board_write"></td>
+						<td class="board_date"/>
+						<td class="board_hit"></td>
+					</tr>
+				</th:block>
+				<th:block th:if="${list != null}">
+					<tr th:each="board : ${list}" class="border-bottom">
+						<td th:text="${board.type}" class="board_tag"></td>
+						<td class="board_title">
+							<a th:href="|/board/board-view?no=${board.bNo}|">
+								[[${board.title}]]
+							</a>
+						</td>
+						<td th:text="${board.nickName}" class="board_write"></td>
+						<td th:text="${#dates.format(board.createDate, 'yyyy/MM/dd')}" class="board_date"/>
+						<td class="board_hit">[[${board.readCount}]]</td>
+					</tr>
+				</th:block>
 			</table>
 			<!-- 글쓰기버튼 -->
 			<div class="d-flex justify-content-end">
@@ -275,17 +185,22 @@ Main banner START -->
 			<div class="col-12">
 				<nav class="mt-7 my-4 d-flex justify-content-center" aria-label="navigation">
 					<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-						<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
+						<!-- 이전페이지 -->
+						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${pageInfo.prevPage}');|"><i
 									class="fa-solid fa-angle-left"></i></a></li>
-						<li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">4</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">5</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">10</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#"><i
+						<!-- 10개 페이지 -->
+						<th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+							<th:block th:if="${status.current == pageInfo.currentPage}">
+								<li class="page-item mb-0 active"><a class="page-link">[[${status.current}]]</a></li>
+							</th:block>
+							<th:block th:if="${status.current != pageInfo.currentPage}">
+								<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${status.current}');|">[[${status.current}]]</a></li>
+							</th:block>
+						</th:block>
+						<!-- 다음페이지 -->
+						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${pageInfo.nextPage}');|"><i
 									class="fa-solid fa-angle-right"></i></a></li>
+									
 					</ul>
 				</nav>
 			</div>
@@ -296,39 +211,30 @@ Main banner START -->
 <!-- =======================
 Main banner START -->
 
-
 </main>
-<!-- **************** MAIN CONTENT END **************** -->
-
-<!-- =======================Footer START -->
-<footer class="bg-dark py-5">
-	<div class="container">
-	<div class="row mx-auto">
-	<div class="col-md-10 col-xl-6 mx-auto text-center">
-	<!-- Logo -->
-	<img class="mx-auto h-60px mb-3" src="assets/images/logo_cam.png" alt="logo">
-	<!-- 팀원 -->
-	<ul class="nav justify-content-between text-primary-hover mt-3 mt-md-0">
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이동건</a></li>
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">김재혁</a></li>
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">박윤희</a></li>
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">백인화</a></li>
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이상진</a></li>
-	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이유광</a></li>
-	</ul>
-	<div class="text-muted text-primary-hover mt-0"> Copyrights ©2023. Multicampus Fullstack Team2 CAMPONG.<br>All rights reserved. </div>
-	</div>
-</footer>
-<!-- =======================Footer END -->
 
 <!-- Back to top -->
 <div class="back-top"></div>
 
-<!-- Bootstrap JS -->
-<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- ThemeFunctions -->
-<script src="assets/js/functions.js"></script>
+<footer th:replace="~{common/layout :: #footer}"></footer>
 
 </body>
+
+<script type="text/javascript">
+	function movePage(pageUrl){
+		var searchValue = document.getElementById("searchValue"); // 갤럭시
+		var searchTypes = document.getElementsByName("searchType"); // title
+		var searchType = 'title';
+		if(searchValue.value.length > 0){
+			for(var i = 0; i <searchTypes.length; i++){
+				if(searchTypes[i].checked == true){
+					searchType = searchTypes[i].value;
+				}
+			}
+			pageUrl = pageUrl + '&searchType=' + searchType + '&searchValue=' + searchValue.value; 
+		}
+		location.href = encodeURI(pageUrl);	
+	}
+</script>
+
 </html>

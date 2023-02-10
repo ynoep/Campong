@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Board {
 	private int bNo;
 	private int uNo;
+	private String nickName;
 	private String title;
 	private String content;
 	private String originalFileName;

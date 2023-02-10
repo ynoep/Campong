@@ -30,6 +30,7 @@ import com.multi.campong.board.model.service.BoardService;
 import com.multi.campong.board.model.vo.Board;
 import com.multi.campong.board.model.vo.Reply;
 import com.multi.campong.common.util.PageInfo;
+import com.multi.campong.member.model.vo.Member;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,7 @@ public class BoardController {
 				String searchType = paramMap.get("searchType");
 				searchMap.put(searchType, searchValue);
 			}else {
-				paramMap.put("searchType", "all");
+				paramMap.put("searchType", "title");
 			}
 			page = Integer.parseInt(paramMap.get("page"));
 		} catch (Exception e) {}
@@ -102,7 +103,7 @@ public class BoardController {
 			) {
 		log.info("게시글 작성 요청");
 		
-		board.setMNo(loginMember.getMNo());
+		board.setUNo(loginMember.getUNo());
 		
 		// 파일 저장 로직
 		if(upfile != null && upfile.isEmpty() == false) {
@@ -134,7 +135,7 @@ public class BoardController {
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@ModelAttribute Reply reply
 			) {
-		reply.setMNo(loginMember.getMNo());
+		reply.setUNo(loginMember.getUNo());
 		log.info("리플 작성 요청 Reply : " + reply);
 		
 		int result = service.saveReply(reply);
@@ -202,7 +203,7 @@ public class BoardController {
 			) {
 		log.info("게시글 수정 요청");
 		
-		board.setMNo(loginMember.getMNo());
+		board.setUNo(loginMember.getUNo());
 		
 		// 파일 저장 로직
 		if(reloadFile != null && reloadFile.isEmpty() == false) {
