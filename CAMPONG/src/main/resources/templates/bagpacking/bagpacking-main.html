@@ -38,70 +38,95 @@
 				<!-- Slider START -->
 				<div class="tiny-slider arrow-round arrow-blur arrow-hover">
 					<div class="tiny-slider-inner mb-8" data-autoplay="true" data-arrow="true" data-edge="2" data-dots="false" data-items-xl="3" data-items-lg="3" data-items-md="2" data-items-sm="1">
-						
-						<!-- Offer card START -->
-						<div>
-							<div class="card">
-								<img th:src="@{/assets/images/bagpacking/recomend1.jpg}" class="card-img" alt="">
-								<!-- Card body -->
-								<div class="position-absolute top-100 start-50 translate-middle w-100">
-									<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
-										<h6 class="card-title mb-1"><a th:href="@{#}">미래사 편백나무숲</a></h6>
-										<small>Valid through Dec 2022</small>
-										<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+						<th:block th:if="${bestList != null}">
+						<th:block th:each="content : ${bestList}">
+							<!-- Offer card START -->
+							<div>
+								<div class="card">
+								<th:block th:if="${content.firstimage != ''}">
+									<img th:src="@{${content.firstimage}}" class="card-img" alt="" style="height: 270px;">
+								</th:block>
+								<th:block th:if="${content.firstimage == ''}">
+									<img th:src="@{/assets/images/bagpacking/mountain.jpg}" class="card-img" alt="" style="height: 270px;">
+								</th:block>
+									<!-- Card body -->
+									<div class="position-absolute top-100 start-50 translate-middle w-100">
+										<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
+											<h6 class="card-title mb-1"><a th:href="|/bagpacking/bagpacking-detail?contentId=${content.contentId}|">[[${content.title}]]</a></h6>
+											<small>Valid through Dec 2022</small>
+											<div class="mt-2"><a th:href="|/bagpacking/bagpacking-detail?contentId=${content.contentId}|" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- Offer card END -->
-		
-						<!-- Offer card START -->
-						<div>
-							<div class="card">
-								<img th:src="@{/assets/images/bagpacking/recomend2.jpg}" class="card-img" alt="">
-								<!-- Card body -->
-								<div class="position-absolute top-100 start-50 translate-middle w-100">
-									<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
-										<h6 class="card-title mb-1"><a th:href="@{#}">흑산도</a></h6>
-										<small>Valid through Feb 2023</small>
-										<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+							<!-- Offer card END -->
+						</th:block>
+						</th:block>
+						<th:block th:if="${bestList == null}">
+							<!-- Offer card START -->
+							<div>
+								<div class="card">
+									<img th:src="@{/assets/images/bagpacking/recomend1.jpg}" class="card-img" alt="">
+									<!-- Card body -->
+									<div class="position-absolute top-100 start-50 translate-middle w-100">
+										<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
+											<h6 class="card-title mb-1"><a th:href="@{#}">미래사 편백나무숲</a></h6>
+											<small>Valid through Dec 2022</small>
+											<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- Offer card END -->
-		
-						<!-- Offer card START -->
-						<div>
-							<div class="card">
-								<img th:src="@{/assets/images/bagpacking/recomend3.jpg}" class="card-img" alt="">
-								<!-- Card body -->
-								<div class="position-absolute top-100 start-50 translate-middle w-100">
-									<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
-										<h6 class="card-title mb-1"><a th:href="@{#}">선운산</a></h6>
-										<small>Valid through Feb 2023</small>
-										<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+							<!-- Offer card END -->
+			
+							<!-- Offer card START -->
+							<div>
+								<div class="card">
+									<img th:src="@{/assets/images/bagpacking/recomend2.jpg}" class="card-img" alt="">
+									<!-- Card body -->
+									<div class="position-absolute top-100 start-50 translate-middle w-100">
+										<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
+											<h6 class="card-title mb-1"><a th:href="@{#}">흑산도</a></h6>
+											<small>Valid through Feb 2023</small>
+											<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- Offer card END -->
-		
-						<!-- Offer card START -->
-						<div>
-							<div class="card">
-								<img th:src="@{/assets/images/bagpacking/recomend4.jpg}" class="card-img" alt="">
-								<!-- Card body -->
-								<div class="position-absolute top-100 start-50 translate-middle w-100">
-									<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
-										<h6 class="card-title mb-1"><a th:href="@{#}">수락도</a></h6>
-										<small>Valid through Jan 2021</small>
-										<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+							<!-- Offer card END -->
+			
+							<!-- Offer card START -->
+							<div>
+								<div class="card">
+									<img th:src="@{/assets/images/bagpacking/recomend3.jpg}" class="card-img" alt="">
+									<!-- Card body -->
+									<div class="position-absolute top-100 start-50 translate-middle w-100">
+										<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
+											<h6 class="card-title mb-1"><a th:href="@{#}">선운산</a></h6>
+											<small>Valid through Feb 2023</small>
+											<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- Offer card END -->
+							<!-- Offer card END -->
+			
+							<!-- Offer card START -->
+							<div>
+								<div class="card">
+									<img th:src="@{/assets/images/bagpacking/recomend4.jpg}" class="card-img" alt="">
+									<!-- Card body -->
+									<div class="position-absolute top-100 start-50 translate-middle w-100">
+										<div class="card-body text-center bg-mode shadow rounded mx-4 p-3">
+											<h6 class="card-title mb-1"><a th:href="@{#}">수락도</a></h6>
+											<small>Valid through Jan 2021</small>
+											<div class="mt-2"><a th:href="@{#}" class="btn btn-sm btn-dark mb-0">상세보기</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Offer card END -->
+						</th:block>
 					</div>	
 				</div>
 				<!-- Slider END -->
@@ -116,29 +141,11 @@
 				<div class="row g-4">
 					<!-- Blog item START -->
 					<div class="col-md-4 col-lg-4">
-						<div class="card h-100 bg-transparent">
-							<h4 class="text-center mb-4">낚시 명소 보러가기</h4>
-							<!-- Image -->
-							<div class="position-relative">
-								<a th:href="@{/bagpacking/fishing}" class="stretched-link">
-									<img th:src="@{/assets/images/bagpacking/fishing.jpg}" class="card-img" alt="" />
-									<!-- Badge -->
-									<div class="card-img-overlay p-3">
-										<p class="badge text-bg-dark mb-2">바다</p>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<!-- Blog item END -->
-		
-					<!-- Blog item START -->
-					<div class="col-md-4 col-lg-4">
 						<div class="card bg-transparent">
 							<h4 class="text-center mb-4">트래킹 명소 보러가기</h4>
 							<!-- Image -->
 							<div class="position-relative">
-								<a th:href="@{/bagpacking/bagpacking-list}" class="stretched-link">
+								<a th:href="@{/bagpacking/mountain-list}" class="stretched-link">
 									<img th:src="@{/assets/images/bagpacking/tracking.jpg}" class="card-img" alt="" />
 									<!-- Badge -->
 									<div class="card-img-overlay p-3">
@@ -156,11 +163,29 @@
 							<h4 class="text-center mb-4">섬 명소 보러가기</h4>
 							<!-- Image -->
 							<div class="position-relative">
-								<a th:href="@{/bagpacking/bagpacking-list}" class="stretched-link">
+								<a th:href="@{/bagpacking/island-list}" class="stretched-link">
 									<img th:src="@{/assets/images/bagpacking/island.jpg}" class="card-img" alt="" />
 									<!-- Badge -->
 									<div class="card-img-overlay p-3">
 										<p class="badge text-bg-dark mb-2">섬</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- Blog item END -->
+					
+					<!-- Blog item START -->
+					<div class="col-md-4 col-lg-4">
+						<div class="card h-100 bg-transparent">
+							<h4 class="text-center mb-4">낚시 명소 보러가기</h4>
+							<!-- Image -->
+							<div class="position-relative">
+								<a th:href="@{/bagpacking/fishing-list}" class="stretched-link">
+									<img th:src="@{/assets/images/bagpacking/fishing.jpg}" class="card-img" alt="" />
+									<!-- Badge -->
+									<div class="card-img-overlay p-3">
+										<p class="badge text-bg-dark mb-2">바다</p>
 									</div>
 								</a>
 							</div>
@@ -196,6 +221,10 @@
 	</main>
 	
 	<footer th:replace="~{common/layout :: #footer}"></footer>
+	
+	<script th:src="@{/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+	<script th:src="@{/assets/vendor/jarallax/jarallax.min.js}"></script>
+	<script th:src="@{/assets/vendor/jarallax/jarallax-video.min.js}"></script>
 
 </body>
 </html>
