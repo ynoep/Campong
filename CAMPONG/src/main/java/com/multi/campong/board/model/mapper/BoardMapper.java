@@ -19,4 +19,11 @@ public interface BoardMapper {
 	int updateReadCount(Board board);
 	int deleteBoard(int no);
 	int deleteReply(int no);
+	
+	//공지 게시판
+	List<Board> selectNoticeList(Map<String, String> map);
+	int selectNoticeCount(Map<String, String> map);
+	Board selectNoticeByNo(int no);
+	int insertNotice(Board board);
+	int updateNotice(Board board);
 }

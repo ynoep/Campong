@@ -92,12 +92,42 @@ public class BoardService {
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteBoard(int no, String rootPath) {
 		Board board = mapper.selectBoardByNo(no);
-		deleteFile(rootPath + "\\" + board.getRenamedFileName());
+		deleteFile(rootPath + "\\" + board.getRenameFileName());
 		return mapper.deleteBoard(no);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteReply(int no) {
 		return mapper.deleteReply(no);
+	}
+	
+	//공지게시판
+	@Transactional(rollbackFor = Exception.class)
+	public int saveNotice(Board board) {
+		int result = 0;
+		if(board.getBNo() == 0) {
+			result = mapper.insertNotice(board);
+		}else {
+			result = mapper.updateNotice(board);
+		}
+		return result;
+	}
+	
+	public int getNoticeCount(Map<String, String> param) {
+		return mapper.selectNoticeCount(param);
+	}
+	
+	public List<Board> getNoticeList(PageInfo pageInfo, Map<String, String> param){
+		param.put("limit", "" + pageInfo.getListLimit());
+		param.put("offset", "" + (pageInfo.getStartList() - 1));
+		return mapper.selectNoticeList(param);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Board findByNoticeNo(int boardNo) {
+		Board board = mapper.selectNoticeByNo(boardNo); 
+		board.setReadCount(board.getReadCount() + 1);  
+		mapper.updateReadCount(board);
+		return board; 
 	}
 }

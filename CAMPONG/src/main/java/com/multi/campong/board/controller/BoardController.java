@@ -42,9 +42,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
-	
+
 	final static private String savePath = "c:\\campong\\";
-	
+
 	@GetMapping("/board-list")
 	public String list(Model model, @RequestParam Map<String, String> paramMap) {
 		int page = 1;
@@ -53,193 +53,182 @@ public class BoardController {
 		Map<String, String> searchMap = new HashMap<String, String>();
 		try {
 			String searchValue = paramMap.get("searchValue");
-			if(searchValue != null && searchValue.length() > 0) {
+			if (searchValue != null && searchValue.length() > 0) {
 				String searchType = paramMap.get("searchType");
 				searchMap.put(searchType, searchValue);
-			}else {
+			} else {
 				paramMap.put("searchType", "title");
 			}
 			page = Integer.parseInt(paramMap.get("page"));
-		} catch (Exception e) {}
-		
+		} catch (Exception e) {
+		}
+
 		int boardCount = service.getBoardCount(searchMap);
 		PageInfo pageInfo = new PageInfo(page, 10, boardCount, 10);
 		List<Board> list = service.getBoardList(pageInfo, searchMap);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("paramMap", paramMap);
 		model.addAttribute("pageInfo", pageInfo);
 		return "board/board-list";
 	}
-	
+
 	@RequestMapping("/board-view")
 	public String view(Model model, @RequestParam("no") int no) {
 		Board board = service.findByNo(no);
-		if(board == null) {
+		if (board == null) {
 			return "redirect:error";
 		}
-		
+
 		model.addAttribute("board", board);
 		model.addAttribute("replyList", board.getReplyList());
 		return "board/board-view";
 	}
-	
-	
+
 	@GetMapping("/error")
 	public String error() {
 		return "common/error";
 	}
-	
+
 	@GetMapping("/board-write")
 	public String writeView() {
 		return "board/board-write";
 	}
-	
+
 	@PostMapping("/board-write")
 	public String writeBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@ModelAttribute Board board,
-			@RequestParam("upfile") MultipartFile upfile
-			) {
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@RequestParam("upfile") MultipartFile upfile) {
 		log.info("게시글 작성 요청");
-		
-		board.setUNo(loginMember.getUNo());
-		
+
+//		board.setUNo(loginMember.getUNo()); // 로그인 적용후 교체
+		board.setUNo(1);
+
 		// 파일 저장 로직
-		if(upfile != null && upfile.isEmpty() == false) {
-			String renameFileName = service.saveFile(upfile, savePath); 
-			
-			if(renameFileName != null) {
+		if (upfile != null && upfile.isEmpty() == false) {
+			String renameFileName = service.saveFile(upfile, savePath);
+
+			if (renameFileName != null) {
 				board.setOriginalFileName(upfile.getOriginalFilename());
-				board.setRenamedFileName(renameFileName);
+				board.setRenameFileName(renameFileName);
 			}
 		}
-		
+
 		log.debug("board : " + board);
 		int result = service.saveBoard(board);
 
-		if(result > 0) {
+		if (result > 0) {
 			model.addAttribute("msg", "게시글이 등록 되었습니다.");
-			model.addAttribute("location", "/board/list");
-		}else {
+			model.addAttribute("location", "/board/board-list");
+		} else {
 			model.addAttribute("msg", "게시글 작성에 실패하였습니다.");
-			model.addAttribute("location", "/board/list");
+			model.addAttribute("location", "/board/board-list");
 		}
-		
+
 		return "common/msg";
 	}
-	
-	
+
 	@RequestMapping("/reply")
-	public String writeReply(Model model, 
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@ModelAttribute Reply reply
-			) {
-		reply.setUNo(loginMember.getUNo());
+	public String writeReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@ModelAttribute Reply reply) {
+//		reply.setUNo(loginMember.getUNo()); // 로그인 기능 구현 후 교체할 것
+		reply.setUNo(1); // uNO 1로 테스트
 		log.info("리플 작성 요청 Reply : " + reply);
-		
+
 		int result = service.saveReply(reply);
-		
-		if(result > 0) {
-			model.addAttribute("msg", "리플이 등록되었습니다.");
-		}else {
-			model.addAttribute("msg", "리플 등록에 실패하였습니다.");
+
+		if (result > 0) {
+			model.addAttribute("msg", "댓글이 등록되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 등록에 실패하였습니다.");
 		}
-		model.addAttribute("location", "/board/view?no="+reply.getBNo());
+		model.addAttribute("location", "/board/board-view?no=" + reply.getBNo());
 		return "common/msg";
 	}
-	
+
 	@RequestMapping("/delete")
-	public String deleteBoard(Model model,  HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			int boardNo
-			) {
+	public String deleteBoard(Model model, HttpSession session,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, int boardNo) {
 		log.info("게시글 삭제 요청 boardNo : " + boardNo);
 		int result = service.deleteBoard(boardNo, savePath);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			model.addAttribute("msg", "게시글 삭제가 정상적으로 완료되었습니다.");
-		}else {
+		} else {
 			model.addAttribute("msg", "게시글 삭제에 실패하였습니다.");
 		}
-		model.addAttribute("location", "/board/list");
+		model.addAttribute("location", "/board/board-list");
 		return "common/msg";
 	}
-	
+
 	@RequestMapping("/replyDel")
-	public String deleteReply(Model model, 
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			int replyNo, int boardNo
-			){
-		log.info("리플 삭제 요청");
+	public String deleteReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			int replyNo, int boardNo) {
+		log.info("댓글 삭제 요청");
 		int result = service.deleteReply(replyNo);
-		
-		if(result > 0) {
-			model.addAttribute("msg", "리플 삭제가 정상적으로 완료되었습니다.");
-		}else {
-			model.addAttribute("msg", "리플 삭제에 실패하였습니다.");
+
+		if (result > 0) {
+			model.addAttribute("msg", "댓글 삭제가 정상적으로 완료되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 삭제에 실패하였습니다.");
 		}
-		model.addAttribute("location", "/board/view?no=" + boardNo);
+		model.addAttribute("location", "/board/board-view?no=" + boardNo);
 		return "/common/msg";
 	}
-	
-	// http://localhost/mvc/board/update?no=27
+
 	@GetMapping("/board-update")
-	public String updateView(Model model,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@RequestParam("no") int no
-			) {
+	public String updateView(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("no") int no) {
 		Board board = service.findByNo(no);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
 		return "board/board-update";
 	}
-	
 
 	@PostMapping("/board-update")
 	public String updateBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			@ModelAttribute Board board,
-			@RequestParam("reloadFile") MultipartFile reloadFile
-			) {
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@RequestParam("reloadFile") MultipartFile reloadFile) {
 		log.info("게시글 수정 요청");
-		
-		board.setUNo(loginMember.getUNo());
+
+//		board.setUNo(loginMember.getUNo()); // 로그인 적용 후 교체
+		board.setUNo(1);
+
 		
 		// 파일 저장 로직
 		if(reloadFile != null && reloadFile.isEmpty() == false) {
 			// 기존 파일이 있는 경우 삭제
-			if(board.getRenamedFileName() != null) {
-				service.deleteFile(savePath + "/" +board.getRenamedFileName());
+			if(board.getRenameFileName() != null) {
+				service.deleteFile(savePath + "/" +board.getRenameFileName());
 			}
 			
 			String renameFileName = service.saveFile(reloadFile, savePath); // 실제 파일 저장하는 로직
 			
 			if(renameFileName != null) {
 				board.setOriginalFileName(reloadFile.getOriginalFilename());
-				board.setRenamedFileName(renameFileName);
+				board.setRenameFileName(renameFileName);
 			}
 		}
-		
+
 		log.debug("board : " + board);
 		int result = service.saveBoard(board);
 
-		if(result > 0) {
+		if (result > 0) {
 			model.addAttribute("msg", "게시글이 수정 되었습니다.");
-			model.addAttribute("location", "/board/list");
-		}else {
+			model.addAttribute("location", "/board/board-view?no=" + board.getBNo());
+		} else {
 			model.addAttribute("msg", "게시글 수정에 실패하였습니다.");
-			model.addAttribute("location", "/board/list");
+			model.addAttribute("location", "/board/board-view?no=" + board.getBNo());
 		}
-		
+
 		return "common/msg";
 	}
-	
+
 	@GetMapping("/file/{fileName}")
 	@ResponseBody
 	public Resource downloadImage(@PathVariable("fileName") String fileName, Model model) throws IOException {
 		return new UrlResource("file:" + savePath + fileName);
 	}
-	
+
 	@RequestMapping("/fileDown")
 	public ResponseEntity<Resource> fileDown(@RequestParam("oriname") String oriname,
 			@RequestParam("rename") String rename, @RequestHeader(name = "user-agent") String userAgent) {
@@ -265,4 +254,145 @@ public class BoardController {
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 실패했을 경우
 	}
+	
+	
+	// 공지게시판
+	@GetMapping("/notice-list")
+	public String noticeList(Model model, @RequestParam Map<String, String> paramMap) {
+		int page = 1;
+
+		// 탐색할 맵을 선언
+		Map<String, String> searchMap = new HashMap<String, String>();
+		try {
+			String searchValue = paramMap.get("searchValue");
+			if (searchValue != null && searchValue.length() > 0) {
+				String searchType = paramMap.get("searchType");
+				searchMap.put(searchType, searchValue);
+			} else {
+				paramMap.put("searchType", "title");
+			}
+			page = Integer.parseInt(paramMap.get("page"));
+		} catch (Exception e) {
+		}
+
+		int boardCount = service.getNoticeCount(searchMap);
+		PageInfo pageInfo = new PageInfo(page, 10, boardCount, 10);
+		List<Board> list = service.getNoticeList(pageInfo, searchMap);
+
+		model.addAttribute("list", list);
+		model.addAttribute("paramMap", paramMap);
+		model.addAttribute("pageInfo", pageInfo);
+		return "board/notice-list";
+	}
+
+	@RequestMapping("/notice-view")
+	public String noticeView(Model model, @RequestParam("no") int no) {
+		Board board = service.findByNoticeNo(no);
+		if (board == null) {
+			return "redirect:error";
+		}
+
+		model.addAttribute("board", board);
+		return "board/notice-view";
+	}
+	
+	@GetMapping("/notice-write")
+	public String noticeWriteView() {
+		return "board/notice-write";
+	}
+
+	@PostMapping("/notice-write")
+	public String noticeWriteBoard(Model model, HttpSession session,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@RequestParam("upfile") MultipartFile upfile) {
+		log.info("게시글 작성 요청");
+
+//		board.setUNo(loginMember.getUNo()); // 로그인 적용후 어드민으로 교체
+		board.setUNo(1);
+
+		// 파일 저장 로직
+		if (upfile != null && upfile.isEmpty() == false) {
+			String renameFileName = service.saveFile(upfile, savePath);
+
+			if (renameFileName != null) {
+				board.setOriginalFileName(upfile.getOriginalFilename());
+				board.setRenameFileName(renameFileName);
+			}
+		}
+
+		log.debug("board : " + board);
+		int result = service.saveNotice(board);
+
+		if (result > 0) {
+			model.addAttribute("msg", "게시글이 등록 되었습니다.");
+			model.addAttribute("location", "/board/notice-list");
+		} else {
+			model.addAttribute("msg", "게시글 작성에 실패하였습니다.");
+			model.addAttribute("location", "/board/notice-list");
+		}
+
+		return "common/msg";
+	}
+
+	@RequestMapping("/noticeDelete")
+	public String noticeDeleteBoard(Model model, HttpSession session,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, int boardNo) {
+		log.info("게시글 삭제 요청 boardNo : " + boardNo);
+		int result = service.deleteBoard(boardNo, savePath);
+
+		if (result > 0) {
+			model.addAttribute("msg", "게시글 삭제가 정상적으로 완료되었습니다.");
+		} else {
+			model.addAttribute("msg", "게시글 삭제에 실패하였습니다.");
+		}
+		model.addAttribute("location", "/board/notice-list");
+		return "common/msg";
+	}
+
+	@GetMapping("/notice-update")
+	public String noticeUpdateView(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@RequestParam("no") int no) {
+		Board board = service.findByNoticeNo(no);
+		model.addAttribute("board", board);
+		return "board/notice-update";
+	}
+
+	@PostMapping("/notice-update")
+	public String noticeUpdateBoard(Model model, HttpSession session,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@RequestParam("reloadFile") MultipartFile reloadFile) {
+		log.info("공지사항 게시글 수정 요청");
+
+//		board.setUNo(loginMember.getUNo()); // 로그인 적용 후 교체
+		board.setUNo(1);
+
+		// 파일 저장 로직
+		if(reloadFile != null && reloadFile.isEmpty() == false) {
+			// 기존 파일이 있는 경우 삭제
+			if(board.getRenameFileName() != null) {
+				service.deleteFile(savePath + "/" +board.getRenameFileName());
+			}
+			
+			String renameFileName = service.saveFile(reloadFile, savePath); // 실제 파일 저장하는 로직
+			
+			if(renameFileName != null) {
+				board.setOriginalFileName(reloadFile.getOriginalFilename());
+				board.setRenameFileName(renameFileName);
+			}
+		}
+
+		log.debug("board : " + board);
+		int result = service.saveNotice(board);
+
+		if (result > 0) {
+			model.addAttribute("msg", "게시글이 수정 되었습니다.");
+			model.addAttribute("location", "/board/notice-view?no=" + board.getBNo());
+		} else {
+			model.addAttribute("msg", "게시글 수정에 실패하였습니다.");
+			model.addAttribute("location", "/board/notice-view?no=" + board.getBNo());
+		}
+
+		return "common/msg";
+	}
+	
 }

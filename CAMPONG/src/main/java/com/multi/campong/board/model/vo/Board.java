@@ -17,7 +17,7 @@ public class Board {
 	private String title;
 	private String content;
 	private String originalFileName;
-	private String renamedFileName;
+	private String renameFileName;
 	private String status;
 	private Date createDate;
 	private int readCount;

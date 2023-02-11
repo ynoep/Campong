@@ -3,7 +3,11 @@
 <head th:fragment="head" th:replace="~{common/layout :: head}"></head>
 
 <head>
+
 	<style>
+		* {
+			font-family: 'SUIT Variable', sans-serif;
+		}
 		tr {
 			height: 62px;
 			color: #333333;
@@ -14,7 +18,8 @@
 		}
 		.board_main_image {
 			margin: auto;
-    		display: block;
+    	display: block;
+			height: 450px;
 		}
 		.board_tag {
 			width: 95px;
@@ -41,7 +46,7 @@
 		.main_title {
 			text-align: center;
 			margin: auto;
-    		display: block;
+    	display: block;
 			width: 350px;
 		}
 		.badge-1 {
@@ -66,7 +71,7 @@
 			color: #333333;
 		}
 		a:hover {
-    		color: #333333;
+    	color: #333333;
 		}
 		.search_title_content {
 			text-align: center;
@@ -75,6 +80,8 @@
 		}
 	</style>
 </head>
+
+
 
 <body>
 <header th:replace="~{common/layout :: #header}"></header>
@@ -87,25 +94,25 @@
 		<div class="row g-4">
 			<!-- Image -->
 			<div class="col-12">
-				<img th:src="@{/assets/images/board/board.png}" class="rounded-3 board_main_image" alt="">
+				<img th:src="@{/assets/images/noitce/notice.jpg}" class="rounded-3 board_main_image" alt="">
 			</div>
 			<!-- Title and content -->
 			<div class="mx-auto position-relative mt-sm-n7">
 				<div class="bg-mode shadow rounded-3 p-4 main_title">
 					<!-- Title -->
-					<h1 class="fs-3 ">자유게시판</h1>
+					<h1 class="fs-3 ">공지사항</h1>
 					
 				</div>
 			</div>
 		</div>
 		
-		<form th:action="@{/board/board-list}" method="get">
+		<form th:action="@{/board/notice-list}" method="get">
 			<div class="col-xl-7 mx-auto">
 				<div class="bg-blur bg-white bg-opacity-10 border border-light border-opacity-25 rounded-3 p-4 mt-3">
 					<div class="col-lg-10">
 						<button class="position-absolute end-0 btn btn-lg btn-primary me-4" type="submit">검색</button>
 						<div class="form-input-dropdown position-relative">
-							<input class="form-control form-control-lg me-1 ps-5" type="text" placeholder="게시글을 검색하세요" id="searchValue" name="searchValue" th:value="${param.searchValue}">
+							<input class="form-control form-control-lg me-1 ps-5" type="text" placeholder="공지사항을 검색하세요" id="searchValue" name="searchValue" th:value="${param.searchValue}">
 							<span class="position-absolute top-50 start-0 translate-middle ps-5"><i class="bi bi-search fs-5"></i></span>
 						</div>
 					</div>
@@ -120,12 +127,11 @@
 				</label>
 			</div>
 		</form>
-
+		
 	</div>
 </section>
 <!-- =======================
 Main banner START -->
-
 <section class="pt-4 pt-md-5">
 	<div class="container">
 
@@ -144,10 +150,9 @@ Main banner START -->
 				</th:block>
 				<th:block th:if="${list.size != 0}">
 					<tr th:each="board : ${list}" class="border-bottom">
-						<td class="board_tag" th:if="${board.type} == free"><span class="badge-1 text-bg-info">잡담</span></td>
-						<td class="board_tag" th:if="${board.type} == question"><span class="badge-1 text-bg-success">질문</span></td>
+						<td class="board_tag"><span class="badge-1 text-bg-danger">공지</span></td>
 						<td class="board_title">
-							<a th:href="|/board/board-view?no=${board.bNo}|">
+							<a th:href="|/board/notice-view?no=${board.bNo}|">
 								[[${board.title}]]
 							</a>
 						</td>
@@ -156,8 +161,8 @@ Main banner START -->
 						<td class="board_hit">[[${board.readCount}]]</td>
 					</tr>
 				</th:block>
+				
 			</table>
-			<!-- 글쓰기버튼 -->
 			
 			<!-- 로그인 적용 후 교체 -->
 			<!-- <th:block th:if="${session.loginMember != null}">
@@ -167,19 +172,20 @@ Main banner START -->
 			</th:block> -->
 			
 			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-primary mt-3" onclick="location.href='/board/board-write'">글쓰기<i class="bi fa-fw bi-arrow-right ms-2"></i></button>
+				<button type="button" class="btn btn-primary mt-3" onclick="location.href='/board/notice-write'">글쓰기<i class="bi fa-fw bi-arrow-right ms-2"></i></button>
 			</div>
+			
 		</div>
 		<!-- 게시글 끝 -->
 	
-		<th:block th:if="${list.size != 0}">
 		<!-- 페이징 -->
+		<th:block th:if="${list.size != 0}">
 		<div class="row">
 			<div class="col-12">
 				<nav class="mt-7 my-4 d-flex justify-content-center" aria-label="navigation">
 					<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
 						<!-- 이전페이지 -->
-						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${pageInfo.prevPage}');|"><i
+						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/notice-list?page=${pageInfo.prevPage}');|"><i
 									class="fa-solid fa-angle-left"></i></a></li>
 						<!-- 10개 페이지 -->
 						<th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
@@ -187,11 +193,11 @@ Main banner START -->
 								<li class="page-item mb-0 active"><a class="page-link">[[${status.current}]]</a></li>
 							</th:block>
 							<th:block th:if="${status.current != pageInfo.currentPage}">
-								<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${status.current}');|">[[${status.current}]]</a></li>
+								<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/notice-list?page=${status.current}');|">[[${status.current}]]</a></li>
 							</th:block>
 						</th:block>
 						<!-- 다음페이지 -->
-						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/board-list?page=${pageInfo.nextPage}');|"><i
+						<li class="page-item mb-0"><a class="page-link" style="cursor:pointer;" th:onclick="|movePage('/board/notice-list?page=${pageInfo.nextPage}');|"><i
 									class="fa-solid fa-angle-right"></i></a></li>
 									
 					</ul>
@@ -202,8 +208,6 @@ Main banner START -->
 
 	</div>
 </section>
-<!-- =======================
-Main banner START -->
 
 </main>
 
