@@ -47,9 +47,6 @@
 														<!-- Pickup -->
 														<div class="col-md-6 col-xl-6">
 															<div class="form-size-lg">
-																<!-- <div id="selectedSido" style="display: none;">[[${param.sido}]]</div> -->
-																<!-- <div id="selectedGugun" style="display: none;">[[${param.gugun}]]</div> -->
-																
 																<select class="form-select-custom me-4" id="sido" name="sido">
 																	<option value="">시/도 선택</option>
 																</select>
@@ -143,7 +140,7 @@
 							<!-- Card body START -->
 							<div class="card-body px-3 hstack justify-content-between">
 								<!-- Title -->
-								<h5 class="card-title mb-0"><a th:href="|/bagpacking/bagpacking-detail?contentId=${content.contentId}|"
+								<h5 class="card-title text-truncate mb-0 w-75"><a th:href="|/bagpacking/bagpacking-detail?contentId=${content.contentId}|"
 										class="stretched-link">[[${content.title}]]</a></h5>
 								<!-- Button -->
 								<div class="mt-2 mt-sm-0">
@@ -225,7 +222,15 @@
 		var gugun = document.getElementById("gugun");
 		var searchType = 'title';
 		
-		pageUrl = pageUrl + '&sido=' + sido.value + '&gugun=' + gugun.value + '&searchValue=' + searchValue.value; 
+		if(sido.selectd == true){
+			pageUrl = pageUrl + '&sido=' + sido.value; 
+		}
+		if(gugun.selectd == true){
+			pageUrl = pageUrl + '&gugun=' + gugun.value; 
+		}
+		if(searchValue.value.length > 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		} 
 		
 		location.href = encodeURI(pageUrl);	
 	}

@@ -61,14 +61,14 @@ public class BagpackingController {
 			String searchGugun = paramMap.get("gugun");
 			String searchValue = paramMap.get("searchValue");
 			
-			if(searchValue != null && searchValue.length() > 0) {
-				searchMap.put("title", searchValue);
-			}
 			if(searchSido != null && searchSido.length() > 0) {
 				searchMap.put("sido", searchSido);
 			}
 			if(searchGugun != null && searchGugun.length() > 0 && !searchGugun.equals("전체")) {
 				searchMap.put("gugun", searchGugun);
+			}
+			if(searchValue != null && searchValue.length() > 0) {
+				searchMap.put("title", searchValue);
 			}
 			page = Integer.parseInt(paramMap.get("page"));
 		} catch (Exception e) {}

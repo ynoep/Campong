@@ -128,7 +128,7 @@
 							<!-- Card body START -->
 							<div class="card-body px-3 hstack justify-content-between">
 								<!-- Title -->
-								<h5 class="card-title mb-0"><a th:href="|/bagpacking/fishing-detail?fishingNo=${content.fishingNo}|"
+								<h5 class="card-title text-truncate mb-0 w-75"><a th:href="|/bagpacking/fishing-detail?fishingNo=${content.fishingNo}|"
 										class="stretched-link">[[${content.fishingNm}]]</a></h5>
 								<!-- Button -->
 								<div class="mt-2 mt-sm-0">
@@ -210,7 +210,15 @@
 		var gugun = document.getElementById("gugun");
 		var searchType = 'title';
 		
-		pageUrl = pageUrl + '&sido=' + sido.value + '&gugun=' + gugun.value + '&searchValue=' + searchValue.value; 
+		if(sido.selectd == true){
+			pageUrl = pageUrl + '&sido=' + sido.value; 
+		}
+		if(gugun.selectd == true){
+			pageUrl = pageUrl + '&gugun=' + gugun.value; 
+		}
+		if(searchValue.value.length > 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		} 
 		
 		location.href = encodeURI(pageUrl);	
 	}
