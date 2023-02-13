@@ -1,34 +1,19 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head" th:replace="~{common/layout :: head}">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
-
-	<!-- SUIT 폰트 추가-->
-	<link th:href="@{https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css}" rel="stylesheet">
-
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/font-awesome/css/all.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/nouislider/nouislider.css}">
-
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+<head>
+<th:block th:replace="~{common/layout :: head}"></th:block>
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/shopping.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/total-style.css}">
-
-
 </head>
 
 <body>
-
-<header th:replace="~{common/layout :: #header}"></header>
+	<header th:replace="~{common/layout :: #header}"></header>
 
 	<main>
-
 		<!-- ======================문구 있는 헤더 -->
 		<section class="bih-s-1 position-relative"
-			style="background-image:url(assets/images/header/7.png); background-position: center; background-size:cover">
+			style="background-image: url(/assets/images/header/7.png); background-position: center; background-size: cover;">
 			<!-- Background dark overlay -->
 			<div class="bg-overlay bg-dark opacity-3"></div>
 			<div class="container z-index-9 position-relative">
@@ -47,16 +32,22 @@
 		<section class="pt-5 pb-4">
 			<div class="container position-relative">
 				<!-- 검색 필터 -->
+				<!-- Collapse body START -->
 				<div class="searchfilter">
 					<div class="card card-body bg-light p-4 mt-4 mb-5 z-index-9">
 						<!-- Form START -->
-						<form class="row g-4">
+						<form class="row g-4" id="form-reset">
 							<!-- Input item -->
 							<div class="col-md-6 col-lg-4 me-3">
 								<div class="form-control-borderless">
 									<label class="form-label pb-2">검색하기</label>
-									<input type="text" class="form-control form-control-lg search-bar ps-5"
-										placeholder="검색어를 입력하세요">
+									<div class="position-relative">
+										<div class="fas fa-search position-absolute mt-3 ms-3"></div>
+										<input type="text" class="form-control form-control-lg ps-5"
+											placeholder="검색어를 입력하세요" id="searchValue" name="searchValue"
+											th:value="${param.searchValue}">
+									</div>
+
 								</div>
 							</div>
 
@@ -67,12 +58,14 @@
 									<div class="position-relative">
 										<div class="noui-wrapper">
 											<div class="d-flex justify-content-between">
-												<input type="text" class="text-black input-with-range-min">
-												<input type="text" class="text-black input-with-range-max">
+												<input type="text" class="text-black input-with-range-min"
+													value="${paramMap.lPrice}">
+												<input type="text" class="text-black input-with-range-max"
+													value="${paramMap.hPrice}">
 											</div>
 											<div class="noui-slider-range mt-2" data-range-min='10000'
-												data-range-max='1000000' data-range-selected-min='25000'
-												data-range-selected-max='200000' id="data-range-min"></div>
+												data-range-max='1000000' data-range-selected-min='20000'
+												data-range-selected-max='200000' id="slider"></div>
 										</div>
 									</div>
 								</div>
@@ -87,10 +80,21 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault">
-														텐트
+													<input class="form-check-input" type="checkbox" value="텐트"
+														th:checked="${#arrays.contains(Item, '텐트')  ? 'checked' : null}"
+														name="Item" id="Item1"> <label
+														class="form-check-label h6 mb-0" for="Item1"> 텐트 </label>
+												</div>
+											</div>
+
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox"
+														value="취사용품"
+														th:checked="${#arrays.contains(Item, '취사용품')  ? 'checked' : null}"
+														name="Item" id="Item2"> <label
+														class="form-check-label h6 mb-0" for="Item2"> 취사용품
 													</label>
 												</div>
 											</div>
@@ -98,10 +102,11 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault2">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault2">
-														취사용품
+													<input class="form-check-input" type="checkbox"
+														value="캠핑가구"
+														th:checked="${#arrays.contains(Item, '캠핑가구')  ? 'checked' : null}"
+														name="Item" id="Item3"> <label
+														class="form-check-label h6 mb-0" for="Item3"> 캠핑가구
 													</label>
 												</div>
 											</div>
@@ -109,10 +114,11 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault3">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault3">
-														캠핑가구
+													<input class="form-check-input" type="checkbox"
+														value="캠핑매트"
+														th:checked="${#arrays.contains(Item, '캠핑매트')  ? 'checked' : null}"
+														name="Item" id="Item4"> <label
+														class="form-check-label h6 mb-0" for="Item4"> 캠핑매트
 													</label>
 												</div>
 											</div>
@@ -120,10 +126,43 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault4">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault4">
-														캠핑매트
+													<input class="form-check-input" type="checkbox"
+														value="아이스박스"
+														th:checked="${#arrays.contains(Item, '아이스박스')  ? 'checked' : null}"
+														name="Item" id="Item5"> <label
+														class="form-check-label h6 mb-0" for="Item5">
+														아이스박스 </label>
+												</div>
+											</div>
+
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="침낭"
+														th:checked="${#arrays.contains(Item, '침낭')  ? 'checked' : null}"
+														name="Item" id="Item6"> <label
+														class="form-check-label h6 mb-0" for="Item6"> 침낭 </label>
+												</div>
+											</div>
+
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="천막"
+														th:checked="${#arrays.contains(Item, '천막')  ? 'checked' : null}"
+														name="Item" id="Item7"> <label
+														class="form-check-label h6 mb-0" for="Item7"> 천막 </label>
+												</div>
+											</div>
+
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox"
+														value="캠핑왜건"
+														th:checked="${#arrays.contains(Item, '캠핑왜건')  ? 'checked' : null}"
+														name="Item" id="Item8"> <label
+														class="form-check-label h6 mb-0" for="Item8"> 캠핑왜건
 													</label>
 												</div>
 											</div>
@@ -131,10 +170,11 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault5">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault5">
-														아이스박스
+													<input class="form-check-input" type="checkbox"
+														value="텐트/타프용품"
+														th:checked="${#arrays.contains(Item, '텐트/타프용품')  ? 'checked' : null}"
+														name="Item" id="Item9"> <label
+														class="form-check-label h6 mb-0" for="Item9"> 텐트용품
 													</label>
 												</div>
 											</div>
@@ -142,59 +182,17 @@
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault6">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault6">
-														침낭
-													</label>
+													<input class="form-check-input" type="checkbox"
+														value="기타캠핑용품"
+														th:checked="${#arrays.contains(Item, '기타캠핑용품')  ? 'checked' : null}"
+														name="Item" id="Item10"> <label
+														class="form-check-label h6 mb-0" for="Item10">
+														기타용품 </label>
 												</div>
 											</div>
 
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault7">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault7">
-														천막
-													</label>
-												</div>
-											</div>
-
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault8">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault8">
-														캠핑왜건
-													</label>
-												</div>
-											</div>
-
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault9">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault9">
-														텐트용품
-													</label>
-												</div>
-											</div>
-
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault10">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault10">
-														기타용품
-													</label>
-												</div>
-											</div>
-
-										</div> <!-- Row END -->
+										</div>
+										<!-- Row END -->
 									</div>
 								</div>
 							</div>
@@ -203,148 +201,136 @@
 							<div class="col-md-6 col-lg-6">
 								<div class="col-12">
 									<div class="form-control-borderless">
-										<label class="form-label pb-2">브랜드</label>
+										<label class="form-label pb-2">브랜드</label> 
 										<div class="row g-2">
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault11">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault11">
-														코베아
-													</label>
+													<input class="form-check-input" type="checkbox" value="코베아"
+														th:checked="${#arrays.contains(Brand, '코베아')  ? 'checked' : null}"
+														name="Brand" id="Brand1"> 
+													<label class="form-check-label h6 mb-0" for="Brand1"> 코베아 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault12">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault12">
-														캠핑문
-													</label>
+													<input class="form-check-input" type="checkbox" value="엘바운드"
+														th:checked="${#arrays.contains(Brand, '엘바운드')  ? 'checked' : null}"
+														name="Brand" id="Brand2"> 
+													<label class="form-check-label h6 mb-0" for="Brand2"> 엘바운드 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault13">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault13">
-														스노우피크
-													</label>
+													<input class="form-check-input" type="checkbox" value="로티캠프"
+														th:checked="${#arrays.contains(Brand, '로티캠프')  ? 'checked' : null}"
+														name="Brand" id="Brand3"> 
+													<label class="form-check-label h6 mb-0" for="Brand3"> 로티캠프 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault14">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault14">
-														카즈미
-													</label>
+													<input class="form-check-input" type="checkbox" value="크레모아"
+														th:checked="${#arrays.contains(Brand, '크레모아')  ? 'checked' : null}"
+														name="Brand" id="Brand4"> 
+													<label class="form-check-label h6 mb-0" for="Brand4"> 크레모아 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault15">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault15">
-														콜맨
-													</label>
+													<input class="form-check-input" type="checkbox" value="브리즈문"
+														th:checked="${#arrays.contains(Brand, '브리즈문')  ? 'checked' : null}"
+														name="Brand" id="Brand5"> 
+													<label class="form-check-label h6 mb-0" for="Brand5"> 브리즈문 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault16">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault16">
-														씨투써밋
-													</label>
+													<input class="form-check-input" type="checkbox" value="씨투써밋"
+														th:checked="${#arrays.contains(Brand, '씨투써밋')  ? 'checked' : null}"
+														name="Brand" id="Brand6"> 
+													<label class="form-check-label h6 mb-0" for="Brand6"> 씨투써밋 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault17">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault17">
-														네이처하이크
-													</label>
+													<input class="form-check-input" type="checkbox" value="네이처하이크"
+														th:checked="${#arrays.contains(Brand, '네이처하이크')  ? 'checked' : null}"
+														name="Brand" id="Brand7"> 
+													<label class="form-check-label h6 mb-0" for="Brand7"> 네이처하이크 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault18">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault18">
-														스탠리
-													</label>
+													<input class="form-check-input" type="checkbox" value="캥거"
+														th:checked="${#arrays.contains(Brand, '캥거')  ? 'checked' : null}"
+														name="Brand" id="Brand8"> 
+													<label class="form-check-label h6 mb-0" for="Brand8"> 캥거 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault19">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault19">
-														스노우라인
-													</label>
+													<input class="form-check-input" type="checkbox" value="카나모"
+														th:checked="${#arrays.contains(Brand, '카나모')  ? 'checked' : null}"
+														name="Brand" id="Brand9"> 
+													<label class="form-check-label h6 mb-0" for="Brand9"> 카나모 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault20">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault20">
-														헬리녹스
-													</label>
+													<input class="form-check-input" type="checkbox" value="헬리녹스"
+														th:checked="${#arrays.contains(Brand, '헬리녹스')  ? 'checked' : null}"
+														name="Brand" id="Brand10"> 
+													<label class="form-check-label h6 mb-0" for="Brand10"> 헬리녹스 </label>
 												</div>
 											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault21">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault21">
-														반고
-													</label>
+													<input class="form-check-input" type="checkbox" value="LUAZ"
+														th:checked="${#arrays.contains(Brand, 'LUAZ')  ? 'checked' : null}"
+														name="Brand" id="Brand11"> 
+													<label class="form-check-label h6 mb-0" for="Brand11"> 루아즈 </label>
 												</div>
 											</div>
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value=""
-														id="flexCheckDefault22">
-													<label class="form-check-label h6 mb-0" for="flexCheckDefault22">
-														기타 브랜드
-													</label>
+													<input class="form-check-input" type="checkbox" value="other"
+														th:checked="${#arrays.contains(OtherBrand, 'other')  ? 'checked' : null}"
+														name="OtherBrand" id="Brand12"> 
+													<label class="form-check-label h6 mb-0" for="Brand12"> 기타브랜드 </label>
 												</div>
 											</div>
-
-										</div> <!-- Row END -->
+											<!-- Row END -->
+										</div>
 									</div>
 								</div>
 							</div>
 
 							<!-- Button -->
 							<div class="text-end align-items-center">
-								<button class="btn btn-link p-0 mb-0">검색 초기화</button>
-								<button class="btn btn-dar btn-apply mb-0 ms-3">필터 적용</button>
+								<button class="btn btn-link p-0 mb-0" id="reset" onclick="uncheck()">검색 초기화</button>
+								<button class="btn btn-dar btn-apply mb-0 ms-3" onclick="movePage(pageUrl)">필터 적용</button>
 							</div>
 						</form>
 						<!-- Form END -->
@@ -355,469 +341,101 @@
 			</div>
 		</section>
 		<!-- ======================= Title and Tabs END -->
-
 		<!-- ======================= 리스트 -->
 		<section class="pt-0">
 			<div class="container">
 				<div class="row g-4">
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Overlay item -->
-							<div class="position-absolute top-0 start-0 z-index-1 m-4">
-								<div class="badge bg-best text-white">Best</div>
-							</div>
-
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/1.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">쿠디 에어매트 캠핑매트 자충매트 야외 캠핑</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦85,500</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-											</i>
-											</a>
-
-										</div>
-
-									</div>
-								</div>
-							</div>
+					<th:block th:if="${list.size == 0}">
+						<div>
+							<h6>조회된 상품이 없습니다.</h6>
 						</div>
-					</div>
-					<!-- Card item END -->
+					</th:block>
 
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/2.jpg}" class="rounded-2" alt="Card image">
+					<th:block th:if="${list.size != 0}">
+						<th:block th:each="shop : ${list}">
+							<!-- Card item START -->
+							<div class="col-md-6 col-xl-4">
+								<div class="card shadow pb-0 h-100">
 
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">동성 해바라기 버너 캠핑 신형 1005 링가드</a></h5>
-							</div>
-							<!-- Card body END -->
+									<!-- 이미지 -->
+									<img th:src="@{${shop.image}}" class="rounded-2 h-100"
+										alt="Card image" style="object-fit: cover;">
 
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦98,000</h5>
+									<!-- Card body START -->
+									<div class="card-body px-3 pb-0">
+										<!-- Title -->
+										<h5 class="card-title">
+											<a th:href="@{(${shop.link})}">[[${shop.title}]]</a>
+										</h5>
 									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
+									<!-- Card body END -->
 
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/3.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">케이엘시스템 멍캠핑 스테인리스 메쉬망 캠핑</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦119,650</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/4.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">지라프 시그니처 캠핑 가스버너 에디션</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦78,990</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
+									<!-- Card footer START-->
+									<div class="card-footer pt-4">
+										<!-- Price and Button -->
+										<div class="d-sm-flex justify-content-sm-between align-items-center">
+											<!-- Price -->
+											<div class="d-flex align-items-center">
+												<h5 class="fw-normal text-success mb-0 me-1">￦[[${shop.lprice}]]</h5>
+											</div>
+											<!-- Button -->
+											<div class="mt-2 mt-sm-0">
+												<!-- Rating and basket -->
+												<div class="d-flex justify-content-between">
+													<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2">
+													<i class="bi bi-bag-fill"></i></a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
+							</th:block>
+							</th:block>
+							
 					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/5.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">국내산 캠핑 통주물 그리들 고기 불판 솥뚜껑</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦46,900</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/6.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">이츠라이프 감성 불멍 로켓 우드 스토브 캠핑 화로대</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦28,900</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Overlay item -->
-							<div class="position-absolute top-0 start-0 z-index-1 m-4">
-								<div class="badge bg-best text-white">Best</div>
-							</div>
-
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/7.jpg" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a href="#">캥거 캠핑 팩가방 단조팩 공구 수납 가방 밀리터리</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦15,000</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<<img th:src="@{/assets/images/shop_item/8.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">도그독 접이식 초경량 캠핑의자 감성 원목 모던 캠핑용품</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦98,000</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/9.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">카고컨테이너 듀얼 라이트 미니 LED 랜턴 캠핑용품</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦55,000</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/10.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">앳더캠프 인디언행어 캠핑 우드 행어 행거 하판포함</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦39,000</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/11.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">라이노 캠핑 화로대 불멍 접이식 바베큐그릴 하이엔드골드2007</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦129,000</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-md-6 col-xl-4">
-						<div class="card shadow pb-0 h-100">
-							<!-- Image -->
-							<img th:src="@{/assets/images/shop_item/12.jpg}" class="rounded-2" alt="Card image">
-
-							<!-- Card body START -->
-							<div class="card-body px-3 pb-0">
-								<!-- Title -->
-								<h5 class="card-title"><a th:href="@{#}">헤몬 캠핑가방 수납 멀티 다용도 감성 캠핑 소품 용품 가방</a></h5>
-							</div>
-							<!-- Card body END -->
-
-							<!-- Card footer START-->
-							<div class="card-footer pt-4">
-								<!-- Price and Button -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									<!-- Price -->
-									<div class="d-flex align-items-center">
-										<h5 class="fw-normal text-success mb-0 me-1">￦41,900</h5>
-									</div>
-									<!-- Button -->
-									<div class="mt-2 mt-sm-0">
-										<!-- Rating and basket -->
-										<div class="d-flex justify-content-between">
-											<a th:href="@{/shop/shopping-basket}" class="h6 z-index-2"><i
-													class="btn_shopicon bi fa-fw bi-basket3-fill"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-				</div> <!-- Row END -->
+				</div>
 
 				<!-- 페이징 -->
 				<div class="row">
 					<div class="col-12">
-						<nav class="mt-7 my-4 d-flex justify-content-center" aria-label="navigation">
-							<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-								<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-											class="fa-solid fa-angle-left"></i></a></li>
-								<li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">4</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">5</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">10</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#"><i
-											class="fa-solid fa-angle-right"></i></a></li>
+						<nav class="mt-7 my-4 d-flex justify-content-center"
+							aria-label="navigation">
+							<ul
+								class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+								<!--이전 페이지 -->
+								<li class="page-item mb-0">
+									<button class="page-link"
+										th:onclick="|movePage('/shop/shopping?page=${pageInfo.prevPage}');|"
+										tabindex="-1">
+										<i class="fa-solid fa-angle-left"></i>
+									</button>
+								</li>
+								<!-- 10개 페이지 -->
+								<th:block
+									th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+									<th:block th:if="${status.current == pageInfo.currentPage}">
+										<li class="page-item mb-0 active">
+											<button class="page-link"
+												th:onclick="|movePage('/shop/shopping?page=${status.current}');|"
+												disabled>[[${status.current}]]</button>
+										</li>
+									</th:block>
+									<th:block th:if="${status.current != pageInfo.currentPage}">
+										<li class="page-item mb-0">
+											<button class="page-link"
+												th:onclick="|movePage('/shop/shopping?page=${status.current}');|">
+												[[${status.current}]]</button>
+										</li>
+									</th:block>
+								</th:block>
+								<!-- 다음 페이지 -->
+								<li class="page-item mb-0">
+									<button class="page-link"
+										th:onclick="|movePage('/shop/shopping?page=${pageInfo.nextPage}');|">
+										<i class="fa-solid fa-angle-right"></i>
+									</button>
+								</li>
 							</ul>
 						</nav>
 					</div>
@@ -831,11 +449,48 @@
 	<!-- Back to top -->
 	<div class="back-top"></div>
 
-
-	<!-- Vendors -->
-	<script th:src="@{/assets/vendor/nouislider/nouislider.min.js}"></script>
-	
 	<footer th:replace="~{common/layout :: #footer}"></footer>
+
+	<script type="text/javascript">
+		function movePage(pageUrl) {
+			var searchValue = document.getElementById("searchValue");	// 입력
+			var searchTypes = document.getElementsByName("searchType");	// 체크
+			var searchType = 'title';
+			
+			pageUrl = pageUrl +'&searchType=' + searchType + '&searchValue=' + searchValue.value;
+			
+			var Brands = document.getElementsByName('Brand');
+			var Brand = 'Brand';
+			
+			var Items = document.getElementsByName('Item');
+			var Item = 'Item';
+			
+			for(var i = 0; i < Items.length; i++){
+				if(Items[i].checked == true){
+					Item = '&Item=' + Items[i].value;
+					pageUrl += Item;
+				}
+			}
+			
+			for(var i = 0; i < Brands.length; i++){
+				if(Brands[i].checked == true){
+					Brand = '&Brand=' + Brands[i].value;
+					pageUrl += Brand;
+				}
+			}
+			
+			location.href = encodeURI(pageUrl);
+		}
+	</script>
+	
+	<!-- 검색 초기화 -->
+	<script type="text/javascript">
+	function uncheck(){
+		$(':checkbox:checked').prop('checked',false);
+		$("#searchValue").val("");
+	};
+	
+	</script>
 </body>
 
 </html>
