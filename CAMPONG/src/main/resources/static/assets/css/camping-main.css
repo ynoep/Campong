@@ -91,7 +91,7 @@
 	font-size: 1.4rem;
 }
 
-.allTema {
+.allTheme {
 	width: 500px;
 	height: 35px;
 }
@@ -158,7 +158,7 @@
 }
 
 
-.tema {
+.theme {
 	height: 24px;
 }
 
@@ -225,7 +225,7 @@ main {
 	font-size: 48;
 }
 
-.checkTema {
+.checkTheme {
 	width: 115px;
 	display: inline-block;
 	text-align: center;

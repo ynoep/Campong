@@ -7,11 +7,11 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MountainIsland {
+public class Bagpacking {
 	private int contentId;
 	private String title;
 	private String cat3;
-	private String fisrtimage;
+	private String firstimage;
 	private Double mapx;
 	private Double mapy;
 	private String addr1;
