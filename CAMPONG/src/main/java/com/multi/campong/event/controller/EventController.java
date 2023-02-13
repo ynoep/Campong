@@ -70,10 +70,8 @@ public class EventController {
 		log.info(content.toString());
 		
 		//유사행사
-//		List<Event> list = service.otherEvent();
-//		Collections.shuffle(list);
-//		
-//		log.info(Integer.toString(contentId));
+		List<Event> list = service.getRandomEventList();
+		model.addAttribute("list", list);
 		
 		return "event/event-detail";
 	}

@@ -29,7 +29,7 @@
 
 /*중간*/
 .bih-s-1{
-  margin-top: -100px;
+  margin-top: -180px;
 }
 .bih-f-1{
   font-size: 22px;
@@ -40,4 +40,7 @@
 .bih-f-1 > li{
   margin-top: 10px;
 } 
-
+/*유사행사*/
+.bih-s-2{
+  margin-top: -70px;
+}

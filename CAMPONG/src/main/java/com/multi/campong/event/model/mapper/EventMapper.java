@@ -13,5 +13,5 @@ public interface EventMapper {
 	int selectEventCount(Map<String, String> map);
 	Event selectEventByNo(int no);
 	
-//	List<Event> selectEventList2();
+	List<Event> selectRandomEventList();
 }

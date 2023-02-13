@@ -3,7 +3,6 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <th:block th:replace="~{common/layout :: head}"></th:block>
-<!--  <link rel="stylesheet" type="text/css" th:href="@{/assets/css/event.css}"> -->
 </head>
 
 <body>
@@ -18,27 +17,32 @@
 				<div class="row py-sm-5">
 					<!-- Title -->
 					<div class="col-xl-8 m-auto text-center">
-						<h1 class="mb-0">캠핑 관련 행사를 둘러보세요</h1>
+						<h1>이번 캠핑 더 즐겁고 싶다면<br>
+							<span class="position-relative z-index-9">행사 둘러보기
+								<!-- SVG START -->
+								<span class="position-absolute top-50 start-50 translate-middle z-index-n1 d-none d-sm-block">
+									<svg class="fill-info" width="356.55px" height="79.36px" viewBox="0 0 356.55 79.36">
+										<path d="M0,56.76c13.15-11.68,37.75-14.87,47.45-15.62c20.85-1.62,41.75,1.22,62.2,5.16c43.41,8.37,85.85,20.68,129.83,26.22 c21.05,2.65,42.12,3.47,62.96-1.21c18.31-4.11,38.98-12.97,47.7-30.8C360.39,19.59,342.4,5,322.82,2.25 c-18.69-2.62-37.64,3.81-53.23,13.85c-2.82,1.82-5.87,4.32-8.53,5.85c12.91-10.62,28.31-18.89,45.01-21.3 c17.11-2.48,43.7,1.69,49.46,21.27c5.65,19.17-13.23,36.76-28.31,44.63c-18.02,9.41-39.47,13-59.65,12.81 c-44.06-0.42-88.81-11.18-131.38-21.67C97.79,48.21,42.36,30.73,0,56.76z"/>
+									</svg>
+								</span>
+							<!-- SVG END -->
+							</span>
+						</h1>
 					</div>
 				</div>
 			</div>
-
 		</section>
 
-		<section class="pt-4 pt-sm-5">
-
+		<section class="pt-4 pt-sm-5" style="margin-top:-70px;">
 			<!-- Image -->
 			<div class="container-fluid overflow-hidden">
 				<div class="row g-4 g-lg-3 justify-content-lg-between">
-
 					<div class="col-6 col-sm-4 position-relative ms-lg-n5">
-
-
 						<!-- Images -->
 						<div class="row g-xl-7 align-items-center">
 							<div class="col-6 d-none d-md-block">
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/16.jpg}">
+									th:href="@{https://m.cjone.com/cjmweb/upfile/2021/06/22/m_subscribe01_sns20210614.jpg}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden">
 										<!-- Image -->
@@ -56,7 +60,7 @@
 							<div class="col-md-6 mt-lg-8">
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/15.jpg}">
+									th:href="@{https://www.ht.co.kr:442/event/202010_IceCamping/img/event_main_01.png}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
 										<!-- Image -->
@@ -73,12 +77,12 @@
 
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/11.jpg}">
+									th:href="@{/assets/images/event/camping1.jpg}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden">
 										<!-- Image -->
 										<img
-											src="https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/sp/2021/03/31/2021033101001757200124501.jpg"
+											th:src="@{/assets/images/event/camping1.jpg}"
 											class="rounded-3" alt="">
 										<!-- Full screen button -->
 										<div class="hover-element w-100 h-100">
@@ -96,7 +100,7 @@
 						class="col-sm-4 position-relative order-2 order-sm-1 z-index-9">
 						<!-- Image item -->
 						<a data-glightbox data-gallery="gallery"
-							th:href="@{assets/images/bg/18.jpg}">
+							th:href="@{https://365campingcity.com/rankup_module/rankup_board/attach/board2/14936965550475.jpg}">
 							<div
 								class="card card-element-hover card-overlay-hover overflow-hidden">
 								<!-- Image -->
@@ -118,7 +122,7 @@
 							<div class="col-md-6 mt-lg-8">
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/18.jpg}">
+									th:href="@{https://cdn.newsfs.com/news/photo/201606/11705_9222_4149.jpg}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
 										<!-- Image -->
@@ -135,7 +139,7 @@
 
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/14.jpg}">
+									th:href="@{https://image.newdaily.co.kr/site/data/img/2018/10/05/2018100500009_0.jpg}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden">
 										<!-- Image -->
@@ -153,7 +157,7 @@
 							<div class="col-6 d-none d-md-block">
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/17.jpg}">
+									th:href="@{https://maro.imhc.or.kr/other/editor_dn.php?w=qsWXOi%2FPCSh5LEZDB6oc%2Bw%3D%3D&s=3l6p%2BS4%2F0Hbn1U1TXUD9toDm4C2FnTenKXS%2BY7DXPpE%3D}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
 										<!-- Image -->
@@ -170,7 +174,7 @@
 
 								<!-- Image item -->
 								<a data-glightbox data-gallery="gallery"
-									th:href="@{assets/images/bg/19.jpg}">
+									th:href="@{https://t1.daumcdn.net/cfile/tistory/22313E375922D3622C}">
 									<div
 										class="card card-element-hover card-overlay-hover overflow-hidden">
 										<!-- Image -->
@@ -242,13 +246,14 @@ Tour grid START -->
 					<div class="col-md-6 col-xl-4">
 						<div class="card card-hover-shadow pb-0 h-100">
 							<!-- Overlay item -->
-							<div class="position-relative">
+							<div class="position-relative" style="overflow:hidden;margin:0 auto; width:380px; height:550px;">
 								<!-- Image -->
 								<th:block th:if="${content.firstimage != ''}">
-									<img th:src="@{${content.firstimage}}" class="card-img-top event-list" alt="Card image">
+									<img th:src="@{${content.firstimage}}" class="card-img-top event-list" style="object-fit: cover; width:100%; height:100%;" alt="Card image">
 								</th:block>
-								<!--  <img src="https://cdn.gbtopnews.net/news/photo/202207/82161_130650_3847.jpg"
-									class="card-img-top event-list" alt="Card image">-->
+								<th:block th:if="${content.firstimage == ''}">
+									<img th:src="@{/assets/images/event/준비중.jpg}" class="card-img-top event-list" style="object-fit: cover; width:100%; height:100%;" alt="Card image">
+								</th:block>
 								<!-- Overlay -->
 								<div class="card-img-overlay d-flex flex-column p-4 z-index-1"></div>
 							</div>
@@ -259,7 +264,12 @@ Tour grid START -->
 								<h5 class="card-title mb-0">
 									<a th:href="@{|/event/event-detail?id=${content.contentId}|}" class="stretched-link">[[${content.title}]]</a>
 								</h5>
-								<span class="small"><i class="fa fa-map-marker-alt me-2"></i>[[${content.addr1}]]</span><br />
+								<th:block th:if="${content.addr1 != ''}">
+									<span class="small"><i class="fa fa-map-marker-alt me-2"></i>[[${content.addr1}]]</span><br />
+								</th:block>
+								<th:block th:if="${content.addr1 == ''}">
+									<span class="small"><i class="fa fa-map-marker-alt me-2"></i>주소가 제공되지 않습니다</span><br />
+								</th:block>
 								<span class="small"><i class="far fa-calendar-alt me-2"></i>[[${content.eventstartDate}]] ~ [[${content.eventendDate}]]</span>
 
 							</div>
@@ -285,7 +295,7 @@ Tour grid START -->
 				<!-- Row END -->
 
 				<!-- 페이징 -->
-				<div class="row">
+				<div class="row" style="margin-top:50px; margin-bottom:50px;">
 					<div class="col-12">
 						<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
 							<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">

@@ -31,8 +31,8 @@ public class EventService {
 		return event; 
 	}
 	
-//	public List<Event> otherEvent() {
-//		return mapper.selectEventList2();
-//	}
+	public List<Event> getRandomEventList() {
+		return mapper.selectRandomEventList();
+	}
 	
 }
