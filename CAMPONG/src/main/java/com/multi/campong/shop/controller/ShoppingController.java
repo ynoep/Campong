@@ -60,6 +60,16 @@ public class ShoppingController {
 		if (OtherBrand == null) {
 			OtherBrand = new ArrayList<>();
 		}
+		
+		if(paramMap.get("lPrice") == null) {
+			paramMap.put("lPrice", "5000");
+		}
+		searchMap.put("lPrice", paramMap.get("lPrice"));
+		
+		if(paramMap.get("hPrice") == null) {
+			paramMap.put("hPrice", "500000");
+		}
+		searchMap.put("hPrice", paramMap.get("hPrice"));
 
 		int shoppingCount = service.getShoppingCount(searchMap);
 		PageInfo pageInfo = new PageInfo(page, 10, shoppingCount, 12);

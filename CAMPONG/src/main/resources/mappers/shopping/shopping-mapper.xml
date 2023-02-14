@@ -23,11 +23,11 @@
 		<if test="title != null">
 			AND TITLE LIKE '%${title}%'
 		</if>
-		<if test="lPrice != null">
-			AND LPRICE LIKE '%${lPrice}%'
-		</if>
 		<if test="hPrice != null">
-			AND HPRICE LIKE '%${hPrice}%'
+			AND LPRICE <![CDATA[<=]]> ${hPrice}
+		</if>
+		<if test="lPrice != null">
+			AND LPRICE <![CDATA[>=]]> ${lPrice}
 		</if>
 		
 		<if test="Item != null">
@@ -73,11 +73,11 @@
 		<if test="title != null">
 			AND TITLE LIKE '%${title}%'
 		</if>
-		<if test="lPrice != null">
-			AND LPRICE LIKE '%${lPrice}%'
-		</if>
 		<if test="hPrice != null">
-			AND HPRICE LIKE '%${hPrice}%'
+			AND LPRICE <![CDATA[<=]]> ${hPrice}
+		</if>
+		<if test="lPrice != null">
+			AND LPRICE <![CDATA[>=]]> ${lPrice}
 		</if>
 		
 		<if test="Item != null">
