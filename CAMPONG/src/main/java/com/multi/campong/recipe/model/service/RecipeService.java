@@ -16,7 +16,7 @@ public class RecipeService {
 	@Autowired
 	private RecipeMapper mapper;
 	
-	public List<Recipe> getRecipeList(PageInfo pageInfo, Map<String, String> param){
+	public List<Recipe> getRecipeList(PageInfo pageInfo, Map<String, Object> param){
 		param.put("limit", "" + pageInfo.getListLimit());
 		param.put("offset", "" + (pageInfo.getStartList() - 1));
 		return mapper.selectRecipeList(param);
@@ -26,7 +26,7 @@ public class RecipeService {
 		return mapper.selectRandomRecipeList();
 	}
 	
-	public int getRecipeCount(Map<String, String> param) {
+	public int getRecipeCount(Map<String, Object> param) {
 		return mapper.selectRecipeCount(param);
 	}
 }

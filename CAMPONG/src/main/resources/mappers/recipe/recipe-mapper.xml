@@ -15,6 +15,17 @@
 	<select id="selectRecipeList" resultMap="recipeListResultMap" parameterType="map">
 		SELECT RECIPE_NO, CATEGORY1, CATEGORY2, TITLE, CONTENT, URL, imageUrl
 		FROM RECIPE
+		WHERE 1=1
+		<if test="title != null">
+			AND TITLE LIKE '%${title}%' 
+		</if>	
+		<if test="Item != null">
+			AND (
+			<foreach collection="Item" item="item" separator="or">
+				CATEGORY1 LIKE '%${item}%'
+			</foreach>
+			)
+		</if>
 		ORDER BY RECIPE_NO DESC LIMIT ${limit} OFFSET ${offset}
 	</select>
 	
@@ -27,6 +38,17 @@
 	<select id="selectRecipeCount" resultType="int" parameterType="map">
 		SELECT COUNT(DISTINCT RECIPE_NO)
 		FROM RECIPE
+		WHERE 1=1
+		<if test="title != null">
+			AND TITLE LIKE '%${title}%' 
+		</if>
+		<if test="Item != null">
+			AND (
+			<foreach collection="Item" item="item" separator="or">
+				CATEGORY1 LIKE '%${item}%'
+			</foreach>
+			)
+		</if>
 	</select>
 
 </mapper>

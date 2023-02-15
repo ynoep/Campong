@@ -9,7 +9,7 @@ import com.multi.campong.recipe.model.vo.Recipe;
 
 @Mapper
 public interface RecipeMapper {
-	List<Recipe> selectRecipeList(Map<String, String> map);
+	List<Recipe> selectRecipeList(Map<String, Object> map);
 	List<Recipe> selectRandomRecipeList();
-	int selectRecipeCount(Map<String, String> map);
+	int selectRecipeCount(Map<String, Object> map);
 }
