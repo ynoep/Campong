@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Booking - Multipurpose Online Booking Theme</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Booking - Multipurpose Online Booking Theme">
+
+	
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/splide-master/dist/css/splide.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/glightbox/css/glightbox.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/total-style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/moim.css">
+
+	<!--구글 폰트-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		
+	<!-- SUIT 폰트 추가-->
+	<link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+	
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
+	
+	
+</head>
+
+<body>
+
+	<header th:replace="~{common/layout :: #header}"></header>
+	
+		<!-- Dark mode -->
+	<script th:inline="javascript">
+
+	function moimRegisterCheck(){
+		var mNo = [[${session.mvo.mNo}]];
+		var meetNo = [[${vo.meetNo}]];
+		requestUrl =  "/moimRegisterCheck?mNo=" + mNo +"&meetNo="+ meetNo;
+		
+		$.ajax({
+			method:'get',
+			url:requestUrl,
+			contentType: 'application/json',
+			dataType : 'json',
+			success: (result) =>{
+				if(result==1){
+					alert("이미가입된 모임입니다.");
+				}else{
+					alert("모임가입 성공했습니다.");
+				}
+			},
+			error : (e) => {
+				alert('전송 실패!!');
+			}
+		});
+	}
+	function  moimOut(){
+		var mNo = [[${session.mvo.mNo}]];
+		var meetNo = [[${vo.meetNo}]];
+		$.ajax({
+			url:"moimOut",
+			Type:'get',
+			data: {"mNo":mNo, "meetNo":meetNo},
+			success: function(data){
+				if(data ==1){
+				alert("탈퇴가완료되었습니다.");
+				window.location.replace("/moim?mNo="+mNo);
+				}else{
+					alert("가입한 회원이아닙니다.")
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+			
+		});
+	}
+	
+	function  moimOutDeleted(){
+		var mNo = [[${session.mvo.mNo}]];
+		var meetNo = [[${vo.meetNo}]];
+		var nickName = [[${vo.nickName}]];
+		$.ajax({
+			url:"moimOutDeleted",
+			Type:'get',
+			data: {"mNo":mNo, "meetNo":meetNo,"nickName":nickName},
+			success: function(data){
+				if(data ==1){
+				alert("삭제가완료되었습니다.");
+				window.location.replace("/moim?mNo="+mNo);
+				}else{
+					alert("가입한 회원이아닙니다.")
+				}
+			},
+			error: function(){
+				alert("error");
+			}
+			
+		});
+	}
+	
+	</script>
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+
+
+		<!-- -->
+		<section class="pt-2 pt-lg-2 mb-0 mt-5">
+		<form>  <!--  action="insertMeeting" method="post"-->
+			<div class="container position-relative">
+				<div class="row mt-4">
+					<div class="col-12 mt-3 border-bottom">
+						<h3  th:text="${vo.title}">제목 들어갈 칸</h3>
+					</div>
+					<!--작성자 시작-->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>작성자</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<div class="" th:text="${vo.nickName}">몇명</div>
+					</div>
+					<!-- 작성자끝 -->
+					<!--모집인원 시작-->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>모집인원</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<span th:text="${mvo.count}+'명'">몇명</span>/<span class=""  th:text="${vo.apes}+'명'">몇명</span>
+					</div>
+					<!--모집인원 끝-->
+					<!--모집나이 시작-->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>모집나이</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<div th:text="${vo.ageRange}">10대</div>
+					</div>
+					<!--모집나이 끝-->
+					<!--연락처 시작-->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>연락처</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<div th:text="${vo.phone}" th:if=${viewPhone==1}>010-xxxx-xxxx</div>
+						<div th:if=${viewPhone!=1}>연락처는 가입후에 공개됩니다.</div>
+					</div>
+					<!--연락처 끝-->
+					<!--모집 기간 시작 -->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>모집 기간</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<div  th:text="${vo.endDate}">2023년1월20일까지</div>
+					</div>
+					<!--모집 기간 끝-->
+					<!--예상 경비 시작 -->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>예상 경비</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<span  th:text="${vo.expense}">20000</span>원
+					</div>
+					<!--예상 금액 끝-->
+					<!--세부내용 입력 시작 -->
+					<div class="col-1 mt-3 fw-bold text-black text-center">
+						<p>세부 내용</p>
+					</div>
+					<!--세부내용 끝-->
+					<div class="col-10 my-4">
+						<textarea class="sebu mb-2" rows="10" cols="110"  th:text="${vo.introduction}" disabled></textarea>
+						<div>* 개인간 거래 행위는 불법으로 간주합니다<br>
+						* 작성된 정보는 캠퐁에 수집되며 진행 중인 모임에 문제가 발생한 경우에 해결을 위해 활용 될 수 있습니다.</div>
+						<div class="precautions">* 허위 정보를 작성시 제한 또는 정지 조치를 받을 수 있습니다.</div>
+					</div>
+				
+				</div>
+				<div class="registration my-2 text-center">
+					<a th:href="@{/moim(mNo=${session.mvo.mNo})}" type="button" class="goList me-3">목록</a>
+					<input type="hidden" name="meetNo" th:value="${vo.meetNo}"/>
+					<input type="hidden"  name="mNo" th:value="${session.mvo.mNo}" />
+					<!-- 모임에 가입되어 있지 않으면-->
+					<input type="submit" class="goSubmit me-3" id="GoMoim" th:value="가입하기" onclick="moimRegisterCheck()"  th:if="${mvo.count !=vo.apes}" th:unless="${viewPhone==1}" />
+					<input type="button" class="goSubmit me-3" id="GoMoim" th:value="정원초과"  th:if="${mvo.count ==vo.apes}" />
+					<input type="button" class="goList me-3 fw-bold" id="GoMoim" th:value="삭제하기" style="color:red; background-color:white;" onclick="moimOutDeleted()"  th:if="${viewPhone==1 and vo.nickName== session.mvo.nickName}"/>
+					<input type="button" class="goList me-3 fw-bold" id="GoMoim" th:value="탈퇴하기" style="color:red; background-color:white;" onclick="moimOut()"  th:if="${viewPhone==1}" th:unless="${vo.nickName== session.mvo.nickName}"/>
+				</div>
+			</div>
+					<!-- <!-- The Modal -->
+		<div class="modal" id="myModal" onclick="out()">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		
+		      Modal Header
+		      <div class="modal-header">
+		        <h4 class="modal-title">Modal Heading</h4>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		      </div>
+		
+		      Modal body
+		      <div class="modal-body">
+		        Modal body..
+		      </div>
+		
+		      Modal footer
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+		      </div>
+		
+		    </div>
+		  </div>
+		</div> -->
+		</form>
+
+		</section>
+
+
+
+
+
+
+
+		
+
+		
+
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark py-5">
+	<div class="container">
+	<div class="row mx-auto">
+	<div class="col-md-10 col-xl-6 mx-auto text-center">
+	<!-- Logo -->
+	<img class="mx-auto h-60px mb-3" src="assets/images/logo_cam.png" alt="logo">
+	<!-- 팀원 -->
+	<ul class="nav justify-content-between text-primary-hover mt-3 mt-md-0">
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이동건</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">김재혁</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">박윤희</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">백인화</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이상진</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이유광</a></li>
+	</ul>
+	<div class="text-muted text-primary-hover mt-0"> Copyrights ©2023. Multicampus Fullstack Team2 CAMPONG.<br>All rights reserved. </div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+	<!-- Back to top -->
+	<div class="back-top"></div>
+
+	<!-- Bootstrap JS -->
+	<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Vendors -->
+	<script src="assets/vendor/splide-master/dist/js/splide.min.js"></script>
+	<script src="assets/vendor/glightbox/js/glightbox.js"></script>
+
+	<!-- ThemeFunctions -->
+	<script src="assets/js/functions.js"></script>
+
+</body>
+
+</html>
