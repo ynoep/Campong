@@ -1,0 +1,11 @@
+.bih-d-1{
+  width: 100%;
+}
+.bih-t-1{
+  z-index: -1;
+  position: relative;
+}
+
+.icon-md {
+  background-color: #019267 !important;
+}
