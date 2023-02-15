@@ -196,7 +196,9 @@ CREATE TABLE `RECIPE` (
 	`CATEGORY1`	VARCHAR(100) NOT NULL,
 	`CATEGORY2`	VARCHAR(100),
 	`TITLE`	VARCHAR(100),
-	`CONTENT`	VARCHAR(2000)
+	`CONTENT`	VARCHAR(2000),
+    `URL` VARCHAR(1000),
+    `IMAGEURL` VARCHAR(1000)
 );
 
 
@@ -1372,6 +1374,8 @@ insert into `FISHING`(`FISHING_NO`,`fishing_Nm`,`addr`,`latitude`,`longitude`,`u
 insert into `FISHING`(`FISHING_NO`,`fishing_Nm`,`addr`,`latitude`,`longitude`,`useCharge`,`phone`,`species`) values(0,'대도유료낚시터','경상남도 하동군 금남면 대도길 117, 대도복지회관','34.932254','127.832022','좌대 15,000원 방갈로 25,000원','','해면어류');
 insert into `FISHING`(`FISHING_NO`,`fishing_Nm`,`addr`,`latitude`,`longitude`,`useCharge`,`phone`,`species`) values(0,'송문유료낚시터','경상남도 하동군 금남면 미법마을길 40-5','34.951171','127.855957','방갈로 30,000원','','해면어류');
 insert into `FISHING`(`FISHING_NO`,`fishing_Nm`,`addr`,`latitude`,`longitude`,`useCharge`,`phone`,`species`) values(0,'바지선 선상낚시','제주특별자치도 서귀포시 토평동 516 남측 450m 지선','33.24568966369','126.5775384632','성인40000원+초등학생30000원','','자리돔+어랭이+청복+용치놀래기');
+
+
 
 SELECT*FROM `MEMBER`;
 SELECT*FROM `BOARD`;
