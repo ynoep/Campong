@@ -15,13 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.campong.bagpacking.model.service.BagpackingService;
 import com.multi.campong.bagpacking.model.vo.Bagpacking;
+import com.multi.campong.bagpacking.model.vo.BagpackingReply;
 import com.multi.campong.bagpacking.model.vo.Fishing;
+import com.multi.campong.bagpacking.model.vo.FishingReply;
 import com.multi.campong.common.util.PageInfo;
+import com.multi.campong.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -173,7 +179,8 @@ public class BagpackingController {
 		model.addAttribute("content", content);
 		model.addAttribute("overview", overview);
 		model.addAttribute("infocenter", infocenter);
-//		model.addAttribute("replyList", bagpacking.getReplyList());
+		model.addAttribute("replyList", content.getReplyList());
+		
 		return "bagpacking/bagpacking-detail";
 	}
 	
@@ -191,8 +198,74 @@ public class BagpackingController {
 		
 		model.addAttribute("content", content);
 		model.addAttribute("speciesList", speciesList);
-//		model.addAttribute("replyList", bagpacking.getReplyList());
+		model.addAttribute("replyList", content.getReplyList());
+		
 		return "bagpacking/fishing-detail";
+	}
+	
+	@RequestMapping("/bagpackingReply")
+	public String writeBagpackingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@ModelAttribute BagpackingReply reply) {
+//		reply.setMNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
+		reply.setMNo(1); // uNO 1로 테스트
+		log.info("리플 작성 요청 Reply : " + reply);
+
+		int result = service.saveBagpackingReply(reply);
+
+		if (result > 0) {
+			model.addAttribute("msg", "댓글이 등록되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 등록에 실패하였습니다.");
+		}
+		model.addAttribute("location", "/bagpacking/bagpacking-detail?contentId=" + reply.getContentId());
+		return "common/msg";
+	}
+	
+	@RequestMapping("/bagpackingReplyDel")
+	public String deleteBagpackingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			int replyNo, int contentId) {
+		log.info("댓글 삭제 요청");
+		int result = service.deleteBagpackingReply(replyNo);
+
+		if (result > 0) {
+			model.addAttribute("msg", "댓글 삭제가 정상적으로 완료되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 삭제에 실패하였습니다.");
+		}
+		model.addAttribute("location", "/bagpacking/bagpacking-detail?contentId=" + contentId);
+		return "/common/msg";
+	}
+	@RequestMapping("/fishingReply")
+	public String writeFishingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			@ModelAttribute FishingReply reply) {
+//		reply.setMNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
+		reply.setMNo(1); // uNO 1로 테스트
+		log.info("리플 작성 요청 Reply : " + reply);
+		
+		int result = service.saveFishingReply(reply);
+		
+		if (result > 0) {
+			model.addAttribute("msg", "댓글이 등록되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 등록에 실패하였습니다.");
+		}
+		model.addAttribute("location", "/bagpacking/fishing-detail?fishingNo=" + reply.getFishingNo());
+		return "common/msg";
+	}
+	
+	@RequestMapping("/fishingReplyDel")
+	public String deleteFishingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+			int replyNo, int fishingNo) {
+		log.info("댓글 삭제 요청");
+		int result = service.deleteFishingReply(replyNo);
+		
+		if (result > 0) {
+			model.addAttribute("msg", "댓글 삭제가 정상적으로 완료되었습니다.");
+		} else {
+			model.addAttribute("msg", "댓글 삭제에 실패하였습니다.");
+		}
+		model.addAttribute("location", "/bagpacking/fishing-detail?fishingNo=" + fishingNo);
+		return "/common/msg";
 	}
 	
 	

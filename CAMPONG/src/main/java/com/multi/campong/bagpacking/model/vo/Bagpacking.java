@@ -2,6 +2,9 @@ package com.multi.campong.bagpacking.model.vo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 
 @Data
@@ -17,4 +20,5 @@ public class Bagpacking {
 	private String addr1;
 	private String addr2;
 	private int readCount;
+	private List<BagpackingReply> replyList;
 }

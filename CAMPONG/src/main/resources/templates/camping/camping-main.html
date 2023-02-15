@@ -68,11 +68,22 @@
 
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
-		<!-- =======================문구 없는 헤더 -->
-		<section class="bih-s-1 position-relative py-9 header-photo"
-			style="background-image:url(/assets/images/header/4.png); background-position:center; background-size:cover;">
+		<section class="bih-s-1 position-relative"
+			style="background-image:url(/assets/images/header/4.png); background-position: center; background-size: cover;">
 			<div class="bg-overlay bg-dark opacity-2"></div>
 			<!-- Background dark overlay -->
+			<div class="bg-overlay bg-dark opacity-3"></div>
+			<div class="container z-index-9 position-relative">
+				<div class="row py-sm-7">
+					<!-- Title -->
+					<div class="col-xl-8 m-auto my-3 text-center">
+						<h3 class="text-white mb-0">
+							캠핑장 어디로 갈지 고민이신가요?<br>
+							캠퐁에서 손쉽게 찾아보세요!
+						</h3>
+					</div>
+				</div>
+			</div>
 		</section>
 		<!-- 상세검색 시작-->
 		<section class="mt-4 pt-5 pb-4">
@@ -283,28 +294,28 @@
 					<div class="camping row border-bottom border-top">
 						<div class="col-4 mt-4 mb-3">
 						<th:block th:if="${content.firstImageUrl != ''}">
-							<img class="campImg shadow-sm" th:src="@{${content.firstImageUrl}}">
+							<img class="campImg shadow-sm" th:src="@{${content.firstImageUrl}}" style="height: 260px;">
 						</th:block>
 						<th:block th:if="${content.firstImageUrl == ''}">
 							<img class="campImg shadow-sm" th:src="@{/assets/campongimg/cloud.png}">
 						</th:block>
 						</div>
 						<div class="col-8 mt-4">
-							<div class="review">리뷰수 0</div>
-							<div class="views">조회수 0</div>
-							<div class="recommend">추천수 0</div>
+							<div class="review mt-2 p-1">리뷰 수 [[${content.reviewCount}]]</div>
+							<div class="views p-1">조회 수 [[${content.readCount}]]</div>
+							<div class="recommend p-1">찜 수 [[${content.bookmarkCount}]]</div>
 							<div class="areaCampname">
 							<a th:href="|/camping/camping-detail?contentId=${content.contentId}|">
 								<span class="area">[ [[${content.doNm}]] [[${content.sigunguNm}]] ] </span>
 								<span class="campName"> [[${content.facltNm}]] </span>
 							</a>
 							</div>
-							<p class="mt-3"><i class="bi bi-geo-alt me-2"></i> [[${content.addr1}]]
+							<p class="mt-2"><i class="bi bi-geo-alt me-2"></i> [[${content.addr1}]]
 								<a th:href="@{#}" class="ms-2 text-decoration-underline" data-bs-toggle="modal"
 									data-bs-target="#mapmodal">
 								</a>
 							</p>
-							<div th:id="|sbrsCl${contentStat.count}|" class="iconBar pt-2 px-2">
+							<div th:id="|sbrsCl${contentStat.count}|" class="iconBar mt-4 pt-2 px-2">
 								<script>
 								$(document).ready(function(){
 									var idx = "[[${contentStat.count}]]";
