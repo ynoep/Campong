@@ -54,4 +54,6 @@ public class Camping {
 	private int bookmarkCount;
 	
 	private List<CampingContentsReply> replyList;
+	
+	private int isBookmark;
 }
