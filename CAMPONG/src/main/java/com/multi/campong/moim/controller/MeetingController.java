@@ -89,6 +89,13 @@ public class MeetingController {
 					return new ResponseEntity<Integer>(0, HttpStatus.OK);
 			  }
 		  }
+	  @GetMapping("/moimModify")
+	  	public ResponseEntity<Integer> moimModify(@RequestParam("mNo")int mNo,@RequestParam("meetNo")int meetNo,@RequestParam("nickName")String nickName){
+		  
+		  int row = mapper.modifyMoim(nickName,meetNo);
+		  
+					return new ResponseEntity<Integer>(1, HttpStatus.OK);
+	  	}
 	
 	 
 	

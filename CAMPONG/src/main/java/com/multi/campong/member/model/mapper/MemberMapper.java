@@ -14,5 +14,6 @@ public interface MemberMapper {
 	
 	//로그인
 	public Member login(Member member);
-	public Member selectMemberByMno(int mNo); 
+	public Member selectMemberByMno(int mNo);
+	public void deleteMember(int mNo); 
 }

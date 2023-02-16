@@ -125,6 +125,11 @@ public class MemberController {
 		System.out.println(mem);
 		 return "sign/myprofile";
 	 }
+	 @GetMapping("/delete.member")
+	 public String deleteMember(@RequestParam("mNo")int mNo) {
+		 mapper.deleteMember(mNo);
+		 return "redirect:/";
+	 }
 	 
 	
 	/*

@@ -236,6 +236,17 @@
 			)
 	</insert>
 	
+	
+	<!--메인에서 쓰는것  -->
+		<select id="selectByBackpacking" resultMap="bagpackingListResultMap" parameterType="String">
+			SELECT * FROM MOUNTAINISLAND WHERE ADDR1 LIKE '%서울%' AND LENGTH(FIRSTIMAGE)>4  ORDER BY RAND() LIMIT 4;
+		</select> 
+		<select id="selectByBackpacking2" resultMap="bagpackingListResultMap" parameterType="String">
+			SELECT * FROM MOUNTAINISLAND WHERE ADDR1 LIKE '%${idCheck}%' AND LENGTH(FIRSTIMAGE)>4  ORDER BY RAND() LIMIT 4;
+		</select> 
+		
+	<!-- 메인에서 쓰는것끝 -->
+	
 	<delete id="deleteFishingReply" parameterType="int">
 		DELETE FROM FISHING_REPLY WHERE REPLY_NO=#{rNo}
 	</delete>

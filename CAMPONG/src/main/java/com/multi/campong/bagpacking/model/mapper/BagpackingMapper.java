@@ -26,4 +26,10 @@ public interface BagpackingMapper {
 	int deleteBagpackingReply(int replyNo);
 	int insertFishingReply(FishingReply reply);
 	int deleteFishingReply(int replyNo);
+	
+
+	//메인에서 쓰는것
+	List<Bagpacking> selectByBackpacking();
+	List<Bagpacking> selectByBackpacking2(String idCheck);
+	//메인에서 쓰는것끝
 }

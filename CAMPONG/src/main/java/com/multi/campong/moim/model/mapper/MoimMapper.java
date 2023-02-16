@@ -14,5 +14,7 @@ import com.multi.campong.moim.model.vo.Moim;
 
 	  public List<Moim> getMoim(); 
 	  public Moim MoimContent(int meetNo);
+
+	public void modifyMoim(Moim m);
 	  }
  

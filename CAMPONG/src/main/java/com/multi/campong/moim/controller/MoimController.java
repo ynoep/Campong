@@ -37,7 +37,24 @@ public class MoimController {
 
 		return "moim/moim-create";
 	}
-
+	
+	@GetMapping("/moim.modify")
+	public String moimModify(int mNo, int meetNo,Model model) {
+		Moim m = mapper.MoimContent(meetNo);
+		System.out.println(m);
+		model.addAttribute("m", m);
+		return "moim/moim-modify";
+	}
+	
+	@PostMapping("/moim.modify2")
+	public String modify(@RequestParam("mNo") int mNo,@RequestParam("meetNo")int meetNo,Moim m) {
+		System.out.println("hi");
+		System.out.println(m);
+		m.setMeetNo(meetNo);
+		mapper.modifyMoim(m);
+		return "redirect:/moim?mNo="+mNo;
+	}
+	
 	@GetMapping("/moim.detail")
 	public String moimDetail(@RequestParam("meetNo") int meetNo,@RequestParam("mNo") int mNo,Model model) {
 		Moim m = mapper.MoimContent(meetNo);
