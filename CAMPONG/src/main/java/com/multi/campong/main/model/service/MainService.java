@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.multi.campong.bagpacking.model.vo.Bagpacking;
 import com.multi.campong.camping.model.vo.Camping;
 import com.multi.campong.main.model.mapper.MainMapper;
 

@@ -73,11 +73,5 @@
  		WHERE MNO = #{mNo}
 	 </update>
 	 
-	 <update id="deleteMember" parameterType="int">
-	 	UPDATE MEMBER 
-	 		SET STATUS = 'N' 
-	 	WHERE MNO = #{mNo}
-	 </update>
-	
 	
 </mapper>

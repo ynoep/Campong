@@ -155,6 +155,14 @@
 						<div th:text="${vo.ageRange}">10대</div>
 					</div>
 					<!--모집나이 끝-->
+					<!--모집나이 시작-->
+					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
+						<p>모집나이</p>
+					</div>
+					<div class="col-11 mt-3 border-bottom">
+						<div th:text="${vo.gender}">10대</div>
+					</div>
+					<!--모집나이 끝-->
 					<!--연락처 시작-->
 					<div class="col-1 mt-3 border-bottom fw-bold text-black text-center">
 						<p>연락처</p>
@@ -200,6 +208,7 @@
 					<!-- 모임에 가입되어 있지 않으면-->
 					<input type="submit" class="goSubmit me-3" id="GoMoim" th:value="가입하기" onclick="moimRegisterCheck()"  th:if="${mvo.count !=vo.apes}" th:unless="${viewPhone==1}" />
 					<input type="button" class="goSubmit me-3" id="GoMoim" th:value="정원초과"  th:if="${mvo.count ==vo.apes}" />
+					<a th:href=@{/moim.modify(mNo=${session.mvo.mNo},meetNo=${vo.meetNo})} ><input type="button" class="goList me-3 fw-bold" id="GoMoim" th:value="수정하기" style="color:green; background-color:white;" onclick="moimModify()"  th:if="${viewPhone==1 and vo.nickName== session.mvo.nickName}"/></a>
 					<input type="button" class="goList me-3 fw-bold" id="GoMoim" th:value="삭제하기" style="color:red; background-color:white;" onclick="moimOutDeleted()"  th:if="${viewPhone==1 and vo.nickName== session.mvo.nickName}"/>
 					<input type="button" class="goList me-3 fw-bold" id="GoMoim" th:value="탈퇴하기" style="color:red; background-color:white;" onclick="moimOut()"  th:if="${viewPhone==1}" th:unless="${vo.nickName== session.mvo.nickName}"/>
 				</div>

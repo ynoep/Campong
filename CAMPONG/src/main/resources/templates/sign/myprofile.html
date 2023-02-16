@@ -268,7 +268,7 @@
 									<ul>
 										<li>회원탈퇴시, 계정복구가 불가능합니다.</li>
 									</ul>
-									<a href="#" class="btn btn-danger btn-sm mb-0">회원탈퇴하기</a>
+									<a th:href="@{/delete.member(mNo=${session.mvo.mNo})}" class="btn btn-danger btn-sm mb-0">회원탈퇴하기</a>
 								</div>
 								<!-- Card body END -->
 							</div>

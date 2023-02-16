@@ -53,7 +53,12 @@
 		<select id="selectMemberByMno" resultMap="memberMap">
 		select * from member where USER_NO =#{mNo}
 		</select>
-
+		
+		
+	 
+		 <delete id="deleteMember" parameterType="int">
+		 	DELETE FROM MEMBER WHERE USER_NO =#{mNo}
+		 </delete>
 
 
 

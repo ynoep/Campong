@@ -34,8 +34,13 @@
 	</select>
 	
 	<select id="MoimContent" parameterType="int" resultMap="MoimMap">
-		SELECT * FROM MEETING where MEET_NO=#{meetNo};
+		SELECT * FROM MEETING where MEET_NO=#{meetNo}
 	</select>
+	
+	<update id="modifyMoim" parameterType="com.multi.campong.moim.model.vo.Moim">
+		UPDATE MEETING SET TITLE=#{title} ,AGERANGE =#{ageRange},GENDER=#{gender},PHONE=#{phone},ENDDATE=#{endDate},EXPENSE=#{expense},INTRODUCTION=#{introduction}
+		WHERE MEET_NO=#{meetNo}
+	</update>
 
 	
 
