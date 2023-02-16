@@ -3,6 +3,7 @@ package com.multi.campong.camping.model.service;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +33,12 @@ public class CampingService {
 		return mapper.selectCampingList(param);
 	}
 
-	public Camping findByNo(int contentId) {
-		Camping camping = mapper.selectCampingByNo(contentId); 
+	@Transactional(rollbackFor = Exception.class)
+	public Camping findByNo(int contentId, int mNo) {
+		Map<String, String> map = new HashMap<>();
+		map.put("contentId", ""+ contentId);
+		map.put("mNo", ""+ mNo);
+		Camping camping = mapper.selectCampingByNo(map); 
 		camping.setReadCount(camping.getReadCount() + 1);  
 		mapper.updateReadCount(camping);
 		return camping;
@@ -41,7 +46,10 @@ public class CampingService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public int saveReply(CampingContentsReply reply) {
-		Camping camping = mapper.selectCampingByNo(reply.getContentId());
+		Map<String, String> map = new HashMap<>();
+		map.put("contentId", ""+ reply.getContentId());
+		map.put("mNo", ""+ reply.getMNo());
+		Camping camping = mapper.selectCampingByNo(map);
 		camping.setReviewCount(camping.getReviewCount() + 1);
 		mapper.updateReviewCount(camping);
 		return mapper.insertReply(reply);
@@ -82,6 +90,30 @@ public class CampingService {
 		if(file.exists()) {
 			file.delete();
 		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int bookmarkCamp(int mNo, int contentId) {
+		Map<String, String> map = new HashMap<>();
+		map.put("contentId", ""+ contentId);
+		map.put("mNo", ""+ mNo);
+		Camping camping = mapper.selectCampingByNo(map);
+		camping.setBookmarkCount(camping.getBookmarkCount() + 1);
+		mapper.updateBookmarkCount(camping);
+		return mapper.bookmarkCamp(map);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int unBookmarkCamp(int mNo, int contentId) {
+		Map<String, String> map = new HashMap<>();
+		map.put("contentId", ""+ contentId);
+		map.put("mNo", ""+ mNo);
+		Camping camping = mapper.selectCampingByNo(map);
+		if(camping.getBookmarkCount() != 0) {
+			camping.setBookmarkCount(camping.getBookmarkCount() - 1);
+			mapper.updateBookmarkCount(camping);		
+		}
+		return mapper.unBookmarkCamp(map);
 	}
 
 }
