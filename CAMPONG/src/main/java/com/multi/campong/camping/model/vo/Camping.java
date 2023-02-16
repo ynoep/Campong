@@ -1,5 +1,7 @@
 package com.multi.campong.camping.model.vo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,4 +48,10 @@ public class Camping {
 	private String eqpmnLendCl;
 	private String animalCmgCl;
 	private String firstImageUrl;
+	
+	private int readCount;
+	private int reviewCount;
+	private int bookmarkCount;
+	
+	private List<CampingContentsReply> replyList;
 }

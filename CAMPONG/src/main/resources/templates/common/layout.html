@@ -67,12 +67,16 @@
 					<ul class="navbar-nav navbar-nav-scroll mx-auto align-items-center ">
 	
 						<!-- Nav item Listing -->
+						<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/camping/camping-main}">캠핑</a> </li>
+						<!-- Nav item Listing -->
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" th:href="@{/camping/camping-main}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">캠핑</a>
+							<a class="nav-link dropdown-toggle" th:href="@{/bagpacking/bagpacking-main}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">백패킹</a>
 							<ul class="dropdown-menu" aria-labelledby="listingMenu">
 								
-								<li> <a class="dropdown-item" th:href="@{/camping/camping-main}">캠핑장</a></li>
-								<li> <a class="dropdown-item" th:href="@{/bagpacking/bagpacking-main}">백패킹</a></li>
+								<li> <a class="dropdown-item" th:href="@{/bagpacking/bagpacking-main}">메인</a></li>
+								<li> <a class="dropdown-item" th:href="@{/bagpacking/mountain-list}">산</a></li>
+								<li> <a class="dropdown-item" th:href="@{/bagpacking/island-list}">섬</a></li>
+								<li> <a class="dropdown-item" th:href="@{/bagpacking/fishing-list}">낚시</a></li>
 							</ul>
 						</li>
 						<!-- Nav item Listing -->

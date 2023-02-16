@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.multi.campong.bagpacking.model.mapper.BagpackingMapper;
 import com.multi.campong.bagpacking.model.vo.Bagpacking;
+import com.multi.campong.bagpacking.model.vo.BagpackingReply;
 import com.multi.campong.bagpacking.model.vo.Fishing;
+import com.multi.campong.bagpacking.model.vo.FishingReply;
 import com.multi.campong.common.util.PageInfo;
 
 @Service
@@ -65,5 +67,22 @@ public class BagpackingService {
 //		bagpacking.setReadCount(bagpacking.getReadCount() + 1);  
 //		mapper.updateReadCount(bagpacking);
 		return fishing; 
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int saveBagpackingReply(BagpackingReply reply) {
+		return mapper.insertBagpackingReply(reply);
+	}
+
+	public int deleteBagpackingReply(int replyNo) {
+		return mapper.deleteBagpackingReply(replyNo);
+	}
+
+	public int saveFishingReply(FishingReply reply) {
+		return mapper.insertFishingReply(reply);
+	}
+
+	public int deleteFishingReply(int replyNo) {
+		return mapper.deleteFishingReply(replyNo);
 	}
 }

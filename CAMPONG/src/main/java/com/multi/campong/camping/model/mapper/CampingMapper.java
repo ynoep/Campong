@@ -6,10 +6,16 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.multi.campong.camping.model.vo.Camping;
+import com.multi.campong.camping.model.vo.CampingContentsReply;
 
 @Mapper
 public interface CampingMapper {
 	List<Camping> selectCampingList(Map<String, Object> map);
 	int selectCampingCount(Map<String, Object> map);
 	Camping selectCampingByNo(int contentId);
+	int insertReply(CampingContentsReply reply);
+	int deleteReply(int no);
+	void updateReadCount(Camping camping);
+	void updateReviewCount(Camping camping);
+	void updateBookmarkCount(Camping camping);
 }

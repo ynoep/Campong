@@ -228,86 +228,70 @@
 						<!-- Card body START -->
 						<div class="card-body pt-4 p-0">
 							<!-- Leave review START -->
-							<form class="mb-5">
-								<!-- Message -->
-								<div class="form-control-bg-light mb-3">
-									<textarea class="form-control" id="exampleFormControlTextarea1"
-										placeholder="Your review" rows="5"></textarea>
-								</div>
-								<!-- Button -->
-								<button type="submit" class="btn btn-lg btn-primary mb-0">리뷰 등록 <i
-										class="bi fa-fw bi-arrow-right ms-2"></i></button>
-							</form>
-							<!-- Leave review END -->
-
-							<!-- Review item START -->
-							<div class="d-md-flex my-4">
-								<!-- Avatar -->
-								<div class="avatar avatar-lg me-3 flex-shrink-0">
-									<img class="avatar-img rounded-circle" th:src="@{/assets/images/bagpacking/08.jpg}"
-										alt="avatar">
-								</div>
-								<!-- Text -->
-								<div>
-									<div class="d-flex justify-content-between mt-1 mt-md-0">
-										<div>
-											<h6 class="me-3 mb-0">Jacqueline Miller</h6>
-											<!-- Info -->
-											<ul class="nav nav-divider small mb-2">
-												<li class="nav-item">Stayed 13 Nov 2022</li>
-												<li class="nav-item">4 Reviews written</li>
-											</ul>
-										</div>
-										<!-- Review star -->
-										<div class="icon-md rounded text-bg-warning fs-6">4.5</div>
+							<th:block th:if="${session.mvo != null}">
+								<!-- Leave review START -->
+								<form class="mb-5" action="/bagpacking/bagpackingReply" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="fishingNo" th:value="${content.contentId}"/>
+									<!-- Message -->
+									<div class="form-control-bg-light mb-3">
+										<textarea class="form-control" id="replyContent" name="content"
+											placeholder="리뷰를 남겨주세요." rows="5"></textarea>
 									</div>
-
-									<p class="mb-2">Handsome met debating sir dwelling age material. As style lived he
-										worse dried. Offered related so visitors we private removed. Moderate do
-										subjects to distance. </p>
-								</div>
+									<!-- 이미지 첨부 -->
+<!-- 												<label class="fs-4" for="upfile" style="cursor: pointer;"> -->
+<!-- 													<i class="bi bi-image"></i> -->
+<!-- 												</label> -->
+<!-- 												<input class="" type="file" id="upfile" name="upfile" accept="image/*" style="display: none"> -->
+									<input class="" type="file" id="upfile" name="upfile" accept="image/*"><br>
+									<!-- Button -->
+									<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록<i
+											class="bi fa-fw bi-arrow-right ms-2"></i></button>
+								</form>
+								<!-- Leave review END -->
+							</th:block>
+							<th:block th:if="${session.mvo == null}">
+							<div class="row text-center">
+								<h5>로그인 후 리뷰를 남겨보세요!</h5>
 							</div>
-
-							<!-- Divider -->
-							<hr>
-							<!-- Review item END -->
-
-							<!-- Review item START -->
-							<div class="d-md-flex my-4">
-								<!-- Avatar -->
-								<div class="avatar avatar-lg me-3 flex-shrink-0">
-									<img class="avatar-img rounded-circle" th:src="@{/assets/images/bagpacking/08.jpg}"
-										alt="avatar">
+							</th:block>
+							
+							<th:block th:if="${replyList == null}">
+								<!-- Review item START -->
+								<div class="d-md-flex my-4">
+									<h5>등록된 리뷰가 없습니다.</h5>
 								</div>
-								<!-- Text -->
-								<div>
-									<div class="d-flex justify-content-between mt-1 mt-md-0">
-										<div>
-											<h6 class="me-3 mb-0">Dennis Barrett</h6>
-											<!-- Info -->
-											<ul class="nav nav-divider small mb-2">
-												<li class="nav-item">Stayed 02 Nov 2022</li>
-												<li class="nav-item">2 Reviews written</li>
-											</ul>
-										</div>
-										<!-- Review star -->
-										<div class="icon-md rounded text-bg-warning fs-6">4.0</div>
+							</th:block>
+							<th:block th:if="${replyList != null}">
+								<th:block th:each="reply : ${replyList}">
+								<!-- Review item START -->
+								<div class="d-md-flex my-4">
+									<!-- Avatar -->
+									<div class="avatar avatar-lg me-3 flex-shrink-0">
+										<img class="avatar-img rounded-circle" th:src="@{/assets/images/bagpacking/08.jpg}"
+											alt="avatar">
 									</div>
-
-									<p class="mb-0">Delivered dejection necessary objection do Mr prevailed. Mr feeling
-										does chiefly cordial in do. Water timed folly right aware if oh truth. Large
-										above be to means. Dashwood does provide stronger is.</p>
+									<!-- Text -->
+									<div>
+										<div class="d-flex justify-content-between mt-1 mt-md-0">
+											<div>
+												<h5 class="me-3 mb-0">[[${reply.nickName}]]</h5>
+												<!-- Info -->
+												<p class="small">[[${#dates.format(reply.createDate)}]]</p>
+											</div>
+										</div>
+										<p class="mb-2">[[${reply.content}]]</p>
+									</div>
 								</div>
-							</div>
-
-							<!-- Divider -->
-							<hr>
-							<!-- Review item END -->
-
-							<!-- Button -->
-							<div class="text-center mt-5">
-								<a th:href="@{#}" class="btn btn-primary-soft mb-0">더보기</a>
-							</div>
+	
+								<!-- Divider -->
+								<hr>
+								<!-- Review item END -->
+								</th:block>
+							</th:block>
+<!-- 							Button -->
+<!-- 							<div class="text-center mt-5"> -->
+<!-- 								<a th:href="@{#}" class="btn btn-primary-soft mb-0">더보기</a> -->
+<!-- 							</div> -->
 						</div>
 						<!-- Card body END -->
 					</div>

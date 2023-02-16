@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.multi.campong.bagpacking.model.vo.Bagpacking;
+import com.multi.campong.bagpacking.model.vo.BagpackingReply;
 import com.multi.campong.bagpacking.model.vo.Fishing;
+import com.multi.campong.bagpacking.model.vo.FishingReply;
 
 @Mapper
 public interface BagpackingMapper {
@@ -20,4 +22,8 @@ public interface BagpackingMapper {
 	Fishing selectFishingByNo(int fishingNo);
 	List<Bagpacking> selectBagpackingBestList(Map<String, String> map);
 //	int updateReadCount(Bagpacking bagpacking);
+	int insertBagpackingReply(BagpackingReply reply);
+	int deleteBagpackingReply(int replyNo);
+	int insertFishingReply(FishingReply reply);
+	int deleteFishingReply(int replyNo);
 }

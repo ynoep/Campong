@@ -41,6 +41,26 @@
 		<result property="eqpmnLendCl" column="EQPMNLENDCL"/>
 		<result property="animalCmgCl" column="ANIMALCMGCL"/>
 		<result property="firstImageUrl" column="FIRSTIMAGEURL"/>
+		<result property="readCount" column="READCOUNT"/>
+		<result property="reviewCount" column="REVIEWCOUNT"/>
+		<result property="bookmarkCount" column="BOOKMARKCOUNT"/>
+	</resultMap>
+	
+	<resultMap type="CampingContentsReply" id="campingContentsReplyResultMap">
+		<id property="rNo" column="REPLY_NO"/>
+		<result property="contentId" column="CONTENTID"/>
+		<result property="mNo" column="USER_NO"/>
+		<result property="content" column="CONTENT"/>
+		<result property="status" column="STATUS"/>
+		<result property="originalFileName" column="ORIGINAL_FILENAME"/>
+		<result property="renameFileName" column="RENAME_FILENAME"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="nickName" column="NICKNAME"/>
+	</resultMap>
+	
+	<resultMap type="Camping" id="campingDetailResultMap" extends="campingListResultMap">
+		<collection property="replyList" javaType="arrayList" columnPrefix="R_" 
+												resultMap="campingContentsReplyResultMap"/>
 	</resultMap>
 	
 	<select id="selectCampingList" resultMap="campingListResultMap" parameterType="map">
@@ -52,7 +72,7 @@
 			INDVDLCARAVSITECO, TOOLTIP, GLAMPINNERFCLTY, CARAVINNERFCLTY,
 			OPERDECL, TOILETCO, SWRMCO, WTRPLCO, BRAZIERCL, SBRSCL,
 			POSBLFCLTYCL, THEMAENVRNCL, EQPMNLENDCL, ANIMALCMGCL,
-			FIRSTIMAGEURL
+			FIRSTIMAGEURL, READCOUNT, REVIEWCOUNT, BOOKMARKCOUNT
 		FROM CAMPING_CONTENTS
 		WHERE 1 = 1
 		<if test="sido != null">
@@ -85,7 +105,7 @@
 		<if test="checkedPet != null">
 			AND ANIMALCMGCL LIKE '${checkedPet}%'
 		</if>
-		ORDER BY FIRSTIMAGEURL='' ASC LIMIT ${limit} OFFSET ${offset}
+		ORDER BY FIRSTIMAGEURL='' ASC, FACLTNM='' ASC LIMIT ${limit} OFFSET ${offset}
 	</select>
 	
 	<select id="selectCampingCount" resultType="int" parameterType="map">
@@ -125,18 +145,54 @@
 		</if>
 	</select>
 	
-	<select id="selectCampingByNo" resultMap="campingListResultMap" parameterType="int">
+	<select id="selectCampingByNo" resultMap="campingDetailResultMap" parameterType="int">
 		SELECT  
-			CONTENTID, FACLTNM, LINEINTRO, INTRO, MANAGESTTUS, 
-			FEATURENM, INDUTY, LCTCL, DONM, SIGUNGUNM, ZIPCODE, 
-			ADDR1, ADDR2, MAPX, MAPY, DIRECTION,TEL, HOMEPAGE,
-			RESVECL, GNRLSITECO, AUTOSITECO, GLAMPSITECO, CARAVSITECO,
-			INDVDLCARAVSITECO, TOOLTIP, GLAMPINNERFCLTY, CARAVINNERFCLTY,
-			OPERDECL, TOILETCO, SWRMCO, WTRPLCO, BRAZIERCL, SBRSCL,
-			POSBLFCLTYCL, THEMAENVRNCL, EQPMNLENDCL, ANIMALCMGCL,
-			FIRSTIMAGEURL
-		FROM CAMPING_CONTENTS
-		WHERE CONTENTID = #{contentId}
+			C.CONTENTID, C.FACLTNM, C.LINEINTRO, C.INTRO, C.MANAGESTTUS, 
+			C.FEATURENM, C.INDUTY, C.LCTCL, C.DONM, C.SIGUNGUNM, C.ZIPCODE, 
+			C.ADDR1, C.ADDR2, C.MAPX, C.MAPY, C.DIRECTION,TEL, C.HOMEPAGE,
+			C.RESVECL, C.GNRLSITECO, C.AUTOSITECO, C.GLAMPSITECO, C.CARAVSITECO,
+			C.INDVDLCARAVSITECO, C.TOOLTIP, C.GLAMPINNERFCLTY, C.CARAVINNERFCLTY,
+			C.OPERDECL, C.TOILETCO, C.SWRMCO, C.WTRPLCO, C.BRAZIERCL, C.SBRSCL,
+			C.POSBLFCLTYCL, C.THEMAENVRNCL, C.EQPMNLENDCL, C.ANIMALCMGCL,
+			C.FIRSTIMAGEURL, C.READCOUNT, C.REVIEWCOUNT, C.BOOKMARKCOUNT,
+			R.REPLY_NO AS R_REPLY_NO, 
+		    R.CONTENTID AS R_CONTENTID,
+		    R.CONTENT AS R_CONTENT, 
+		    R.ORIGINAL_FILENAME AS R_ORIGINAL_FILENAME, 
+		    R.RENAME_FILENAME AS R_RENAME_FILENAME, 
+		    M.NICKNAME AS R_NICKNAME, 
+		    R.CREATE_DATE AS R_CREATE_DATE
+		FROM CAMPING_CONTENTS C
+		LEFT OUTER JOIN CAMPING_CONTENTS_REPLY R ON (C.CONTENTID = R.CONTENTID)
+		LEFT OUTER JOIN MEMBER M ON (R.USER_NO = M.USER_NO)
+		WHERE C.CONTENTID = #{contentId}
 	</select>
-
+	
+	<insert id="insertReply" parameterType="CampingContentsReply">
+		INSERT INTO CAMPING_CONTENTS_REPLY(
+				REPLY_NO, CONTENTID, USER_NO, 
+				CONTENT, STATUS, ORIGINAL_FILENAME, 
+				RENAME_FILENAME, CREATE_DATE) 
+			VALUES(
+				0, #{contentId}, #{mNo}, 
+				#{content}, DEFAULT, #{originalFileName}, 
+				#{renameFileName}, DEFAULT
+			)
+	</insert>
+	
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM CAMPING_CONTENTS_REPLY WHERE REPLY_NO=#{rNo}
+	</delete>
+	
+	<update id="updateReadCount" parameterType="map">
+		UPDATE CAMPING_CONTENTS SET READCOUNT=#{readCount} WHERE CONTENTID=#{contentId}
+	</update>
+	
+	<update id="updateReviewCount" parameterType="map">
+		UPDATE CAMPING_CONTENTS SET REVIEWCOUNT=#{reviewCount} WHERE CONTENTID=#{contentId}
+	</update>
+	
+	<update id="updateBookmarkCount" parameterType="map">
+		UPDATE CAMPING_CONTENTS SET BOOKMARKCOUNT=#{bookmarkCount} WHERE CONTENTID=#{contentId}
+	</update>
 </mapper>
