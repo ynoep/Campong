@@ -164,16 +164,12 @@ Main banner START -->
 				
 			</table>
 			
-			<!-- 로그인 적용 후 교체 -->
-			<!-- <th:block th:if="${session.loginMember != null}">
+			<th:block th:if="${session.mvo != null && session.mvo.role == 'ROLE_ADMIN'}">
 				<div class="d-flex justify-content-end">
-					<button type="button" class="btn btn-primary mt-3" onclick="location.href='/board/board-write'">글쓰기<i class="bi fa-fw bi-arrow-right ms-2"></i></button>
+					<button type="button" class="btn btn-primary mt-3" onclick="location.href='/board/notice-write'">글쓰기<i class="bi fa-fw bi-arrow-right ms-2"></i></button>
 				</div>
-			</th:block> -->
+			</th:block>
 			
-			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-primary mt-3" onclick="location.href='/board/notice-write'">글쓰기<i class="bi fa-fw bi-arrow-right ms-2"></i></button>
-			</div>
 			
 		</div>
 		<!-- 게시글 끝 -->

@@ -97,13 +97,13 @@ public class BoardController {
 
 	@PostMapping("/board-write")
 	public String writeBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, @ModelAttribute Board board,
 			@RequestParam("upfile") MultipartFile upfile) {
 		log.info("게시글 작성 요청");
 
-//		board.setUNo(loginMember.getUNo()); // 로그인 적용후 교체
-		board.setUNo(1);
-
+		board.setUNo(loginMember.getMNo()); // 로그인 적용후 교체
+//		board.setUNo(1);
+		
 		// 파일 저장 로직
 		if (upfile != null && upfile.isEmpty() == false) {
 			String renameFileName = service.saveFile(upfile, savePath);
@@ -116,7 +116,7 @@ public class BoardController {
 
 		log.debug("board : " + board);
 		int result = service.saveBoard(board);
-
+		System.out.println(result);
 		if (result > 0) {
 			model.addAttribute("msg", "게시글이 등록 되었습니다.");
 			model.addAttribute("location", "/board/board-list");
@@ -129,10 +129,10 @@ public class BoardController {
 	}
 
 	@RequestMapping("/reply")
-	public String writeReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String writeReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@ModelAttribute Reply reply) {
-//		reply.setUNo(loginMember.getUNo()); // 로그인 기능 구현 후 교체할 것
-		reply.setUNo(1); // uNO 1로 테스트
+		reply.setUNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
+//		reply.setUNo(1); // uNO 1로 테스트
 		log.info("리플 작성 요청 Reply : " + reply);
 
 		int result = service.saveReply(reply);
@@ -148,7 +148,7 @@ public class BoardController {
 
 	@RequestMapping("/delete")
 	public String deleteBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, int boardNo) {
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, int boardNo) {
 		log.info("게시글 삭제 요청 boardNo : " + boardNo);
 		int result = service.deleteBoard(boardNo, savePath);
 
@@ -162,7 +162,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/replyDel")
-	public String deleteReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String deleteReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			int replyNo, int boardNo) {
 		log.info("댓글 삭제 요청");
 		int result = service.deleteReply(replyNo);
@@ -177,7 +177,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/board-update")
-	public String updateView(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String updateView(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@RequestParam("no") int no) {
 		Board board = service.findByNo(no);
 		model.addAttribute("board", board);
@@ -186,12 +186,12 @@ public class BoardController {
 
 	@PostMapping("/board-update")
 	public String updateBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, @ModelAttribute Board board,
 			@RequestParam("reloadFile") MultipartFile reloadFile) {
 		log.info("게시글 수정 요청");
 
-//		board.setUNo(loginMember.getUNo()); // 로그인 적용 후 교체
-		board.setUNo(1);
+		board.setUNo(loginMember.getMNo()); // 로그인 적용 후 교체
+//		board.setUNo(1);
 
 		
 		// 파일 저장 로직
@@ -303,12 +303,12 @@ public class BoardController {
 
 	@PostMapping("/notice-write")
 	public String noticeWriteBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, @ModelAttribute Board board,
 			@RequestParam("upfile") MultipartFile upfile) {
 		log.info("게시글 작성 요청");
 
-//		board.setUNo(loginMember.getUNo()); // 로그인 적용후 어드민으로 교체
-		board.setUNo(1);
+		board.setUNo(loginMember.getMNo()); // 로그인 적용후 어드민으로 교체
+//		board.setUNo(1);
 
 		// 파일 저장 로직
 		if (upfile != null && upfile.isEmpty() == false) {
@@ -336,7 +336,7 @@ public class BoardController {
 
 	@RequestMapping("/noticeDelete")
 	public String noticeDeleteBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, int boardNo) {
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, int boardNo) {
 		log.info("게시글 삭제 요청 boardNo : " + boardNo);
 		int result = service.deleteBoard(boardNo, savePath);
 
@@ -350,7 +350,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/notice-update")
-	public String noticeUpdateView(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String noticeUpdateView(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@RequestParam("no") int no) {
 		Board board = service.findByNoticeNo(no);
 		model.addAttribute("board", board);
@@ -359,12 +359,12 @@ public class BoardController {
 
 	@PostMapping("/notice-update")
 	public String noticeUpdateBoard(Model model, HttpSession session,
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember, @ModelAttribute Board board,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember, @ModelAttribute Board board,
 			@RequestParam("reloadFile") MultipartFile reloadFile) {
 		log.info("공지사항 게시글 수정 요청");
 
-//		board.setUNo(loginMember.getUNo()); // 로그인 적용 후 교체
-		board.setUNo(1);
+		board.setUNo(loginMember.getMNo()); // 로그인 적용 후 교체
+//		board.setUNo(1);
 
 		// 파일 저장 로직
 		if(reloadFile != null && reloadFile.isEmpty() == false) {
