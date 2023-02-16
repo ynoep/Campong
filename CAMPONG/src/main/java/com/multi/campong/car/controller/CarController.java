@@ -1,9 +1,9 @@
 package com.multi.campong.car.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,23 @@ public class CarController {
 
 	@Autowired
 	private CarService service;
+	
+	//이미지 랜덤 인덱스 생성
+	public int[] createRdImgIdx(int length, int range) {
+		Random rd = new Random();
+		int[] idx = new int[length];
+		
+		for (int i=0; i<idx.length; i++) {
+			idx[i] = rd.nextInt(range) + 1;
+			for (int j=0; j<i; j++) {
+				if (idx[i] == idx[j]) {
+					i--;
+					break;
+				}
+			}
+		}
+		return idx;
+	}
 
 	@GetMapping("/traffic-car")
 	public String car(Model model, @RequestParam Map<String, String> paramMap) {
@@ -35,9 +52,9 @@ public class CarController {
 		// 탐색할 맵을 선언
 		Map<String, String> searchMap = new HashMap<String, String>();
 		try {
-			String searchValue = paramMap.get("searchValue");
-			if (searchValue != null && searchValue.length() > 0) {
-				searchMap.put("searchValue", searchValue);
+			String city = paramMap.get("city");
+			if (city != null) {
+				searchMap.put("city", city);
 			}
 			page = Integer.parseInt(paramMap.get("page"));
 		} catch (Exception e) {}
@@ -45,14 +62,18 @@ public class CarController {
 		int carCount = service.getCarCount(searchMap);
 		PageInfo pageInfo = new PageInfo(page, 10, carCount, 3);
 		List<Car> list = service.getCarList(pageInfo, searchMap);
+		
+		//업체 랜덤 이미지
+		int[] imgIdx = createRdImgIdx(3, 18);
 
 		model.addAttribute("list", list);
 		model.addAttribute("paramMap", paramMap);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("carCount", carCount);
+		model.addAttribute("imgIdx", imgIdx);
 		
-//		log.info("searchMap : " + searchMap.toString());
-//		log.info("paramMap : " + paramMap.toString());
+		log.info("searchMap : " + searchMap.toString());
+		log.info("paramMap : " + paramMap.toString());
 //		log.info(Integer.toString(carCount));
 		
 		return "car/traffic-car";
