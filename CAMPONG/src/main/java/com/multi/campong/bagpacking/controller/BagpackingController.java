@@ -204,11 +204,10 @@ public class BagpackingController {
 	}
 	
 	@RequestMapping("/bagpackingReply")
-	public String writeBagpackingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String writeBagpackingReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@ModelAttribute BagpackingReply reply) {
-//		reply.setMNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
-		reply.setMNo(1); // uNO 1로 테스트
-		log.info("리플 작성 요청 Reply : " + reply);
+		// 로그인한 멤버의 정보 입력
+		reply.setMNo(loginMember.getMNo());
 
 		int result = service.saveBagpackingReply(reply);
 
@@ -222,7 +221,7 @@ public class BagpackingController {
 	}
 	
 	@RequestMapping("/bagpackingReplyDel")
-	public String deleteBagpackingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String deleteBagpackingReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			int replyNo, int contentId) {
 		log.info("댓글 삭제 요청");
 		int result = service.deleteBagpackingReply(replyNo);
@@ -236,11 +235,10 @@ public class BagpackingController {
 		return "/common/msg";
 	}
 	@RequestMapping("/fishingReply")
-	public String writeFishingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String writeFishingReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@ModelAttribute FishingReply reply) {
-//		reply.setMNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
-		reply.setMNo(1); // uNO 1로 테스트
-		log.info("리플 작성 요청 Reply : " + reply);
+		// 로그인한 멤버의 정보 입력
+		reply.setMNo(loginMember.getMNo());
 		
 		int result = service.saveFishingReply(reply);
 		
@@ -254,7 +252,7 @@ public class BagpackingController {
 	}
 	
 	@RequestMapping("/fishingReplyDel")
-	public String deleteFishingReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String deleteFishingReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			int replyNo, int fishingNo) {
 		log.info("댓글 삭제 요청");
 		int result = service.deleteFishingReply(replyNo);

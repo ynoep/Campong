@@ -303,6 +303,7 @@
 										</div>
 										<!-- Card body START -->
 										<div class="card-body pt-4 p-0">
+										<th:block th:if="${session.mvo != null}">
 											<!-- Leave review START -->
 											<form class="mb-5" action="/camping/reply" method="post" enctype="multipart/form-data">
 												<input type="hidden" name="contentId" th:value="${content.contentId}"/>
@@ -318,10 +319,16 @@
 <!-- 												<input class="" type="file" id="upfile" name="upfile" accept="image/*" style="display: none"> -->
 												<input class="" type="file" id="upfile" name="upfile" accept="image/*"><br>
 												<!-- Button -->
-												<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록 <i
+												<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록<i
 														class="bi fa-fw bi-arrow-right ms-2"></i></button>
 											</form>
 											<!-- Leave review END -->
+										</th:block>
+										<th:block th:if="${session.mvo == null}">
+										<div class="row text-center">
+											<h5>로그인 후 리뷰를 남겨보세요!</h5>
+										</div>
+										</th:block>
 										</div>
 										<!-- Card body END -->
 									</div>

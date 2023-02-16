@@ -143,12 +143,12 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/reply")
-	public String writeReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+//	public String writeReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+	public String writeReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@ModelAttribute CampingContentsReply reply,
 			@RequestParam("upfile") MultipartFile upfile) {
-//		reply.setMNo(loginMember.getMNo()); // 로그인 기능 구현 후 교체할 것
-		reply.setMNo(1); // uNO 1로 테스트
-		log.info("리플 작성 요청 Reply : " + reply);
+		// 로그인한 멤버의 정보 입력
+		reply.setMNo(loginMember.getMNo());
 
 		// 파일 저장 로직
 		if (upfile != null && upfile.isEmpty() == false) {

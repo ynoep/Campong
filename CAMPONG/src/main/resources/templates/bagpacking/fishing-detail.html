@@ -190,19 +190,32 @@
 
 						<!-- Card body START -->
 						<div class="card-body pt-4 p-0">
-							<!-- Leave review START -->
-							<form class="mb-5" action="/bagpacking/fishingReply" method="post" enctype="multipart/form-data">
-								<input type="hidden" name="fishingNo" th:value="${content.fishingNo}"/>
-								<!-- Message -->
-								<div class="form-control-bg-light mb-3">
-									<textarea class="form-control" id="replyContent" name="content"
-										placeholder="리뷰를 남겨주세요." rows="5"></textarea>
-								</div>
-								<!-- Button -->
-								<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록 <i
-										class="bi fa-fw bi-arrow-right ms-2"></i></button>
-							</form>
-							<!-- Leave review END -->
+							<th:block th:if="${session.mvo != null}">
+								<!-- Leave review START -->
+								<form class="mb-5" action="/bagpacking/fishingReply" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="fishingNo" th:value="${content.fishingNo}"/>
+									<!-- Message -->
+									<div class="form-control-bg-light mb-3">
+										<textarea class="form-control" id="replyContent" name="content"
+											placeholder="리뷰를 남겨주세요." rows="5"></textarea>
+									</div>
+									<!-- 이미지 첨부 -->
+<!-- 												<label class="fs-4" for="upfile" style="cursor: pointer;"> -->
+<!-- 													<i class="bi bi-image"></i> -->
+<!-- 												</label> -->
+<!-- 												<input class="" type="file" id="upfile" name="upfile" accept="image/*" style="display: none"> -->
+									<input class="" type="file" id="upfile" name="upfile" accept="image/*"><br>
+									<!-- Button -->
+									<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록<i
+											class="bi fa-fw bi-arrow-right ms-2"></i></button>
+								</form>
+								<!-- Leave review END -->
+							</th:block>
+							<th:block th:if="${session.mvo == null}">
+							<div class="row text-center">
+								<h5>로그인 후 리뷰를 남겨보세요!</h5>
+							</div>
+							</th:block>
 							
 							<th:block th:if="${replyList == null}">
 								<!-- Review item START -->
