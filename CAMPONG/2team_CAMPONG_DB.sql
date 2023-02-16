@@ -1462,7 +1462,6 @@ SELECT*FROM `MOUNTAINISLAND`;
 SELECT*FROM `BUS_TICKET`;
 SELECT*FROM `TRAIN_TICKET`;
 
-
 ----------------------------------- DDL 끝-------------------------------------------
 
 -- MEMBER DML

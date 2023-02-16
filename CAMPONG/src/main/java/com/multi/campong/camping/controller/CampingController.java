@@ -51,7 +51,9 @@ public class CampingController {
 //	final static private String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\upload\\";
 	
 	@GetMapping("/camping-main")
-	public String campingMain(Model model, @RequestParam Map<String, String> paramMap,
+	public String campingMain(Model model,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember,
+			@RequestParam Map<String, String> paramMap,
 			@RequestParam(required = false) List<String> checkedTheme,
 			@RequestParam(required = false) List<String> checkedFclty,
 			@RequestParam(required = false) String checkedPet,
@@ -106,6 +108,10 @@ public class CampingController {
 			page = Integer.parseInt(paramMap.get("page"));
 		} catch (Exception e) {}
 		
+		if(loginMember != null) {
+			searchMap.put("mNo", ""+loginMember.getMNo());
+		}
+		
 		int campingCount = service.getCampingCount(searchMap);
 		PageInfo pageInfo = new PageInfo(page, 10, campingCount, 5);
 		List<Camping> list = service.getCampingList(pageInfo, searchMap);
@@ -124,9 +130,15 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/camping-detail")
-	public String campingDetail(Model model, @RequestParam("contentId") int contentId) {
-		Camping content = service.findByNo(contentId);
-		String[] facilitys = content.getSbrsCl().split(",");
+	public String campingDetail(Model model,
+			@SessionAttribute(name = "mvo", required = false) Member loginMember,
+			@RequestParam("contentId") int contentId) {
+		int mNo = 0;
+		if(loginMember != null) {
+			mNo = loginMember.getMNo();
+		}
+		
+		Camping content = service.findByNo(contentId, mNo);
 		
 //		String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\upload";
 //		log.info("위치 : " + dir);
@@ -134,6 +146,7 @@ public class CampingController {
 		if(content == null) {
 			return "redirect:error";
 		}
+		String[] facilitys = content.getSbrsCl().split(",");
 		
 		model.addAttribute("content", content);
 		model.addAttribute("facilitys", facilitys);
@@ -143,7 +156,6 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/reply")
-//	public String writeReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
 	public String writeReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@ModelAttribute CampingContentsReply reply,
 			@RequestParam("upfile") MultipartFile upfile) {
@@ -172,8 +184,8 @@ public class CampingController {
 	}
 	
 	@RequestMapping("/replyDel")
-	public String deleteReply(Model model, @SessionAttribute(name = "loginMember", required = false) Member loginMember,
-			int replyNo, int boardNo) {
+	public String deleteReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
+			int replyNo, int contentId) {
 		log.info("댓글 삭제 요청");
 		int result = service.deleteReply(replyNo);
 
@@ -182,7 +194,7 @@ public class CampingController {
 		} else {
 			model.addAttribute("msg", "댓글 삭제에 실패하였습니다.");
 		}
-		model.addAttribute("location", "/board/board-view?no=" + boardNo);
+		model.addAttribute("location", "/camping/camping-detail?contentId=" + contentId);
 		return "/common/msg";
 	}
 	
@@ -243,5 +255,25 @@ public class CampingController {
 	@GetMapping("/images/{filename}")
 	public Resource showImage(@PathVariable String filename) throws MalformedURLException {
 	    return new UrlResource("file:" + savePath + filename);
+	}
+	
+	@GetMapping("/bookmark") 
+	public ResponseEntity<Integer> campBookmark(
+			@SessionAttribute(name = "mvo", required = false) Member loginMember,
+			int contentId, int isBookmark)
+	{
+		int result = 0;
+		if(isBookmark == 1) {
+			result = service.bookmarkCamp(loginMember.getMNo(), contentId);	
+		}else {
+			result = service.unBookmarkCamp(loginMember.getMNo(), contentId);	
+		}
+		
+		if(result > 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(isBookmark);
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		
 	}
 }

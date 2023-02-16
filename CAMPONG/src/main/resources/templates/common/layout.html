@@ -79,25 +79,7 @@
 								<li> <a class="dropdown-item" th:href="@{/bagpacking/fishing-list}">낚시</a></li>
 							</ul>
 						</li>
-						<!-- Nav item Listing -->
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" th:href="@{/shop/shopping}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">쇼핑</a>
-							<ul class="dropdown-menu" aria-labelledby="listingMenu">
-								
-								<li> <a class="dropdown-item" th:href="@{/shop/shopping}">쇼핑메인</a></li>
-								<li> <a class="dropdown-item" th:href="@{/shop/shopping-basket}">장바구니</a></li>
-							</ul>
-						</li>
-						<!-- Nav item Listing -->
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" th:href="@{/board/list}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
-							<ul class="dropdown-menu" aria-labelledby="listingMenu">
-								<li> <a class="dropdown-item" th:href="@{/board/notice-list}">공지사항</a></li>
-								<li> <a class="dropdown-item" th:href="@{/board/board-list}">게시판</a></li>
-								<li> <a class="dropdown-item" th:if="${session.mvo !=null}" th:href="@{/moim(mNo =${session.mvo.mNo})}">캠핑모임</a></li>
-								<li> <a class="dropdown-item" th:href="@{/recipe/recipe}">캠핑꿀팁</a></li>
-							</ul>
-						</li>
+						<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/shop/shopping}">쇼핑</a> </li>
 						<!-- Nav item Listing -->
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" th:href="@{/traffic/traffic-bus}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교통</a>
@@ -109,6 +91,16 @@
 						</li>
 						<!-- Nav item Link -->
 						<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/event/event}">행사</a> </li>
+						<!-- Nav item Listing -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" th:href="@{/board/list}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
+							<ul class="dropdown-menu" aria-labelledby="listingMenu">
+								<li> <a class="dropdown-item" th:href="@{/board/notice-list}">공지사항</a></li>
+								<li> <a class="dropdown-item" th:href="@{/board/board-list}">게시판</a></li>
+								<li> <a class="dropdown-item" th:if="${session.mvo !=null}" th:href="@{/moim(mNo =${session.mvo.mNo})}">캠핑모임</a></li>
+								<li> <a class="dropdown-item" th:href="@{/recipe/recipe}">캠핑꿀팁</a></li>
+							</ul>
+						</li>
 					</ul>
 					<!-- 헤더 가운데 끝-->
 					<!-- 헤더 오른쪽 -->
@@ -118,12 +110,6 @@
 						<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/sign.in}">로그인</a> </li>
 					</ul>
 					</div>
-					
-					<!-- <div class="">
-						<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
-							<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/member/account-profile}">내정보</a> </li>
-						</ul>
-					</div> -->
 					 <div class="" th:if="${session.mvo !=null}">
 						<ul class="navbar-nav navbar-nav-scroll mx-auto" style="float:right">
 							<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/myprofile(mNo=${session.mvo.mNo})}">내정보</a> </li>

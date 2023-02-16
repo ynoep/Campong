@@ -83,9 +83,8 @@
 				<h3 class="mb-1 d-inline-block">[[${content.facltNm}]]</h3>
 <!-- 				<button class="btn btn-primary d-inline-block float-end"><i class="bi bi-hand-thumbs-up"></i> 추천</button> -->
 				<th:block th:if="${session.mvo != null}">
-				<button class="btn btn-outline-dark float-end ms-3"><i class="bi bi-bookmark-star"></i><span class="ms-2">찜</span></button>
-<!-- 				<div class="heart" th:id="|heart${content.contentId}|" th:value="${content.isLike}" th:onclick="|onClickHeart('heart${content.contentId}', '${content.contentId}');|"> -->
-<!-- 				</div> -->
+				<div class="heart float-end" th:id="|heart${content.contentId}|" th:value="${content.isBookmark}" th:onclick="|onClickHeart('heart${content.contentId}', '${content.contentId}');|">
+				</div>
 				</th:block>
 				</div>
 				<p class="fw-bold mb-0"><i class="bi bi-geo-alt me-2"></i> [[${content.addr1}]]
@@ -488,6 +487,8 @@
 			}
 		}
 		
+		
+		// 북마크 ================================================================
 		// 초기화 문구
 	    $(function(){
 	        // 하트 class 초기화
@@ -496,9 +497,9 @@
 	            heartValue = JSON.parse(heartItems[i].getAttribute('value'));
 
 	            if(heartValue == 1){
-	                heartItems[i].innerHTML = '<img src="/images/heart-fill.svg">';
+	                heartItems[i].innerHTML = '<i class="bi bi-bookmark-star-fill fs-2" style="cursor: pointer; color: var(--bs-success);"></i>';
 	            }else{
-	                heartItems[i].innerHTML = '<img src="/images/heart.svg">';
+	                heartItems[i].innerHTML = '<i class="bi bi-bookmark-star fs-2" style="cursor: pointer;"></i>';
 	            }
 	        }
 	    });
@@ -511,7 +512,7 @@
 	        $('#'+id).text((likeValue > 0 ? '+' : '') + likeValue);
 	    }
 
-	    function onClickHeart(id, bNo){
+	    function onClickHeart(id, contentId){
 	        heartValue = JSON.parse($('#'+id).attr('value'));
 	        if(heartValue == 0){
 	        	heartValue = 1;
@@ -521,15 +522,15 @@
 	        // 여기에 AJAX로 DB 업데이트하는 코드 있어야함!!
 	        $.ajax({
 				method:'get',
-				url:'/board/like?bNo=' + bNo +'&isLike=' + heartValue ,
+				url:'/camping/bookmark?contentId=' + contentId +'&isBookmark=' + heartValue ,
 				contentType: 'application/json',
 				dataType : 'json',
 				success: (result) =>{
 					$('#'+id).attr('value', ''+result);
 			        if(result == 1){
-			            $('#'+id).html('<img src="/images/heart-fill.svg">');
+			            $('#'+id).html('<i class="bi bi-bookmark-star-fill fs-2" style="cursor: pointer; color: var(--bs-success);"></i>');
 			        }else{
-			            $('#'+id).html('<img src="/images/heart.svg">');
+			            $('#'+id).html('<i class="bi bi-bookmark-star fs-2" style="cursor: pointer;"></i>');
 			        }
 				},
 				error : (e) => {
@@ -538,6 +539,7 @@
 			});
 	    }
 	</script>
+	
 	<script>
 	$(document).ready(() => {
 // 		$("#btnUpdate").on("click", (e) => {
