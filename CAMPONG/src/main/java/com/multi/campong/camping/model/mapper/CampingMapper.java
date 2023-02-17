@@ -12,10 +12,12 @@ import com.multi.campong.camping.model.vo.CampingContentsReply;
 public interface CampingMapper {
 	List<Camping> selectCampingList(Map<String, Object> map);
 	int selectCampingCount(Map<String, Object> map);
-	Camping selectCampingByNo(int contentId);
+	Camping selectCampingByNo(Map<String, String> map);
 	int insertReply(CampingContentsReply reply);
 	int deleteReply(int no);
 	void updateReadCount(Camping camping);
 	void updateReviewCount(Camping camping);
 	void updateBookmarkCount(Camping camping);
+	int bookmarkCamp(Map<String, String> map);
+	int unBookmarkCamp(Map<String, String> map);
 }
