@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<th:block th:replace="~{common/layout :: head}"></th:block>
+	<title>Booking - Multipurpose Online Booking Theme</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Booking - Multipurpose Online Booking Theme">
+
+	
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/splide-master/dist/css/splide.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/moim.css}">
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/splide-master/dist/css/splide.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/glightbox/css/glightbox.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/moim.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/total-style.css">
 
 	<!--구글 폰트-->
-	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}" />
-
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		
+	<!-- SUIT 폰트 추가-->
+	<link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
 	<script th:inline="javascript">
 		function checkNumber(event) {
 		  if(event.key === '.'  || event.key === '-'  || event.key >= 0 && event.key <= 9) {
@@ -164,14 +188,41 @@
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
 
+	<!-- =======================
+Footer START -->
+<footer class="bg-dark py-5">
+	<div class="container">
+	<div class="row mx-auto">
+	<div class="col-md-10 col-xl-6 mx-auto text-center">
+	<!-- Logo -->
+	<img class="mx-auto h-60px mb-3" src="assets/images/logo_cam.png" alt="logo">
+	<!-- 팀원 -->
+	<ul class="nav justify-content-between text-primary-hover mt-3 mt-md-0">
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이동건</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">김재혁</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">박윤희</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">백인화</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이상진</a></li>
+	<li class="nav-item"><a class="nav-link p-2 text-white" href="#">이유광</a></li>
+	</ul>
+	<div class="text-muted text-primary-hover mt-0"> Copyrights ©2023. Multicampus Fullstack Team2 CAMPONG.<br>All rights reserved. </div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
 	<!-- Back to top -->
 	<div class="back-top"></div>
 
-	<footer th:replace="~{common/layout :: #footer}"></footer>
+	<!-- Bootstrap JS -->
+	<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Vendors -->
-	<script th:src="@{/assets/vendor/splide-master/dist/js/splide.min.js}"></script>
+	<script src="assets/vendor/splide-master/dist/js/splide.min.js"></script>
+	<script src="assets/vendor/glightbox/js/glightbox.js"></script>
 
+	<!-- ThemeFunctions -->
+	<script src="assets/js/functions.js"></script>
 
 </body>
 
