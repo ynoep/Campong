@@ -1,10 +1,11 @@
 package com.multi.campong.member.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
-import jakarta.validation.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class Member {
 	private String status;
 	private Date enrollDate;
 	private Date modifyDate;
-	private String profileImage;
+    private MultipartFile attachFile;          // 첨부 파일
+    private List<MultipartFile> imageFiles;    // 첨부 이미지
 	
 }

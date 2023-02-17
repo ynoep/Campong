@@ -68,7 +68,7 @@
 														class="bi bi-person fa-fw me-2"></i>회원정보</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link submenu" href="shopping-basket.html"><i
+												<a class="nav-link submenu" th:href="@{/shop/shopping.basket(mNo=${session.mvo.mNo})}"><i
 														class="bi bi-cart"></i>&nbsp&nbsp&nbsp장바구니</a>
 											</li>
 											<li class="nav-item">
