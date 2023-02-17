@@ -31,6 +31,8 @@ public class HomeController {
 		return "home";
 	}
 	
+	
+	
 //	public void test() {
 //		Map<String, String> map = new HashMap<>();
 //		PageInfo info = new PageInfo(1, 10, service.getBoardCount(map), 10);

@@ -85,7 +85,7 @@
 							<ul class="dropdown-menu" aria-labelledby="listingMenu">
 								
 								<li> <a class="dropdown-item" th:href="@{/shop/shopping}">쇼핑메인</a></li>
-								<li> <a class="dropdown-item" th:href="@{/shop/shopping-basket}">장바구니</a></li>
+								<li> <a class="dropdown-item" th:if="${session.mvo !=null}" th:href="@{/shop/shopping.basket(mNo=${session.mvo.mNo})}">장바구니</a></li>
 							</ul>
 						</li>
 						<!-- Nav item Listing -->
