@@ -35,15 +35,9 @@
 				<div class="row g-2">
 					<!-- Image -->
 					<div class="col-md-6">
-						<a data-glightbox data-gallery="gallery" th:href="@{/assets/images/bagpacking/mountain.jpg}">
-							<div class="card card-grid-lg card-element-hover card-overlay-hover overflow-hidden"
-								th:style="'background-image:url('+ |/assets/images/bagpacking/fishing${content.fishingNo % 18}.jpg| +'); background-position: center left; background-size: cover;'">
-								<!-- Card hover element -->
-								<div class="hover-element position-absolute w-100 h-100">
-									<i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-								</div>
-							</div>
-						</a>
+						<div class="card card-grid-lg overflow-hidden"
+							th:style="'background-image:url('+ |/assets/images/bagpacking/fishing${content.fishingNo % 18}.jpg| +'); background-position: center left; background-size: cover;'">
+						</div>
 					</div>
 
 					<div class="col-md-6">
@@ -51,30 +45,16 @@
 						<div class="row g-2">
 							<!-- Image -->
 							<div class="col-12">
-								<a data-glightbox data-gallery="gallery" th:href="@{/assets/images/bagpacking/mountain.jpg}">
-									<div class="card card-grid-sm card-element-hover card-overlay-hover overflow-hidden"
-										th:style="'background-image:url('+ |/assets/images/bagpacking/fishingDetail1.jpg| +'); background-position: center left; background-size: cover;'">
-										<!-- Card hover element -->
-										<div class="hover-element position-absolute w-100 h-100">
-											<i
-												class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-										</div>
-									</div>
-								</a>
+								<div class="card card-grid-sm overflow-hidden"
+									th:style="'background-image:url('+ |/assets/images/bagpacking/fishingDetail1.jpg| +'); background-position: center left; background-size: cover;'">
+								</div>
 							</div>
 
 							<!-- Image -->
 							<div class="col-md-6">
-								<a data-glightbox data-gallery="gallery" th:href="@{/assets/images/bagpacking/mountain.jpg}">
-									<div class="card card-grid-sm card-element-hover card-overlay-hover overflow-hidden"
-										th:style="'background-image:url('+ |/assets/images/bagpacking/fishingDetail2.jpg| +'); background-position: center left; background-size: cover;'">
-										<!-- Card hover element -->
-										<div class="hover-element position-absolute w-100 h-100">
-											<i
-												class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-										</div>
-									</div>
-								</a>
+								<div class="card card-grid-sm overflow-hidden"
+									th:style="'background-image:url('+ |/assets/images/bagpacking/fishingDetail2.jpg| +'); background-position: center left; background-size: cover;'">
+								</div>
 							</div>
 
 							<!-- Images -->
@@ -86,8 +66,10 @@
 
 									<!-- Popup Images -->
 									<a data-glightbox="" data-gallery="gallery"
-										th:href="|/assets/images/bagpacking/fishingDetail1.jpg|"
+										th:href="|/assets/images/bagpacking/fishing${content.fishingNo % 18}.jpg|"
 										class="stretched-link z-index-9"></a>
+									<a data-glightbox="" data-gallery="gallery"
+										th:href="|/assets/images/bagpacking/fishingDetail1.jpg|"></a>
 									<a data-glightbox="" data-gallery="gallery"
 										th:href="|/assets/images/bagpacking/fishingDetail2.jpg|"></a>
 									<a data-glightbox="" data-gallery="gallery"
@@ -204,7 +186,7 @@
 <!-- 													<i class="bi bi-image"></i> -->
 <!-- 												</label> -->
 <!-- 												<input class="" type="file" id="upfile" name="upfile" accept="image/*" style="display: none"> -->
-									<input class="" type="file" id="upfile" name="upfile" accept="image/*"><br>
+<!-- 									<input class="" type="file" id="upfile" name="upfile" accept="image/*"><br> -->
 									<!-- Button -->
 									<button type="submit" class="btn btn-primary mb-0 mt-2">리뷰 등록<i
 											class="bi fa-fw bi-arrow-right ms-2"></i></button>
@@ -225,18 +207,19 @@
 							</th:block>
 							<th:block th:if="${replyList != null}">
 								<th:block th:each="reply : ${replyList}">
-								<!-- Review item START -->
 								<div class="d-md-flex my-4">
 									<!-- Avatar -->
-									<div class="avatar avatar-lg me-3 flex-shrink-0">
-										<img class="avatar-img rounded-circle" th:src="@{/assets/images/bagpacking/08.jpg}"
-											alt="avatar">
-									</div>
+									<th:block th:if="${reply.renamedProfileImage.equals('0')}">
+										<img class="avatar-img rounded-circle reply_avatar" th:src="@{/assets/campongimg/defaultImage.png}" alt="avatar">
+									</th:block>
+									<th:block th:if="!${reply.renamedProfileImage.equals('0')}">
+										<img class="avatar-img rounded-circle reply_avatar" th:src="|file/${reply.renamedProfileImage}|" alt="avatar">
+									</th:block>
 									<!-- Text -->
-									<div>
+									<div class="ms-3">
 										<div class="d-flex justify-content-between mt-1 mt-md-0">
 											<div>
-												<h5 class="me-3 mb-0">[[${reply.nickName}]]</h5>
+												<h5 class="mb-0">[[${reply.nickName}]]</h5>
 												<!-- Info -->
 												<p class="small">[[${#dates.format(reply.createDate)}]]</p>
 											</div>
@@ -244,7 +227,6 @@
 										<p class="mb-2">[[${reply.content}]]</p>
 									</div>
 								</div>
-	
 								<!-- Divider -->
 								<hr>
 								<!-- Review item END -->

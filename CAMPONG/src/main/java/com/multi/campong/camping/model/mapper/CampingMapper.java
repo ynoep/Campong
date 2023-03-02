@@ -10,6 +10,7 @@ import com.multi.campong.camping.model.vo.CampingContentsReply;
 
 @Mapper
 public interface CampingMapper {
+	List<CampingContentsReply> getCampingReplyAll(int contentId);
 	List<Camping> selectCampingList(Map<String, Object> map);
 	int selectCampingCount(Map<String, Object> map);
 	Camping selectCampingByNo(Map<String, String> map);
@@ -21,4 +22,6 @@ public interface CampingMapper {
 	int bookmarkCamp(Map<String, String> map);
 	int unBookmarkCamp(Map<String, String> map);
 	List<Camping> selectBookmarkList(int mNo);
+	CampingContentsReply getCampSelectmNoMax(int mNo);
+	void allBookMarkDelete(int mNo);
 }

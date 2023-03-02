@@ -3,9 +3,42 @@
 <head>
 	<th:block th:replace="~{common/layout :: head}"></th:block>
 
-	<script type="text/javascript">
+	<script src="https://code.jquery.com/jquery-3.6.3.slim.js" integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
+	<script th:inline="javascript">
+   			 /*<![CDATA[*/
+		
+   			$(function(){
+			var selectedSido = /*[[${sido}]]*/;
+			var selectedGugun = /*[[${gugun}]]*/;
+			var temp = {};
+			temp['value'] = selectedSido;
+			categoryChange(temp);
+			var target = document.getElementById("sido");
+			for(var i = 0; i < target.options.length; i++){
+				if(target.options[i].value == selectedSido){
+					target.options[i].selected = true;
+					break;
+				}
+			}
+			
+			
+			target = document.getElementById("gugun");
+			for(var i = 0; i < target.options.length; i++){
+				if(target.options[i].value == selectedGugun){
+					target.options[i].selected = true;
+					break;
+				}
+			}
+		});
+	
+       function init(){
+    	   
+       }
+   			 
+   				 
 		/* 드롭박스 */
 		function categoryChange(e) {
+			
 			var good_a = ["전체", "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];
 			var good_b = ["전체", "강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", "서구", "수영구", "연제구", "영도구", "중구", "해운대구"];
 			var good_c = ["전체", "남구", "달서구", "달성군", "동구", "북구", "상주", "서구", "수성구", "중구"];
@@ -25,6 +58,7 @@
 			var good_q = ["전체", "서귀포시", "제주시"];
 			var target = document.getElementById("gugun");
 			
+			
 			if (e.value == '서울') var d = good_a;
 			else if (e.value == "부산시") var d = good_b;
 			else if (e.value == "대구시") var d = good_c;
@@ -42,16 +76,20 @@
 			else if (e.value == "경상북도") var d = good_o;
 			else if (e.value == "경상남도") var d = good_p;
 			else if (e.value == "제주도") var d = good_q;
+			else var d = good_a;
 
+			
 			target.options.length = 0;
-
+	
 			for (x in d) {
 				var opt = document.createElement("option");
 				opt.value = d[x];
 				opt.innerHTML = d[x];
 				target.appendChild(opt);
 			}
+			
 		}
+		/*]]>*/
 	</script>
 	
 	<!--구글 폰트-->
@@ -86,7 +124,9 @@
 		</section>
 		<!-- 상세검색 시작-->
 		<section class="mt-4 pt-5 pb-4">
-			<form th:action="@{/camping/camping-main}" method="get">
+			<form id="cardForm" th:action="@{/camping/camping-main}" method="get">
+			<!-- *** -->
+			<input type="hidden" id="page" name="page" value="1">
 			<!-- 키워드검색 시작-->
 			<div class="container position-relative search" style="background-color:rgb(238, 240, 240)">
 				<div class="searchDeatil2 row pb-3 px-2">
@@ -101,10 +141,9 @@
 						<p>테마</p>
 					</div>
 					<div class="col-4 mt-0">
-						<select id = "sido" name="sido" class="select me-2 ps-1" onchange="categoryChange(this)">
+						<select id = "sido" name="sido" class="select me-2 ps-1" onchange="categoryChange(this)" th:value="${selectedSido}">
 							<option>전체</option>
-							<option value="서울"
-							th:selected="${selectedSido.equals('서울') ? 'selected' : null}">서울</option> <!-- 수정 필요 -->
+							<option value="서울">서울</option> <!-- 수정 필요 -->
 							<option value="부산시">부산시</option>
 							<option value="대구시">대구시</option>
 							<option value="인천시">인천시</option>
@@ -131,21 +170,21 @@
 						<select id="lctCl" name="lctCl" class="allTheme ps-1">
 							<option value="전체">전체</option>
 							<option value="해변"
-							th:selected="${selectedLctCl.equals('해변') ? 'selected' : null}">해변</option>
+							th:selected="${#strings.equals(param.lctCl, '해변')}">해변</option>
 							<option value="강"
-							th:selected="${selectedLctCl.equals('강') ? 'selected' : null}">강</option>
+							th:selected="${#strings.equals(param.lctCl, '강')}">강</option>
 							<option value="섬"
-							th:selected="${selectedLctCl.equals('섬') ? 'selected' : null}">섬</option>
+							th:selected="${#strings.equals(param.lctCl, '섬')}">섬</option>
 							<option value="산"
-							th:selected="${selectedLctCl.equals('산') ? 'selected' : null}">산</option>
+							th:selected="${#strings.equals(param.lctCl, '산')}">산</option>
 							<option value="숲"
-							th:selected="${selectedLctCl.equals('숲') ? 'selected' : null}">숲</option>
+							th:selected="${#strings.equals(param.lctCl, '숲')}">숲</option>
 							<option value="호수"
-							th:selected="${selectedLctCl.equals('호수') ? 'selected' : null}">호수</option>
+							th:selected="${#strings.equals(param.lctCl, '호수')}">호수</option>
 							<option value="도심"
-							th:selected="${selectedLctCl.equals('도심') ? 'selected' : null}">도심</option>
+							th:selected="${#strings.equals(param.lctCl, '도심')}">도심</option>
 							<option value="계곡"
-							th:selected="${selectedLctCl.equals('계곡') ? 'selected' : null}">계곡</option>
+							th:selected="${#strings.equals(param.lctCl, '계곡')}">계곡</option>
 						</select>
 					</div>
 					<div class="keyword subtitle col-12 mt-4 mb-1 fw-bold">
@@ -155,7 +194,7 @@
 						<input id="searchValue" name="searchValue" class="searchBox" type="text" th:value="${param.searchValue}" placeholder=" 검색어를 입력하세요." />
 					</div>
 					<div class="col-6">
-						<button class="campSearch" type="submit">캠핑장 검색 +</button>
+						<button class="campSearch" type="submit">캠핑장 검색</button>
 					</div>
 				</div>
 			</div>
@@ -383,46 +422,52 @@
 				</div>
 			</div>
 		</section>
-		<!--페이지-->
-		<div class="pagination">
-			<nav class="mt-1" aria-label="navigation">
-				<ul class="pagination pagination-primary-soft rounded">
-					<!--이전 페이지 -->
-					<li class="page-item mb-0">
-						<button class="page-link"
-							th:onclick="|movePage('/camping/camping-main?page=${pageInfo.prevPage}');|" tabindex="-1">
-							<i class="fa-solid fa-angle-left"></i>
-						</button>
-					</li>
-								
-					<!-- 10개 페이지 -->
-					<th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
-						<th:block th:if="${status.current == pageInfo.currentPage}">
-							<li class="page-item mb-0">
-								<button class="page-link active" th:onclick="|movePage('/camping/camping-main?page=${status.current}');|" disabled>
-								[[${status.current}]]
-								</button>
-							</li>
-						</th:block>
-						<th:block th:if="${status.current != pageInfo.currentPage}">
-							<li class="page-item mb-0">
-								<button class="page-link" th:onclick="|movePage('/camping/camping-main?page=${status.current}');|">
-								[[${status.current}]]
-								</button>
-							</li>
-						</th:block>
+		<!-- 페이징 -->
+				<th:block th:if="${list.size == 0}">
+						<div></div>
 					</th:block>
-					
-					<!--다음 페이지 -->
-					<li class="page-item mb-0">
-						<button class="page-link" th:onclick="|movePage('/camping/camping-main?page=${pageInfo.nextPage}');|">
-							<i class="fa-solid fa-angle-right"></i>
-						</button>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<!--페이지끝-->
+					<th:block th:if="${list.size != 0}">
+				<div class="row" style="margin-top:50px; margin-bottom:50px;">
+					<div class="col-12">
+						<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+							<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+								<!--이전 페이지 -->
+								<li class="page-item mb-0">
+									<button class="page-link"
+										th:onclick="|movePage('${pageInfo.prevPage}');|" tabindex="-1">
+										<i class="fa-solid fa-angle-left"></i>
+									</button>
+								</li>
+											
+								<!-- 10개 페이지 -->
+								<th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+									<th:block th:if="${status.current == pageInfo.currentPage}">
+										<li class="page-item mb-0">
+											<button class="page-link active" th:onclick="|movePage('${status.current}');|" disabled>
+											[[${status.current}]]
+											</button>
+										</li>
+									</th:block>
+									<th:block th:if="${status.current != pageInfo.currentPage}">
+										<li class="page-item mb-0">
+											<button class="page-link" th:onclick="|movePage('${status.current}');|">
+											[[${status.current}]]
+											</button>
+										</li>
+									</th:block>
+								</th:block>
+								
+								<!--다음 페이지 -->
+								<li class="page-item mb-0">
+									<button class="page-link" th:onclick="|movePage('${pageInfo.nextPage}');|">
+										<i class="fa-solid fa-angle-right"></i>
+									</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- Pagination END-->
 
 
 	</main>
@@ -438,50 +483,57 @@
 	<script th:src="@{/assets/vendor/splide-master/dist/js/splide.min.js}"></script>
 	
 	<script type="text/javascript">
-	function movePage(pageUrl){
-		var searchValue = document.getElementById("searchValue");
-		var sido = document.getElementById("sido");
-		var gugun = document.getElementById("gugun");
-		var lctCl = document.getElementById("lctCl");
-		<!--검색 필터-->
-		var checkedThemes = document.getElementsByName("checkedTheme");
-		var checkedTheme = 'checkedTheme';
+// 	function movePage(pageUrl){
+// 		var searchValue = document.getElementById("searchValue");
+// 		var sido = document.getElementById("sido");
+// 		var gugun = document.getElementById("gugun");
+// 		var lctCl = document.getElementById("lctCl");
+// 		<!--검색 필터-->
+// 		var checkedThemes = document.getElementsByName("checkedTheme");
+// 		var checkedTheme = 'checkedTheme';
 		
-		var checkedFcltys = document.getElementsByName("checkedFclty");
-		var checkedFclty = 'checkedFclty';
+// 		var checkedFcltys = document.getElementsByName("checkedFclty");
+// 		var checkedFclty = 'checkedFclty';
 		
-		var checkedPets = document.getElementsByName("checkedPet");
-		var checkedPet = 'checkedPet';
+// 		var checkedPets = document.getElementsByName("checkedPet");
+// 		var checkedPet = 'checkedPet';
 		
 		
-		if(sido.selectd == true){
-			pageUrl = pageUrl + '&sido=' + sido.value; 
-		}
-		if(gugun.selectd == true){
-			pageUrl = pageUrl + '&gugun=' + gugun.value; 
-		}
-		if(lctCl.selectd == true){
-			pageUrl = pageUrl + '&lctCl=' + lctCl.value; 
-		}
-		for(var i = 0; i < checkedThemes.length; i++){
-			if(checkedThemes[i].checked == true){
-				pageUrl += '&checkedTheme=' + checkedThemes[i].value;
-			}
-		}
-		for(var i = 0; i < checkedFcltys.length; i++){
-			if(checkedFcltys[i].checked == true){
-				pageUrl += '&checkedFclty=' + checkedFcltys[i].value;
-			}
-		}
-		for(var i = 0; i < checkedPets.length; i++){
-			if(checkedPets[i].checked == true){
-				pageUrl += '&checkedPet=' + checkedPets[i].value;
-			}
-		}
-		if(searchValue.value.length > 0){
-			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
-		}
-		location.href = encodeURI(pageUrl);	
+// 		if(sido.selectd == true){
+// 			pageUrl = pageUrl + '&sido=' + sido.value; 
+// 		}
+// 		if(gugun.selectd == true){
+// 			pageUrl = pageUrl + '&gugun=' + gugun.value; 
+// 		}
+// 		if(lctCl.selectd == true){
+// 			pageUrl = pageUrl + '&lctCl=' + lctCl.value; 
+// 		}
+// 		for(var i = 0; i < checkedThemes.length; i++){
+// 			if(checkedThemes[i].checked == true){
+// 				pageUrl += '&checkedTheme=' + checkedThemes[i].value;
+// 			}
+// 		}
+// 		for(var i = 0; i < checkedFcltys.length; i++){
+// 			if(checkedFcltys[i].checked == true){
+// 				pageUrl += '&checkedFclty=' + checkedFcltys[i].value;
+// 			}
+// 		}
+// 		for(var i = 0; i < checkedPets.length; i++){
+// 			if(checkedPets[i].checked == true){
+// 				pageUrl += '&checkedPet=' + checkedPets[i].value;
+// 			}
+// 		}
+// 		if(searchValue.value.length > 0){
+// 			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+// 		}
+// 		location.href = encodeURI(pageUrl);	
+// 	}
+	// 검색필터유지하고 페이징
+	function movePage(pageNum){
+		var form = document.getElementById("cardForm");
+		var page = document.getElementById("page");
+		page.value = pageNum;
+		form.submit();
 	}
 	</script>
 

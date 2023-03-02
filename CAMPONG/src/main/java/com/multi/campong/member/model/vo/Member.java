@@ -1,9 +1,6 @@
 package com.multi.campong.member.model.vo;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +20,11 @@ public class Member {
 	private String email1;
 	private String email2;
 	private String address;
-	private String kakaoToken;
+	private String kakaoToKen;
 	private String status;
 	private Date enrollDate;
 	private Date modifyDate;
-    private MultipartFile attachFile;          // 첨부 파일
-    private List<MultipartFile> imageFiles;    // 첨부 이미지
+	private String profileImage;
+	private String renamedProfileImage;
 	
 }

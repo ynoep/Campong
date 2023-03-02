@@ -17,15 +17,13 @@
 	<main>
 		<!-- ======================문구 있는 헤더 -->
 		<section class="bih-s-1 position-relative"
-			style="background-image: url(/assets/images/header/7.png); background-position: center; background-size: cover;">
+			style="background-image: url(/assets/images/header/003.jpg); background-position: center bottom; background-size: cover;">
 			<!-- Background dark overlay -->
-			<div class="bg-overlay bg-dark opacity-3"></div>
+			<div class="bg-overlay"></div>
 			<div class="container z-index-9 position-relative">
-				<div class="row py-sm-7">
-					<!-- Title -->
-					<div class="col-xl-8 m-auto my-7 text-center">
+				<div class="row py-sm-7 mt-4">
+					<div class="col-xl-8 m-auto my-8 text-center">
 						<h3 class="text-white mb-0">
-							캠핑 필수 아이템, <br>캠퐁에서 손쉽게 찾아보세요
 						</h3>
 					</div>
 				</div>
@@ -81,36 +79,15 @@
 									<div class="form-control-borderless">
 										<label class="form-label pb-2">캠핑 용품</label>
 										<div class="row g-2">
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox" value="텐트"
-														th:checked="${#arrays.contains(Item, '텐트')  ? 'checked' : null}"
-														name="Item" id="Item1"> <label
-														class="form-check-label h6 mb-0" for="Item1"> 텐트 </label>
-												</div>
-											</div>
-
-											<!-- checkbox -->
-											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-												<div class="form-check">
-													<input class="form-check-input" type="checkbox"
-														value="취사용품"
-														th:checked="${#arrays.contains(Item, '취사용품')  ? 'checked' : null}"
-														name="Item" id="Item2"> <label
-														class="form-check-label h6 mb-0" for="Item2"> 취사용품
-													</label>
-												</div>
-											</div>
-
+										
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
 														value="캠핑가구"
 														th:checked="${#arrays.contains(Item, '캠핑가구')  ? 'checked' : null}"
-														name="Item" id="Item3"> <label
-														class="form-check-label h6 mb-0" for="Item3"> 캠핑가구
+														name="Item" id="Item1"> <label
+														class="form-check-label h6 mb-0" for="Item1"> 캠핑가구
 													</label>
 												</div>
 											</div>
@@ -121,12 +98,37 @@
 													<input class="form-check-input" type="checkbox"
 														value="캠핑매트"
 														th:checked="${#arrays.contains(Item, '캠핑매트')  ? 'checked' : null}"
-														name="Item" id="Item4"> <label
-														class="form-check-label h6 mb-0" for="Item4"> 캠핑매트
+														name="Item" id="Item2"> <label
+														class="form-check-label h6 mb-0" for="Item2"> 캠핑매트
 													</label>
 												</div>
 											</div>
-
+											
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox"
+														value="취사용품"
+														th:checked="${#arrays.contains(Item, '취사용품')  ? 'checked' : null}"
+														name="Item" id="Item3"> <label
+														class="form-check-label h6 mb-0" for="Item3
+														"> 취사용품
+													</label>
+												</div>
+											</div>
+											
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox"
+														value="랜턴"
+														th:checked="${#arrays.contains(Item, '랜턴')  ? 'checked' : null}"
+														name="Item" id="Item4"> <label
+														class="form-check-label h6 mb-0" for="Item4"> 랜턴
+													</label>
+												</div>
+											</div>
+											
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
@@ -138,14 +140,36 @@
 														아이스박스 </label>
 												</div>
 											</div>
+											
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox"
+														value="캠핑왜건"
+														th:checked="${#arrays.contains(Item, '캠핑왜건')  ? 'checked' : null}"
+														name="Item" id="Item6"> <label
+														class="form-check-label h6 mb-0" for="Item6"> 캠핑웨건
+													</label>
+												</div>
+											</div>
+											
+											<!-- checkbox -->
+											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+												<div class="form-check">
+													<input class="form-check-input" type="checkbox" value="텐트"
+														th:checked="${#arrays.contains(Item, '텐트')  ? 'checked' : null}"
+														name="Item" id="Item7"> <label
+														class="form-check-label h6 mb-0" for="Item7"> 텐트 </label>
+												</div>
+											</div>
 
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox" value="침낭"
 														th:checked="${#arrays.contains(Item, '침낭')  ? 'checked' : null}"
-														name="Item" id="Item6"> <label
-														class="form-check-label h6 mb-0" for="Item6"> 침낭 </label>
+														name="Item" id="Item8"> <label
+														class="form-check-label h6 mb-0" for="Item8"> 침낭 </label>
 												</div>
 											</div>
 
@@ -154,19 +178,19 @@
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox" value="천막"
 														th:checked="${#arrays.contains(Item, '천막')  ? 'checked' : null}"
-														name="Item" id="Item7"> <label
-														class="form-check-label h6 mb-0" for="Item7"> 천막 </label>
+														name="Item" id="Item9"> <label
+														class="form-check-label h6 mb-0" for="Item9"> 천막 </label>
 												</div>
 											</div>
-
+											
 											<!-- checkbox -->
 											<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
 												<div class="form-check">
 													<input class="form-check-input" type="checkbox"
-														value="캠핑왜건"
-														th:checked="${#arrays.contains(Item, '캠핑왜건')  ? 'checked' : null}"
-														name="Item" id="Item8"> <label
-														class="form-check-label h6 mb-0" for="Item8"> 캠핑왜건
+														value="타프"
+														th:checked="${#arrays.contains(Item, '타프')  ? 'checked' : null}"
+														name="Item" id="Item10"> <label
+														class="form-check-label h6 mb-0" for="Item10"> 타프
 													</label>
 												</div>
 											</div>
@@ -177,8 +201,8 @@
 													<input class="form-check-input" type="checkbox"
 														value="텐트/타프용품"
 														th:checked="${#arrays.contains(Item, '텐트/타프용품')  ? 'checked' : null}"
-														name="Item" id="Item9"> <label
-														class="form-check-label h6 mb-0" for="Item9"> 텐트용품
+														name="Item" id="Item11"> <label
+														class="form-check-label h6 mb-0" for="Item11"> 텐트용품
 													</label>
 												</div>
 											</div>
@@ -189,12 +213,11 @@
 													<input class="form-check-input" type="checkbox"
 														value="기타캠핑용품"
 														th:checked="${#arrays.contains(Item, '기타캠핑용품')  ? 'checked' : null}"
-														name="Item" id="Item10"> <label
-														class="form-check-label h6 mb-0" for="Item10">
+														name="Item" id="Item12"> <label
+														class="form-check-label h6 mb-0" for="Item12">
 														기타용품 </label>
 												</div>
 											</div>
-
 										</div>
 										<!-- Row END -->
 									</div>
@@ -389,9 +412,9 @@
 											<div class="mt-2 mt-sm-0">
 												<!-- Rating and basket -->
 												<div class="d-flex justify-content-between">
-													<input type="hidden" name="mNo" th:value="${session.mvo.mNo}"/>
-													<input type="hidden" name="pno" th:value="${shop.pno}"/>
-													<input type="image" th:src="@{/assets/campongimg//shop-basketOn.png}" class= "h6 z-index-2" style="width:20px;" />										
+													<input type="hidden" name="mNo" th:value="${session.mvo.mNo}" th:unless="${session.mvo == null}"/>
+													<input type="hidden" name="pno" th:value="${shop.pno}" th:unless="${session.mvo == null}"/>
+													<input type="image" th:src="@{/assets/campongimg//shop-basketOn.png}" class= "h6 z-index-2" style="width:20px;" th:unless="${session.mvo ==null}" />										
 												</div>
 											</div>
 										</div>

@@ -34,7 +34,6 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/vendor/nouislider/nouislider.css}">
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/header.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/total-style.css}">
 	
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/index.css}">
@@ -42,6 +41,69 @@
 </head>
 
 <body>
+
+	<!-- =======================Content START -->
+					<!-- 사이드바 -->
+					<div class="col-lg-4 col-xl-3" id="sideBar">
+						<!-- Responsive offcanvas body START -->
+						<div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+							<!-- Offcanvas header -->
+							<div class="offcanvas-header justify-content-end pb-2">
+								<button type="button" class="btn-close" data-bs-dismiss="offcanvas"	data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+							</div>
+
+							<!-- Offcanvas body -->
+							<div class="offcanvas-body p-3 p-lg-0">
+								<div class="card bg-light w-100 shadow-sm">
+
+									<!-- Card body START -->
+									<div class="card-body p-3">
+										<!-- Avatar and content -->
+										<div class="text-center mb-3">
+											<!-- Avatar -->
+											<div class="avatar avatar-xl mb-2">
+												<img class="avatar-img rounded-circle border border-2 border-white"
+													th:src="|/file/${session.mvo.renamedProfileImage}|" th:unless="${session.mvo.renamedProfileImage==null} or ${session.mvo.renamedProfileImage.toString().equals('0')}">
+													<img class="avatar-img rounded-circle border border-2 border-white"
+													src="/assets/campongimg/defaultImage.png" th:if="${session.mvo.renamedProfileImage==null} or ${session.mvo.renamedProfileImage.toString().equals('0')}">
+											</div>
+											<h6 class="mb-0 form-label" th:text=${session.mvo.nickName}>전도연</h6>
+											<hr>
+										</div>
+
+										<!-- Sidebar menu item START -->
+										<ul class="nav nav-pills-primary-soft flex-column">
+											<li class="nav-item">
+												<a class="nav-link submenu" th:href="@{/myprofile(mNo=${session.mvo.mNo})}"><i
+														class="bi bi-person fa-fw me-2"></i>회원정보</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link submenu" th:href="@{/shop/shopping.basket(mNo=${session.mvo.mNo})}"><i
+														class="bi bi-cart"></i>&nbsp&nbsp&nbsp장바구니</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link submenu" th:href="@{/camping/camping-bookmark}"><i
+														class="bi bi-bookmark"></i>&nbsp&nbsp&nbsp캠핑북마크</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link submenu" th:href="@{/car/traffic-mybook}"><i
+														class="fa-solid fa-car"></i>&nbsp&nbsp&nbsp교통예약</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link submenu" th:href="@{/moim.my(mNo=${session.mvo.mNo})}"><i
+														class="bi bi-chat-left-dots"></i>&nbsp&nbsp&nbsp내 모임</a>
+											</li>
+										</ul>
+										<!-- Sidebar menu item END -->
+									</div>
+									<!-- Card body END -->
+								</div>
+							</div>
+						</div>
+						<!-- Responsive offcanvas body END -->
+					</div>
+					<!-- Sidebar END -->
+	
 	<!-- Header START -->
 	<header class="header-transparent" id="header">
 		<!-- Logo Nav START -->
@@ -82,11 +144,11 @@
 						<li class="nav-item"> <a class="nav-link" id="listingMenu"  th:href="@{/shop/shopping}">쇼핑</a> </li>
 						<!-- Nav item Listing -->
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" th:href="@{/traffic/traffic-bus}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교통</a>
+							<a class="nav-link dropdown-toggle" th:href="@{/car/traffic-bus}" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교통</a>
 							<ul class="dropdown-menu" aria-labelledby="listingMenu">
 								<li> <a class="dropdown-item" th:href="@{/car/traffic-car}">렌트카</a></li>
-								<li> <a class="dropdown-item" th:href="@{/traffic/traffic-bus}">고속버스</a></li>
-								<li> <a class="dropdown-item" th:href="@{/traffic/traffic-train}">열차</a></li>
+								<li> <a class="dropdown-item" th:href="@{/car/traffic-bus}">고속버스</a></li>
+								<li> <a class="dropdown-item" th:href="@{/car/traffic-train}">열차</a></li>
 							</ul>
 						</li>
 						<!-- Nav item Link -->
@@ -97,8 +159,8 @@
 							<ul class="dropdown-menu" aria-labelledby="listingMenu">
 								<li> <a class="dropdown-item" th:href="@{/board/notice-list}">공지사항</a></li>
 								<li> <a class="dropdown-item" th:href="@{/board/board-list}">게시판</a></li>
-								<li> <a class="dropdown-item" th:if="${session.mvo !=null}" th:href="@{/moim(mNo =${session.mvo.mNo})}">캠핑모임</a></li>
-								<li> <a class="dropdown-item" th:href="@{/recipe/recipe}">캠핑꿀팁</a></li>
+								<li> <a class="dropdown-item" th:if="${session.mvo !=null}" th:href="@{/moim}">캠핑모임</a></li>
+								<li> <a class="dropdown-item" th:href="@{/recipe/recipe}">레시피</a></li>
 							</ul>
 						</li>
 					</ul>

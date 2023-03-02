@@ -57,6 +57,8 @@
 		<result property="renameFileName" column="RENAME_FILENAME"/>
 		<result property="createDate" column="CREATE_DATE"/>
 		<result property="nickName" column="NICKNAME"/>
+		<result property="profileImage" column="PROFILE_IMAGE"/>
+		<result property="renamedProfileImage" column="RENAMED_PROFILEIMAGE"/>
 	</resultMap>
 	
 	<resultMap type="Camping" id="campingDetailResultMap" extends="campingListResultMap">
@@ -116,7 +118,7 @@
 		<if test="checkedPet != null">
 			AND ANIMALCMGCL LIKE '${checkedPet}%'
 		</if>
-		ORDER BY FIRSTIMAGEURL='' ASC, FACLTNM='' ASC LIMIT ${limit} OFFSET ${offset}
+		ORDER BY READCOUNT DESC LIMIT ${limit} OFFSET ${offset}
 	</select>
 	
 	<select id="selectCampingCount" resultType="int" parameterType="map">
@@ -190,12 +192,12 @@
 	<insert id="insertReply" parameterType="CampingContentsReply">
 		INSERT INTO CAMPING_CONTENTS_REPLY(
 				REPLY_NO, CONTENTID, USER_NO, 
-				CONTENT, STATUS, ORIGINAL_FILENAME, 
-				RENAME_FILENAME, CREATE_DATE) 
+				CONTENT, STATUS, ORIGINAL_FILENAME,
+				RENAME_FILENAME, CREATE_DATE, NICKNAME, PROFILE_IMAGE, RENAMED_PROFILEIMAGE) 
 			VALUES(
 				0, #{contentId}, #{mNo}, 
-				#{content}, DEFAULT, #{originalFileName}, 
-				#{renameFileName}, DEFAULT
+				#{content}, DEFAULT, #{originalFileName},
+				#{renameFileName}, DEFAULT, #{nickName}, #{profileImage}, #{renamedProfileImage}
 			)
 	</insert>
 	
@@ -227,6 +229,21 @@
 		SELECT C.CONTENTID, C.FACLTNM, C.ADDR1, C.FIRSTIMAGEURL
 		FROM CAMPING_CONTENTS C
 		LEFT OUTER JOIN BOOKMARK LK ON  LK.CONTENTID = C.CONTENTID
-		WHERE LK.USER_NO = 2;
+		WHERE LK.USER_NO = #{mNo};
 	</select>
+	
+	<select id="getCampSelectmNoMax" resultMap="campingContentsReplyResultMap">
+		SELECT *  FROM
+		CAMPING_CONTENTS_REPLY WHERE USER_NO=#{mNo} AND REPLY_NO =(SELECT MAX(REPLY_NO) FROM CAMPING_CONTENTS_REPLY) 
+	</select>
+	<select id="getCampingReplyAll" resultMap="campingContentsReplyResultMap">
+		SELECT * FROM CAMPING_CONTENTS_REPLY
+		WHERE CONTENTID = #{contentId}
+		ORDER BY REPLY_NO DESC
+	</select>
+	
+	<delete id="allBookMarkDelete">
+		DELETE FROM BOOKMARK WHERE USER_NO=#{mNo}
+	</delete>
+	
 </mapper>

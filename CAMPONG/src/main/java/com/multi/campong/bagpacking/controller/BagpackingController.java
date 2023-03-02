@@ -1,6 +1,7 @@
 package com.multi.campong.bagpacking.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,12 +13,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +44,7 @@ public class BagpackingController {
 	public static final String KEY = "600HKvYx3k3yVfXB9rmgBe8aCOjxmdMoTJeWCLjDuYkB1UejuuY4zR5fp1dPexNfDUO0I2G9G2gH3MuApz8wTA==";
 	public static final String API_URL1 = "http://apis.data.go.kr/B551011/KorService/detailCommon";
 	public static final String API_URL2 = "http://apis.data.go.kr/B551011/KorService/detailIntro";
+	final static private String savePath = "c:\\campong\\";
 	
 	@Autowired
 	private BagpackingService service;
@@ -67,7 +73,7 @@ public class BagpackingController {
 			String searchGugun = paramMap.get("gugun");
 			String searchValue = paramMap.get("searchValue");
 			
-			if(searchSido != null && searchSido.length() > 0) {
+			if(searchSido != null && searchSido.length() > 0 && !searchSido.equals("전체")) {
 				searchMap.put("sido", searchSido);
 			}
 			if(searchGugun != null && searchGugun.length() > 0 && !searchGugun.equals("전체")) {
@@ -106,7 +112,7 @@ public class BagpackingController {
 			if(searchValue != null && searchValue.length() > 0) {
 				searchMap.put("title", searchValue);
 			}
-			if(searchSido != null && searchSido.length() > 0) {
+			if(searchSido != null && searchSido.length() > 0 && !searchSido.equals("전체")) {
 				searchMap.put("sido", searchSido);
 			}
 			if(searchGugun != null && searchGugun.length() > 0 && !searchGugun.equals("전체")) {
@@ -142,7 +148,7 @@ public class BagpackingController {
 			if(searchValue != null && searchValue.length() > 0) {
 				searchMap.put("fishingNm", searchValue);
 			}
-			if(searchSido != null && searchSido.length() > 0) {
+			if(searchSido != null && searchSido.length() > 0 && !searchSido.equals("전체")) {
 				searchMap.put("sido", searchSido);
 			}
 			if(searchGugun != null && searchGugun.length() > 0 && !searchGugun.equals("전체")) {
@@ -168,6 +174,8 @@ public class BagpackingController {
 		Bagpacking content = service.findByNo(contentId);
 		String overview = parsingOverview(contentId);
 		String infocenter = parsingInfocenter(contentId);
+		
+		log.info("리뷰 리스트 : " + content.getReplyList());
 		
 //		log.info("상세 요청, content : " + content);
 //		log.info("상세 요청, overview : " + overview);
@@ -264,6 +272,12 @@ public class BagpackingController {
 		}
 		model.addAttribute("location", "/bagpacking/fishing-detail?fishingNo=" + fishingNo);
 		return "/common/msg";
+	}
+	
+	@GetMapping("/file/{fileName}")
+	@ResponseBody
+	public Resource downloadImage(@PathVariable("fileName") String fileName, Model model) throws IOException {
+		return new UrlResource("file:" + savePath + fileName);
 	}
 	
 	

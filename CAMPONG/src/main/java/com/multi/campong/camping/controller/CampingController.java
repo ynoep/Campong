@@ -47,7 +47,7 @@ public class CampingController {
 	@Autowired
 	private CampingService service;
 	
-	final static private String savePath = "c:\\campong\\upload\\";
+	final static private String savePath = "c:\\campong";
 //	final static private String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\upload\\";
 	
 	@GetMapping("/camping-main")
@@ -58,7 +58,9 @@ public class CampingController {
 			@RequestParam(required = false) List<String> checkedFclty,
 			@RequestParam(required = false) String checkedPet,
 			@RequestParam(required = false) String sido,
-			@RequestParam(required = false) String lctCl) {
+			@RequestParam(required = false) String lctCl,
+			@RequestParam(required = false) String gugun
+			) {
 //		log.info("리스트 요청, param : " + paramMap);
 //		log.info("리스트 요청, checkedTheme : " + checkedTheme);
 //		log.info("리스트 요청, checkedFclty : " + checkedFclty);
@@ -115,8 +117,9 @@ public class CampingController {
 		int campingCount = service.getCampingCount(searchMap);
 		PageInfo pageInfo = new PageInfo(page, 10, campingCount, 5);
 		List<Camping> list = service.getCampingList(pageInfo, searchMap);
-		
 		model.addAttribute("list", list);
+		model.addAttribute("gugun", gugun);
+		model.addAttribute("sido", sido);
 		model.addAttribute("paramMap", paramMap);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("campingCount", campingCount);
@@ -125,13 +128,14 @@ public class CampingController {
 		model.addAttribute("checkedPet", checkedPet);
 		model.addAttribute("selectedSido", sido);
 		model.addAttribute("selectedLctCl", lctCl);
+		System.out.println(lctCl);
+		System.out.println(sido);
 		
 		return "camping/camping-main";
 	}
 	
 	@RequestMapping("/camping-detail")
-	public String campingDetail(Model model,
-			@SessionAttribute(name = "mvo", required = false) Member loginMember,
+	public String campingDetail(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			@RequestParam("contentId") int contentId) {
 		int mNo = 0;
 		if(loginMember != null) {
@@ -139,7 +143,9 @@ public class CampingController {
 		}
 		
 		Camping content = service.findByNo(contentId, mNo);
-		
+
+		List<CampingContentsReply> mmo = service.getCampingRepluAll(contentId);
+		System.out.println(mmo);
 //		String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\upload";
 //		log.info("위치 : " + dir);
 		
@@ -151,17 +157,22 @@ public class CampingController {
 		model.addAttribute("content", content);
 		model.addAttribute("facilitys", facilitys);
 		model.addAttribute("replyList", content.getReplyList());
+		model.addAttribute("mmo", mmo);
 //		model.addAttribute("upload", savePath);
 		return "camping/camping-detail";
 	}
 	
 	@RequestMapping("/reply")
 	public String writeReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
-			@ModelAttribute CampingContentsReply reply,
+			@ModelAttribute CampingContentsReply reply,String profileImage,
 			@RequestParam("upfile") MultipartFile upfile) {
+		System.out.println(profileImage);
+		System.out.println("upfile:"+upfile);
 		// 로그인한 멤버의 정보 입력
 		reply.setMNo(loginMember.getMNo());
-
+		reply.setNickName(loginMember.getNickName());
+		System.out.println("로그인한 닉네임 : " + loginMember.getNickName());
+		System.out.println("reply:"+reply);
 		// 파일 저장 로직
 		if (upfile != null && upfile.isEmpty() == false) {
 			String renameFileName = service.saveFile(upfile, savePath);
@@ -173,12 +184,17 @@ public class CampingController {
 		}
 		
 		int result = service.saveReply(reply);
+		
+		CampingContentsReply mo = service.getCampingSelectmNoMax(loginMember.getMNo());  //하나만 가져옴
 
+		System.out.println(mo);
 		if (result > 0) {
+			model.addAttribute("mo", mo);
 			model.addAttribute("msg", "댓글이 등록되었습니다.");
 		} else {
 			model.addAttribute("msg", "댓글 등록에 실패하였습니다.");
 		}
+		System.out.println("reply:"+reply);
 		model.addAttribute("location", "/camping/camping-detail?contentId=" + reply.getContentId());
 		return "common/msg";
 	}
@@ -186,7 +202,7 @@ public class CampingController {
 	@RequestMapping("/replyDel")
 	public String deleteReply(Model model, @SessionAttribute(name = "mvo", required = false) Member loginMember,
 			int replyNo, int contentId) {
-		log.info("댓글 삭제 요청");
+		log.info("댓글 삭제 요청, replyNo: " + replyNo + ", contentId: " + contentId);
 		int result = service.deleteReply(replyNo);
 
 		if (result > 0) {
@@ -201,7 +217,7 @@ public class CampingController {
 	@GetMapping("/file/{fileName}")
 	@ResponseBody
 	public Resource downloadImage(@PathVariable("fileName") String fileName, Model model) throws IOException {
-		return new UrlResource("file:" + savePath + fileName);
+		return new UrlResource("file:" + savePath +"/"+fileName);
 	}
 
 	@RequestMapping("/fileDown")
@@ -254,7 +270,7 @@ public class CampingController {
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource showImage(@PathVariable String filename) throws MalformedURLException {
-	    return new UrlResource("file:" + savePath + filename);
+	    return new UrlResource("file:" + savePath +"/" +filename);
 	}
 	
 	@GetMapping("/bookmark") 
