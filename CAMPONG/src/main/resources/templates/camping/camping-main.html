@@ -34,7 +34,6 @@
        function init(){
     	   
        }
-   			 
    				 
 		/* 드롭박스 */
 		function categoryChange(e) {
@@ -335,7 +334,7 @@
 							<img class="campImg shadow-sm" th:src="@{${content.firstImageUrl}}" style="height: 260px;">
 						</th:block>
 						<th:block th:if="${content.firstImageUrl == ''}">
-							<img class="campImg shadow-sm" th:src="@{/assets/campongimg/cloud.png}">
+							<img class="campImg shadow-sm" th:src="@{/assets/campongimg/camp_noimg.png}">
 						</th:block>
 						</div>
 						<div class="col-8 mt-4">

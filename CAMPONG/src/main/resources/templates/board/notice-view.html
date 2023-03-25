@@ -125,7 +125,7 @@
 					<h4 class="title pt-4 m-0 pb-4 ps-4">[[${board.title}]]</h4>
 					<ul class="info m-0">
 						<li class="data pe-3 fw-bold">[[${board.nickName}]]</li>
-						<li class="data pe-3">[[${#dates.format(board.createDate)}]]</li>
+						<li class="data pe-3">[[${#dates.format(board.createDate, 'dd/MMM/yyyy HH:mm')}]]</li>
 						<li class="data pe-4">조회수 [[${board.readCount}]]</li>
 					</ul>
 				</div>

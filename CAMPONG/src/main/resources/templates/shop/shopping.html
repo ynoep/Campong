@@ -357,7 +357,7 @@
 							<!-- Button -->
 							<div class="text-end align-items-center">
 								<button class="btn btn-link p-0 mb-0" id="reset" onclick="uncheck()">검색 초기화</button>
-								<button class="btn btn-dar btn-apply mb-0 ms-3" onclick="movePage(pageUrl)">필터 적용</button>
+								<button class="btn btn-dar btn-apply mb-0 ms-3" onclick="movePage(pageUrl)">검색</button>
 							</div>
 						</form>
 						<!-- Form END -->
@@ -523,6 +523,14 @@
 		$(':checkbox:checked').prop('checked',false);
 		$("#searchValue").val("");
 	};
+	</script>
+	
+	<script type="text/javascript">
+	document.addEventListener('keydown', function(event) {
+	  if (event.keyCode === 13) {
+	    event.preventDefault();
+	  };
+	}, true);
 	</script>
 	
 </body>

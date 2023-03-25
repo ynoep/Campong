@@ -10,5 +10,4 @@ public class CampongApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CampongApplication.class, args);
 	}
-//dsadas
 }

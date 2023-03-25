@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.multi.campong.bagpacking.model.mapper.BagpackingMapper;
 import com.multi.campong.bagpacking.model.vo.Bagpacking;
 import com.multi.campong.camping.model.vo.Camping;
-import com.multi.campong.main.model.mapper.MainMapper;
 import com.multi.campong.main.model.service.MainService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,8 @@ public class MainController {
 	@Autowired
 	BagpackingMapper bagMapper;
 	
-	@Autowired
-	private MainMapper mapper;
+//	@Autowired
+//	private MainMapper mapper;
 	
 	//기본은 캠핑장지도 서울로 처리함
 	@GetMapping("/MainList.do")
@@ -40,7 +39,7 @@ public class MainController {
 	// 캠핑장지도 클릭하면 랜덤으로 4개뿌려줌
 	  @GetMapping("/MainList.do2") 
 	  public @ResponseBody List<Camping> mainList(@RequestParam(value="idCheck")String idCheck){ 
-		  log.info("리스트 요청, param : " + idCheck);
+//		  log.info("리스트 요청, param : " + idCheck);
 		  System.out.println(idCheck);
 		  List<Camping> list2  = service.selectCamping2(idCheck);
 		  return list2; }
@@ -49,7 +48,7 @@ public class MainController {
 		@GetMapping("/MainList.do3")
 		public @ResponseBody List<Bagpacking> campingDo2(Model model) {
 			List<Bagpacking> list3 = bagMapper.selectByBackpacking();
-			System.out.println(list3);
+//			System.out.println(list3);
 			return list3;
 		}	
 		
@@ -57,7 +56,7 @@ public class MainController {
 		@GetMapping("/MainList.do4")
 		public @ResponseBody List<Bagpacking> campingDo3(@RequestParam(value="idCheck")String idCheck) {
 			List<Bagpacking> list4 = bagMapper.selectByBackpacking2(idCheck);
-			System.out.println(list4);
+//			System.out.println(list4);
 			return list4;
 		}	
 }

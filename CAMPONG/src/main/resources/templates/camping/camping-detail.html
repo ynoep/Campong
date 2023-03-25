@@ -16,9 +16,12 @@
 				<div class="row g-0">
 					<!-- 대표 이미지 -->
 					<div class="col-md-12">
-							<div class="card card-grid-lg overflow-hidden"
-								th:style="'background-image:url('+ @{${content.firstImageUrl}} +'); background-position: center left; background-size: cover;'">
-							</div>
+						<th:block th:if="${content.firstImageUrl != ''}">
+							<img class="campImg shadow-sm" th:src="@{${content.firstImageUrl}}" style="display:block; margin: auto;">
+						</th:block>
+						<th:block th:if="${content.firstImageUrl == ''}">
+							<img class="campImg shadow-sm" th:src="@{/assets/campongimg/camp_noimg.png}" style="display:block; margin: auto;">
+						</th:block>
 					</div>
 					<!-- 대표 이미지끝-->
 				</div>
@@ -142,7 +145,7 @@
 										<div class="line row fw-bold">캠핑장 시설 정보</div>
 										<div class="facilityBox">
 											<div class="iconBar mt-3 pt-2 pb-3">
-												<th:block th:if="${#strings.length(facilitys) == 0}">
+												<th:block th:if="${#strings.length(facilitys) < 0}">
 													<div>
 														<h6>시설 정보 없음</h6>
 													</div>
@@ -316,13 +319,13 @@
 														<!-- Title -->
 														<div>
 															<h6 class="m-0">[[${mmo.nickName}]]</h6>
-															<span class="me-3 small">[[${#dates.format(mmo.createDate)}]]</span>
+															<span class="me-3 small">[[${#dates.format(mmo.createDate, 'yyyy/MM/dd HH:mm:ss')}]]</span>
 														</div>
 													</div>
 												</div>
 	
 												<!-- Content -->
-												<h5 class="fw-bold mt-4 ms-2"><span class="text-body"></span> [[${mmo.content}]] </h5>
+												<p class="mt-4 ms-2"><span class="text-body"></span> [[${mmo.content}]] </p>
 	
 												<!-- Image -->
 												<div class="row g-4">
@@ -372,7 +375,7 @@
 
 	<script th:src="@{/assets/vendor/sticky-js/sticky.min.js}"></script>
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d98d7c798170c9d69b276e269080b4ff"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=88a303f4cbefba4aaa2894dca5e93252"></script>
 	<script>
 		// 카카오 맵
 		function mapView(){
