@@ -3,6 +3,16 @@
 <head>
 	<th:block th:replace="~{common/layout :: head}"></th:block>
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/camping-detail.css}">
+	<style type="text/css">
+		.home:link{
+			color: #8160c7;
+		}
+	
+		.home:hover{
+			text-decoration: underline;
+			color: #8160c7;
+		}
+	</style>
 </head>
 
 <body>
@@ -105,7 +115,7 @@
 													<div>정보 없음</div>
 												</th:block>
 												<th:block th:if="${content.homepage != null}">
-													<div> [[${content.homepage}]] </div>
+														<a target="_blank" class="home" th:href="|${content.homepage}|">[[${content.homepage}]]</a>
 												</th:block>
 												<th:block th:if="${#strings.length(content.tel) == 0}">
 													<div>정보 없음</div>
