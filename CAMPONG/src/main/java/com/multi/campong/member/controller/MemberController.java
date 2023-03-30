@@ -101,7 +101,7 @@ public class MemberController {
 	@GetMapping("/registerCheckName.do")
 	public @ResponseBody int memRegisterCheckName(@RequestParam("name") String name) {
 		Member mvo = mapper.registerCheckName(name);
-		if (mvo != null || name.equals("") || name.length() <= 4) {
+		if (mvo != null || name.equals("") || name.length() <= 1) {
 			return 0;
 		}
 		return 1;
@@ -298,12 +298,12 @@ public class MemberController {
 		return "common/msg";
 	}
 
-	@GetMapping("/sign/sign.in/kakao")
+	@GetMapping("/sign.in/kakao")
 	public String kakaoLogin(Model model, String code, HttpSession session) {
 		log.info("로그인 요청");
 		if (code != null) {
 			try {
-				String loginUrl = "http://localhost/sign/sign.in/kakao";
+				String loginUrl = "http://campong.store/sign.in/kakao";
 				String token = kakaoService.getToken(code, loginUrl);
 				Map<String, Object> map = kakaoService.getUserInfo(token);
 				String kakaoToken = (String) map.get("id");
@@ -326,12 +326,12 @@ public class MemberController {
 		return "common/msg";
 	}
 
-	@GetMapping("/sign/sign.up/kakao")
+	@GetMapping("/sign.up/kakao")
 	public String signInKakao(Model model, String code) {
 		log.info("가입 페이지 요청");
 		if (code != null) {
 			try {
-				String enrollUrl = "http://localhost/sign/sign.up/kakao";
+				String enrollUrl = "http://campong.store/sign.up/kakao";
 				System.out.println("code : " + code);
 				String token = kakaoService.getToken(code, enrollUrl);
 				System.out.println("token : " + token);

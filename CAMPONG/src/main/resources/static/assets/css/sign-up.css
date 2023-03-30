@@ -6,21 +6,25 @@
 }
 .email-two {
     display: inline-block;
-    width: 300px;
+    width: 420px;
     height: 42px;
     border-radius:0.5rem;
     border: 1px solid var(--bs-gray-300);
 }
 .email_select {
     display:inline-block;
-    width:300px;
+    width:222px;
     height:42px;
     border-radius: 0.5rem;
     border: 1px solid var(--bs-gray-300);
-    appearance:none
+    appearance:none;
+    
 }
 .select-email {
-    margin-left:65px;
+	display:inline-block;
+    text-align: center;
+    width: 30px;
+    line-height: 42px;
 }
 .birth {
     display: block;
