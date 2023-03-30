@@ -82,7 +82,7 @@
 		</select>
 	
 		<select id="selectMemberByMno" resultMap="memberMap">
-		select * from member where USER_NO =#{mNo}
+		select * from MEMBER where USER_NO =#{mNo}
 		</select>
 		
 		<update id="updateMember" parameterType="com.multi.campong.member.model.vo.Member">
@@ -123,10 +123,6 @@
 				SET PASSWORD = #{password}
 				WHERE USER_NO = #{mNo}
 		</update>
-
-
-
-
 
 
 </mapper>
