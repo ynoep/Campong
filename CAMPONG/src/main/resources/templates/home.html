@@ -336,7 +336,7 @@
 											<option value="camping">캠핑장</option>
 											<option value="bagpacking">백패킹</option>
 											<option value="shopping">쇼핑</option>
-											<option value="board">자유게시판</option>
+											<!-- <option value="board">자유게시판</option> -->
 										</select>
 										<!-- Icons -->
 										<span
@@ -926,30 +926,28 @@
 							e.pageX - ($('#info-box').width()) / 2 - 10);
 				}).mouseover();
 		
-// 		$(document).ready(function() {
-			var search = document.getElementById("searchBtn");
-			search.addEventListener("click", function () {
-				var searchForm = document.getElementById("searchForm");
-				var searchCat = document.getElementById("searchCat");
-				var searchVal = document.getElementById("searchValue");
-				
-				if(searchCat.value === 'camping') {
-					searchForm.action = "/camping/camping-main?searchValue="+searchVal.value;
-				}
-				if(searchCat.value === 'bagpacking') {
-					searchForm.action = "/bagpacking/mountain-list?searchValue="+searchVal.value;
-				}
-				if(searchCat.value === 'shopping') {
-					searchForm.action = "/shop/shopping?searchValue="+searchVal.value;
-				}
-				if(searchCat.value === 'board') {
-					searchForm.action = "board/board-list?searchValue="+searchVal.value;
-				}
-				 
-				searchForm.mothod = "GET";
-				searchForm.submit();
-			});
-// 		}
+		var search = document.getElementById("searchBtn");
+		search.addEventListener("click", function () {
+			var searchForm = document.getElementById("searchForm");
+			var searchCat = document.getElementById("searchCat");
+			var searchVal = document.getElementById("searchValue");
+			
+			if(searchCat.value === 'camping') {
+				searchForm.action = "/camping/camping-main?searchValue="+searchVal.value;
+			}
+			if(searchCat.value === 'bagpacking') {
+				searchForm.action = "/bagpacking/mountain-list?searchValue="+searchVal.value;
+			}
+			if(searchCat.value === 'shopping') {
+				searchForm.action = "/shop/shopping?searchValue="+searchVal.value;
+			}
+			/* if(searchCat.value === 'board') {
+				searchForm.action = "/board/board-list?"+searchVal.value;
+			} */
+			 
+			searchForm.mothod = "GET";
+			searchForm.submit();
+		});
 	</script>
 
 	<footer th:replace="~{common/layout :: #footer}"></footer>
