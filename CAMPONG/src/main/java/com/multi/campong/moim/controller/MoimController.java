@@ -74,7 +74,7 @@ public class MoimController {
 		}else {
 			model.addAttribute("viewPhone", 0);
 		}
-		return "/moim/moim-detail";
+		return "moim/moim-detail";
 	}
 
 
