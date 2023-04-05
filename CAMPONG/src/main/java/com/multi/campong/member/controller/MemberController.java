@@ -1,14 +1,8 @@
 package com.multi.campong.member.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -71,7 +65,7 @@ public class MemberController {
 	CarMapper carMapper;
 	
 	
-	final static private String savePath = "C:\\campong";
+	final static private String savePath = "/home/ubuntu/campong";
 
 	private BCryptPasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 

@@ -43,7 +43,7 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 
-	final static private String savePath = "c:\\campong\\";
+	final static private String savePath = "/home/ubuntu/campong/";
 
 	@GetMapping("/board-list")
 	public String list(Model model, @RequestParam Map<String, String> paramMap) {

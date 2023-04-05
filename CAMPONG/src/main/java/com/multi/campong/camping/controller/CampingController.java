@@ -47,7 +47,7 @@ public class CampingController {
 	@Autowired
 	private CampingService service;
 	
-	final static private String savePath = "c:\\campong";
+	final static private String savePath = "/home/ubuntu/campong/";
 //	final static private String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\upload\\";
 	
 	@GetMapping("/camping-main")

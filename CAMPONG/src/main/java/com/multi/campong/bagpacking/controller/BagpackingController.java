@@ -44,7 +44,7 @@ public class BagpackingController {
 	public static final String KEY = "600HKvYx3k3yVfXB9rmgBe8aCOjxmdMoTJeWCLjDuYkB1UejuuY4zR5fp1dPexNfDUO0I2G9G2gH3MuApz8wTA==";
 	public static final String API_URL1 = "http://apis.data.go.kr/B551011/KorService/detailCommon";
 	public static final String API_URL2 = "http://apis.data.go.kr/B551011/KorService/detailIntro";
-	final static private String savePath = "c:\\campong\\";
+	final static private String savePath = "/home/ubuntu/campong/";
 	
 	@Autowired
 	private BagpackingService service;
