@@ -38,7 +38,7 @@
 	)VALUES(#{meetNo},#{mNo})
 </insert>
 <select id="getMeetingByNo" resultMap="MoimMap2">
-    select * from MEETINGMEMBER inner join MEETING on meetingmember.meet_no = meeting.meet_no where user_no=#{mNo};
+    select * from MEETINGMEMBER inner join MEETING on MEETINGMEMBER.MEET_NO = MEETING.MEET_NO where USER_NO=#{mNo};
 </select>
 <select id="getMeetingByMeetNo" resultMap="MoimMap2">
 	select * FROM MEETING where MEET_NO=#{meetNo}
